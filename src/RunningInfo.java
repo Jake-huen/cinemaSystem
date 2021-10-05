@@ -1,4 +1,4 @@
 
-public class RunningInfo {
+public class RunningInfo {//상영정보
 
 }
