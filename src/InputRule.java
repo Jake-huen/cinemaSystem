@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+//
 public class InputRule {//입력규칙 정의 (static으로)
 	static Scanner sc = new Scanner(System.in);
 	public static String MTRule() { //7.3영화제목입력규칙
