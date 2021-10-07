@@ -19,8 +19,97 @@ public class InputRule {//입력규칙 정의 (static으로)
 		}
 		return movie;
 	}
-	public static void TimeRule(String time){ //7.4시간입력규칙
-		
+	public static int TimeRule(){ //7.4시간입력규칙
+		char tmp;
+		int r_answer;
+		while(true) {
+			Boolean a_check=true;
+			String answer="";
+			String time=sc.nextLine();
+			int q_count=0;
+			r_answer=0;
+			String check_time = time.replaceAll(" ","");
+			//#있는지 체크 필요
+			if(time.contains("#")) {
+				System.out.println("올바르지 않은 입력입니다.");
+			}
+			else {
+				if(!time.equals(check_time)) { //공백이 있는 경우
+					System.out.println("올바르지 않은 입력입니다.");
+					a_check=false;
+				}
+				else {
+					Boolean check=true;
+					for(int i=0;i<time.length();i++) {
+						tmp=time.charAt(i);
+						if('0'<=tmp&&tmp<='9') {
+							if(check)
+								answer+=tmp;
+							else {
+								answer+='#';
+								q_count+=1;
+								answer+=tmp;
+								check=true;
+							}
+						}
+						else {
+							if(check) {
+								answer+='#';
+								q_count+=1;
+								answer+=tmp;
+								check=false;
+							}
+							else {
+								answer+=tmp;
+							}
+						}
+					}
+					if(q_count==0) { //숫자만 있는 경우
+						r_answer=Integer.parseInt(answer);
+					}
+					else if(q_count==1) { //숫자+문자
+						String[] splited=answer.split("#");
+						if(splited[1].equals("시간")||splited[1].equals("h")) {
+							r_answer=Integer.parseInt(splited[0])*60;
+						}
+						else if(splited[1].equals("분")||splited[1].equals("m")){
+							r_answer = Integer.parseInt(splited[0]);
+						}
+						else {
+							System.out.println("올바르지 않은 입력입니다.");
+							a_check=false;
+						}
+					}
+					else if(q_count==3) { //숫자+문자+숫자+문자
+						String[] splited=answer.split("#");
+						if(splited[1].equals("h") || splited[1].equals(":") || splited[1].equals("-") || splited[1].equals("/")) {
+							if(splited[3].equals("분") || splited[3].equals("m")) {
+								r_answer=Integer.parseInt(splited[0])*60+Integer.parseInt(splited[2]);
+							}
+							else {
+								System.out.println("올바르지 않은 입력입니다.");
+								a_check=false;
+							}
+						}
+						else {
+							System.out.println("올바르지 않은 입력입니다.");
+							a_check=false;
+						}
+					}
+					else {
+						System.out.println("올바르지 않은 입력입니다.");
+						a_check=false;
+					}
+				}
+				if(r_answer>=10&&r_answer<=720&&a_check) {
+					break;
+				}
+				else if(a_check) {
+					System.out.println("올바르지 않은 입력입니다.");
+				}
+			}
+		}
+		return r_answer; 
 	}
 	public static String ScreenRule() {//7.5 상영관입력규칙
 		String screen;
@@ -36,6 +125,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 			else if(screen.charAt(screen.length()-1)!='관'){
 				System.out.println("올바르지 않은 입력입니다.");
 			}
+			// 입력으로 '관' 만 입력하는 경우 --->(기획서 반영?)
 			else {
 				break;
 			}
