@@ -1,7 +1,40 @@
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 //
 public class InputRule {//입력규칙 정의 (static으로)
 	static Scanner sc = new Scanner(System.in);
+	public static String MenuRule()
+	   {
+	      String menu = sc.nextLine();
+	      return null;
+	   }
+	   public static String IDRule()
+	   {
+	      Pattern pattern = Pattern.compile("^[A-Za-z[0-9]]{2,10}$");
+	      String id;
+	      id = sc.nextLine();
+	      Matcher matcher = pattern.matcher(id);
+	      if(!matcher.find())
+	      {
+	         return null;
+	      }
+	      return id;
+	   }
+	   
+	   public static String PWRule()
+	   {   
+	      Pattern pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9]).{8,}$");
+	      String pw;
+	      pw = sc.nextLine();
+	      Matcher matcher = pattern.matcher(pw);
+	      if(!matcher.find())
+	      {
+	         return null;
+	      }
+	      return pw;
+	   }
+	
 	public static String MTRule() { //7.3영화제목입력규칙
 		String movie;
 		while(true) {
