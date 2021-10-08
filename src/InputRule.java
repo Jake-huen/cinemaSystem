@@ -131,7 +131,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 					}
 					else if(q_count==3) { //숫자+문자+숫자+문자
 						String[] splited=answer.split("#");
-						if(splited[1].equals("h") || splited[1].equals(":") || splited[1].equals("-") || splited[1].equals("/")) {
+						if(splited[1].equals("시간")||splited[1].equals("h") || splited[1].equals(":") || splited[1].equals("-") || splited[1].equals("/")) {
 							if(splited[3].equals("분") || splited[3].equals("m")) {
 								r_answer=Integer.parseInt(splited[0])*60+Integer.parseInt(splited[2]);
 							}
