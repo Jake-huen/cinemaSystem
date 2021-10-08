@@ -7,7 +7,15 @@ public class InputRule {//입력규칙 정의 (static으로)
 	public static String MenuRule()
 	   {
 	      String menu = sc.nextLine();
-	      return null;
+	      for(int i=0; i<menu.length(); i++)
+	      {
+	         char c = menu.charAt(i);
+	         if(Character.isWhitespace(c))
+	         {
+	            return null;
+	         }
+	      }
+	      return menu;
 	   }
 	   public static String IDRule()
 	   {
