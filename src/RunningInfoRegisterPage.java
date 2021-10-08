@@ -51,7 +51,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 		System.out.println();
 
 		System.out.print("상영시작시간을 설정하세요>>>");
-		tmp=InputRule.Time2Rule();
+		tmp=InputRule.TimeRule();
 		System.out.println();
 
 		System.out.println("정상추가 되었습니다");

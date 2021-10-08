@@ -36,7 +36,7 @@ public class MovieManagePage {//8.2.1영화관리페이지
 		System.out.print("영화제목>>");
 		tmp=InputRule.MTRule();
 		System.out.print("상영시간>>");
-		time=InputRule.TimeRule();
+		time=InputRule.RunTimeRule();
 		
 		System.out.println("=====등록완료=====");
 	}
@@ -73,6 +73,6 @@ public class MovieManagePage {//8.2.1영화관리페이지
 		System.out.print("영화제목>>");
 		tmp=InputRule.MTRule();
 		System.out.print("상영시간>>");
-		time=InputRule.TimeRule();
+		time=InputRule.RunTimeRule();
 	}
 }
