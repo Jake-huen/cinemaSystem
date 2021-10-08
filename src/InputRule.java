@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-//
+
 public class InputRule {//입력규칙 정의 (static으로)
 	static Scanner sc = new Scanner(System.in);
 	public static String MenuRule(String[] menu_name)
@@ -68,7 +68,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 		}
 		return movie;
 	}
-	public static int TimeRule(){ //7.4시간입력규칙
+	public static int RunTimeRule(){ //7.4시간입력규칙
 		char tmp;
 		int r_answer;
 		while(true) {
@@ -278,7 +278,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 		}else
 			return null;
 	}
-	public static String Time2Rule() {// 7.7시각입력규칙 _ return 값은 HH:MM형식
+	public static String TimeRule() {// 7.7시각입력규칙 _ return 값은 HH:MM형식
 		String checktime = sc.nextLine();
 		boolean isNumeric = checktime.chars().allMatch(Character::isDigit);
 		if(isNumeric && checktime.length()==4) {
