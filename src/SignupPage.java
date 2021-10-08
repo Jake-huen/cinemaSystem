@@ -7,6 +7,7 @@ public class SignupPage {
    static String[] idpw = new String[1];                //임시저장용
    public static boolean signupPage()
    {
+	  String[] menuname = {"뒤로가기", "관리자용회원가입", "고객용회원가입"};
       while(true) {
          System.out.println("======회원가입======");
          System.out.println("0. 뒤로가기");
@@ -14,9 +15,14 @@ public class SignupPage {
          System.out.println("2. 고객용 회원가입");
          System.out.print(">>>");
          
-         String menu = scan.next();
+         String menu = InputRule.MenuRule(menuname);
          
-         switch(menu) {
+         if(menu==null)
+         {
+        	 System.out.println("올바르지 않은 입력입니다."); 
+        	 continue;
+         }
+         switch(menu) {	        	
             case "0":
                return false;
             case "1":
@@ -25,7 +31,10 @@ public class SignupPage {
             case "2":
                clientsignupPage();
                return true;
-            }   
+            default:
+            	System.out.println("올바르지 않은 입력입니다.");
+            	continue;
+         }   
       }
       
       
