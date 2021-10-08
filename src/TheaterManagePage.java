@@ -65,8 +65,8 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 		tmp=scan.next();
 		System.out.println("======상영관 수정======"); //or 영화삭제
 		System.out.print("상영관 이름>>>");
-		tmp=scan.next();
-		System.out.print("좌석의 행과 열 수>>>");
+		tmp=InputRule.ScreenRule();
+		System.out.print("좌석의 행과 열 수>>>");//입력규칙 정의 필요
 		tmp=scan.next();
 	}
 }

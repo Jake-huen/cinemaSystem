@@ -18,6 +18,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 			System.out.print("영화를 등록할 상영관을 선택해주세요>>>");
 			tmp=scan.next();
 			if(tmp.equals("0")) return;
+			
 			System.out.println();
 
 			System.out.print("등록할 날짜를 입력해주세요>>>");
