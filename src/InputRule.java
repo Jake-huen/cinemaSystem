@@ -165,5 +165,5 @@ public class InputRule {//입력규칙 정의 (static으로)
         else if(yon.equals("no") || yon.equals("n")) return 0; //no or n --> 0
         else return -1; //others --> -1
     }
-
+	
 }
