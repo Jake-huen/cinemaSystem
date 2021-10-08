@@ -6,7 +6,7 @@ public class Main {
 		//System.out.println("시간을 입력해주세요");
 		//int time = InputRule.TimeRule();
 		//System.out.println(time);
-		for(;;) System.out.println(InputRule.SeatRule());
+		ManagerMainPage.managerMainPage();
 
 	}
 }
