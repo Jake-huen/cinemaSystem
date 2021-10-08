@@ -7,14 +7,16 @@ public class ManagerMainPage {
 	public static void managerMainPage() {
 		while(true) {
 			System.out.println("1. 영화관리");
-			System.out.println("2. 상영관 관리");
-			System.out.println("3. 상영 정보 등록");
-			System.out.println("4. 예매 정보 확인");
+			System.out.println("2. 상영관관리");
+			System.out.println("3. 상영정보등록");
+			System.out.println("4. 예매정보확인");
 			System.out.println("5. 종료");
 			System.out.print(">>>");
-
-			int menuNum=scan.nextInt(); //scanner.nextInt() 대신 메뉴입력규칙 함수호출
-			switch(menuNum) {
+			
+			String[] tmp={"영화관리","상영관 관리","상영정보등록","예매정보확인","종료"};
+			int menuNum=Integer.parseInt(InputRule.MenuRule(tmp));
+			
+			switch(menuNum+1) {
 			case 1:
 				MovieManagePage.movieManagePage();
 				break;

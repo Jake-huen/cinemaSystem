@@ -18,7 +18,8 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			System.out.println("2. 상영관 수정 및 삭제");
 			System.out.print(">>>");
 
-			int menuNum=scan.nextInt();//scanner.nextInt() 대신 메뉴입력규칙 함수호출
+			String[] tmp={"메인페이지로가기","상영관등록","상영관수정및삭제"};
+			int menuNum=Integer.parseInt(InputRule.MenuRule(tmp));
 			switch(menuNum) {
 			case 0:
 				return;
@@ -34,8 +35,8 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 	public static void theaterRegisterPage() {//8.2.2.1 상영관정보등록
 		String tmp="";
 		System.out.print("상영관이름>>");
-		tmp=scan.next();
-		System.out.print("좌석의 행과 열 수>>");
+		tmp=InputRule.ScreenRule();
+		System.out.print("좌석의 행과 열 수>>");//입력규칙정의필요
 		tmp=scan.next();
 		System.out.println("=====등록완료=====");
 	}
@@ -49,9 +50,10 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 		System.out.println("4. 차리서관 /40석");
 		System.out.println("===================");
 		System.out.print("수정 및 삭제할 상영관을 선택하세요>>>");
-		String tmp="";
-		tmp=scan.next();
-		
+		//String[] tmp2= {};
+		//int menuNum=Integer.parseInt(InputRule.MenuRule(tmp2));
+		String tmp=scan.next();
+
 		theaterFixPage();//정상입력시
 	}
 	public static void theaterFixPage() {//8.2.2.2.1 상영관정보수정및삭제
@@ -62,11 +64,16 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 		System.out.println("1. 수정");
 		System.out.println("2. 삭제");
 		System.out.print(">>>");
-		tmp=scan.next();
-		System.out.println("======상영관 수정======"); //or 영화삭제
-		System.out.print("상영관 이름>>>");
-		tmp=scan.next();
-		System.out.print("좌석의 행과 열 수>>>");
-		tmp=scan.next();
+
+		String[] tmp2={"뒤로가기","수정","삭제"};
+		int menuNum=Integer.parseInt(InputRule.MenuRule(tmp2));
+
+		if(menuNum==1) {
+			System.out.println("======상영관 수정======"); //or 영화삭제
+			System.out.print("상영관 이름>>>");
+			tmp=InputRule.ScreenRule();
+			System.out.print("좌석의 행과 열 수>>>");//입력규칙 정의 필요
+			tmp=scan.next();
+		}
 	}
 }

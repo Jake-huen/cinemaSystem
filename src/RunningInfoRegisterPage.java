@@ -6,7 +6,6 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 
 	public static void runningInfoRegisterPage() {
 		while(true) {
-			String tmp="";
 			System.out.println("======상영관 목록======");
 			//등록된 상영관 읽어오기 (DataManage클래스 내 함수 호출)
 			System.out.println("0. 뒤로가기");
@@ -16,12 +15,15 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 			System.out.println("4. 차리서관");
 			System.out.println("===================");
 			System.out.print("영화를 등록할 상영관을 선택해주세요>>>");
-			tmp=scan.next();
-			if(tmp.equals("0")) return;
+			
+			String[] tmp={"메인페이지로가기","상영관등록","상영관수정및삭제"};
+			int menuNum=Integer.parseInt(InputRule.MenuRule(tmp));
+			
+			if(menuNum==0) return;
+			
 			System.out.println();
-
 			System.out.print("등록할 날짜를 입력해주세요>>>");
-			tmp=scan.next();
+			String tmp2=InputRule.DateRule();
 			System.out.println();
 
 			runningInfoDetailPage();
@@ -44,12 +46,12 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 		System.out.println("=========================");
 
 		System.out.print("영화를 선택해주세요>>>");
-		tmp=scan.next();
+		tmp=InputRule.MTRule();
 		if(tmp.equals("0")) return;
 		System.out.println();
 
 		System.out.print("상영시작시간을 설정하세요>>>");
-		tmp=scan.next();
+		tmp=InputRule.Time2Rule();
 		System.out.println();
 
 		System.out.println("정상추가 되었습니다");
