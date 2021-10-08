@@ -7,6 +7,7 @@ public class LoginPage {
    
    public static void loginPage()
    {
+	  String[] menuname = {"뒤로가기", "관리자용로그인", "고객용로그인"};
       while(true) {
          System.out.println("======로그인======");
          System.out.println("0. 뒤로가기");
@@ -14,8 +15,13 @@ public class LoginPage {
          System.out.println("2. 고객용 로그인");
          System.out.print(">>>");
          
-         String menu = scan.next();
+         String menu = InputRule.MenuRule(menuname);
          
+         if(menu==null)
+         {
+        	 System.out.println("올바르지 않은 입력입니다."); 
+        	 continue;
+         }
          switch(menu) {
             case "0":
                return;
@@ -25,6 +31,8 @@ public class LoginPage {
             case "2":
                clientloginPage();
                continue;
+            default:
+            	System.out.println("올바르지 않은 입력입니다.");
             }   
       }
       

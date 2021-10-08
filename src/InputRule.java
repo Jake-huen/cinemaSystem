@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 //
 public class InputRule {//입력규칙 정의 (static으로)
 	static Scanner sc = new Scanner(System.in);
-	public static String MenuRule()
+	public static String MenuRule(String[] menu_name)
 	   {
 	      String menu = sc.nextLine();
 	      for(int i=0; i<menu.length(); i++)
@@ -15,7 +15,15 @@ public class InputRule {//입력규칙 정의 (static으로)
 	            return null;
 	         }
 	      }
-	      return menu;
+	      
+	      for(int i=0; i<menu_name.length; i++)
+	      {
+	    	  if(menu_name[i].equals(menu) || String.valueOf(i).equals(menu))
+	    	  {
+	    		  return String.valueOf(i);
+	    	  }
+	      }											//메뉴이름을 String 배열에 index에 맞춰 넣어주세요
+	      return null;
 	   }
 	   public static String IDRule()
 	   {
