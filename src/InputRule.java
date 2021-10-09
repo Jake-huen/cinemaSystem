@@ -319,6 +319,37 @@ public class InputRule {//입력규칙 정의 (static으로)
 		}else
 			return null;
 	}
+	
+	/* 정윤 - 인원수 정상 입력 : 인원수 반환 / 0 입력 : 0반환 / 잘못된 입력 -1 반환 */ 
+	public static int rsrvPplInput() { // 7.8 예매인원 입력 규칙 
+		String pplStr;
+		int pplNum;
+		
+		pplStr = sc.nextLine();
+		pplStr=pplStr.trim(); // 앞뒤 공백제거 
+		
+		// 0 입력한 경우 
+		if(pplStr.equals("0"))
+			return 0;  
+		
+		// 0을 제외한 입력 
+		int lastIdx = pplStr.length()-1;
+		if(pplStr.charAt(lastIdx)=='명' || pplStr.charAt(lastIdx)=='인') {
+			pplStr= pplStr.substring(0, lastIdx); // 명 or 인을 제외한 문자열로 재할당 
+		}
+		
+		pplStr=pplStr.trim(); // 앞뒤 공백제거 
+		 
+		try {
+			pplNum = Integer.parseInt(pplStr);
+		} catch (NumberFormatException e) {
+			return -1;
+		}
+		
+		return pplNum;
+	}
+	
+
 	public static String SeatRule() { //7.9 예매 좌석 입력 규칙
         String seat = sc.nextLine();
         seat = seat.replace(" ", "");
