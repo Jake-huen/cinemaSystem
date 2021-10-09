@@ -68,6 +68,21 @@ public class InputRule {//입력규칙 정의 (static으로)
 		}
 		return movie;
 	}
+	
+	public static String MTRule(String movie) { //7.3영화제목입력규칙 parameter
+			movie=movie.trim();
+			if(movie.equals("0")) {
+				System.out.println("올바르지 않은 입력입니다.");
+				return null;
+			}
+			else if(movie.length()<1 || movie.length()>30) {
+				System.out.println("올바르지 않은 입력입니다.");
+				return null;
+			}
+			
+		return movie;
+	}
+	
 	public static int RunTimeRule(){ //7.4시간입력규칙
 		char tmp;
 		int r_answer;
@@ -181,6 +196,25 @@ public class InputRule {//입력규칙 정의 (static으로)
 		}
 		return screen;
 	}
+	
+	public static String ScreenRule(String screen) {//7.5 상영관입력규칙 parameter
+		
+			String check_screen = screen.trim();
+			if(!screen.equals(check_screen)) {
+				System.out.println("올바르지 않은 입력입니다.");
+				return null;
+			}
+			else if(screen.length()<1 || screen.length()>100) {
+				System.out.println("올바르지 않은 입력입니다.");
+				return null;
+			}
+			else if(screen.charAt(screen.length()-1)!='관'){
+				System.out.println("올바르지 않은 입력입니다.");
+				return null;
+			}
+			
+		return screen;
+	}
 
 	public static String DateRule() {// 7.6 날짜입력규칙 _ return 값은 YYYYMMDD형식
 		String checkdate = sc.nextLine();
@@ -280,6 +314,10 @@ public class InputRule {//입력규칙 정의 (static으로)
 	}
 	public static String TimeRule() {// 7.7시각입력규칙 _ return 값은 HH:MM형식
 		String checktime = sc.nextLine();
+		return TimeRule(checktime);
+	}
+	
+	public static String TimeRule(String checktime) {// 7.7시각입력규칙 parameter
 		boolean isNumeric = checktime.chars().allMatch(Character::isDigit);
 		if(isNumeric && checktime.length()==4) {
 			//매우 올바른형식임_아래 의미규칙만 확인
