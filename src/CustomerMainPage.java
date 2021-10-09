@@ -26,7 +26,8 @@ public class CustomerMainPage {
 			System.out.println("====================================");
 			
 			// 메뉴 출력
-			printMenu();
+			Print.menu(menuName, false);
+			System.out.print("메뉴를 선택해주세요>>>");	
 			
 			// 메뉴 입력
 			int menuNum=Integer.parseInt(InputRule.MenuRule(menuName));
@@ -49,16 +50,6 @@ public class CustomerMainPage {
 			}
 		}
 		
-	}
-	
-	// 메뉴 출력 함수
-	private void printMenu() {
-		for(int i=0;i<menuName.length;i++) {
-			if(i==0)
-				continue;
-			System.out.println(i+". "+menuName[i]);
-		}
-		System.out.print("메뉴를 선택해주세요>>>");	
 	}
 	
 	// 8자리 날짜 -> 년 월 일 로 변환하는 함수 
