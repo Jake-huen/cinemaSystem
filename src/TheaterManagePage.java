@@ -19,7 +19,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			System.out.print(">>>");
 
 			String[] tmp={"메인페이지로가기","상영관등록","상영관수정및삭제"};
-			int menuNum=Integer.parseInt(InputRule.MenuRule(tmp));
+			int menuNum=InputRule.MenuRule(tmp);
 			switch(menuNum) {
 			case 0:
 				return;
@@ -66,7 +66,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 		System.out.print(">>>");
 
 		String[] tmp2={"뒤로가기","수정","삭제"};
-		int menuNum=Integer.parseInt(InputRule.MenuRule(tmp2));
+		int menuNum=InputRule.MenuRule(tmp2);
 
 		if(menuNum==1) {
 			System.out.println("======상영관 수정======"); //or 영화삭제

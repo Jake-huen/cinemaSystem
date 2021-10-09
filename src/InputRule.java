@@ -4,28 +4,35 @@ import java.util.regex.Pattern;
 
 public class InputRule {//입력규칙 정의 (static으로)
 	static Scanner sc = new Scanner(System.in);
-	public static String MenuRule(String[] menu_name)
-	   {
+	
+	public static int MenuRule(String[] menu_name)		//7.1 메뉴입력규칙
+	   {									
 	      String menu = sc.nextLine();
-	      for(int i=0; i<menu.length(); i++)
+	      /*for(int i=0; i<menu.length(); i++)
 	      {
 	         char c = menu.charAt(i);
 	         if(Character.isWhitespace(c))
 	         {
-	            return null;
+	            return -1;
 	         }
-	      }
+	      }*/										//공백 제거
 	      
 	      for(int i=0; i<menu_name.length; i++)
-	      {
+	      {									
+	    	  if(menu_name[i] == "" && String.valueOf(i).equals(menu))		//메뉴이름을 입력받으면 안될때, 메뉴이름을 String배열에 ""로 저장
+	    	  {
+	    		  return i;
+	    	  }
+	    	  
 	    	  if(menu_name[i].equals(menu) || String.valueOf(i).equals(menu))
 	    	  {
-	    		  return String.valueOf(i);
+	    		  return i;
 	    	  }
 	      }											//메뉴이름을 String 배열에 index에 맞춰 넣어주세요
-	      return null;
+	      return -1;
 	   }
-	   public static String IDRule()
+	
+	   public static String IDRule()		//7.2로그인 입력규칙 - ID
 	   {
 	      Pattern pattern = Pattern.compile("^[A-Za-z[0-9]]{2,10}$");
 	      String id;
@@ -38,7 +45,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 	      return id;
 	   }
 	   
-	   public static String PWRule()
+	   public static String PWRule()		//7.2로그인 입력규칙 - PW
 	   {   
 	      Pattern pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9]).{8,}$");
 	      String pw;

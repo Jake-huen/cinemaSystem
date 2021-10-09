@@ -17,7 +17,7 @@ public class MovieManagePage {//8.2.1영화관리페이지
 			System.out.print(">>>");
 
 			String[] tmp={"뒤로가기","영화정보등록","영화정보수정및삭제"};
-			int menuNum=Integer.parseInt(InputRule.MenuRule(tmp));
+			int menuNum=InputRule.MenuRule(tmp);
 			switch(menuNum) {
 			case 0:
 				return;
@@ -27,6 +27,8 @@ public class MovieManagePage {//8.2.1영화관리페이지
 			case 2:
 				movieCheckPage();
 				break;
+			default:
+            	System.out.println("올바르지 않은 입력입니다.");
 			}
 		}
 	}
@@ -50,7 +52,7 @@ public class MovieManagePage {//8.2.1영화관리페이지
 		System.out.print("수정 및 삭제할 영화를 선택하세요>>>");
 		
 		String[] tmp={"뒤로가기","오징어게임","DP"};
-		int menuNum=Integer.parseInt(InputRule.MenuRule(tmp));
+		int menuNum=InputRule.MenuRule(tmp);
 		if(menuNum==0) return;//8.2.1로
 		
 		//정상입력시
@@ -65,7 +67,7 @@ public class MovieManagePage {//8.2.1영화관리페이지
 		System.out.println("2. 삭제");
 		System.out.print(">>>");
 		String[] tmp2={"뒤로가기","수정","삭제"};
-		int menuNum=Integer.parseInt(InputRule.MenuRule(tmp2));
+		int menuNum=InputRule.MenuRule(tmp2);
 		if(menuNum==0) return;
 		System.out.println("======영화수정======"); //or 영화삭제
 		
