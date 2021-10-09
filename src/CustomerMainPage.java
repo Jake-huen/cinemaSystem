@@ -19,7 +19,7 @@ public class CustomerMainPage {
 		
 		while(true) {
 			// 오늘 날짜 출력
-			System.out.println("====== "+makeDateFormet(date)+" 상영 영화 ======");
+			System.out.println("====== "+ Print.makeDateFormet(date) +" 상영 영화 ======");
 			
 			// 오늘 상영하는 영화 - 미구현
 			System.out.println("오늘영화 주르룩 출력");
@@ -53,17 +53,7 @@ public class CustomerMainPage {
 		
 	}
 	
-	// 8자리 날짜 -> 년 월 일 로 변환하는 함수 
-	private String makeDateFormet(String date) {
-		final int YEAR_IDX = 4;
-		final int MON_IDX = 6;
-		
-		String year = date.substring(0,YEAR_IDX);
-		String month = date.substring(YEAR_IDX,MON_IDX);
-		String day = date.substring(MON_IDX);
-		
-		return year+"년 "+month +"월 "+day+"일";
-	}
+
 	
 	
 	

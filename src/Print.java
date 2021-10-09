@@ -11,5 +11,17 @@ public class Print {
 			System.out.println(i+". "+menuName[i]);
 		}
 	}
+	
+	// 8자리 날짜 -> 년 월 일 로 변환하는 함수 
+	public static String makeDateFormet(String date) {
+		final int YEAR_IDX = 4;
+		final int MON_IDX = 6;
+		
+		String year = date.substring(0,YEAR_IDX);
+		String month = date.substring(YEAR_IDX,MON_IDX);
+		String day = date.substring(MON_IDX);
+		
+		return year+"년 "+month +"월 "+day+"일";
+	}
 
 }
