@@ -30,7 +30,7 @@ public class CustomerMainPage {
 			System.out.print("메뉴를 선택해주세요>>>");	
 			
 			// 메뉴 입력
-			int menuNum=Integer.parseInt(InputRule.MenuRule(menuName));
+			int menuNum=InputRule.MenuRule(menuName);
 			
 			switch(menuNum) {
 				case 1: // 오늘 영화 예매하기
@@ -45,6 +45,7 @@ public class CustomerMainPage {
 				case 4: // 종료 
 					System.exit(0);
 					break;
+					
 				default:
 					System.out.println("올바르지 않은 입력입니다.\n");
 			}
