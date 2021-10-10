@@ -9,12 +9,11 @@ public class SearchMovie {
 		while(true) {
 			System.out.print("메뉴를 선택해주세요 >>>");
 			String[] menu = {"돌아가기", "날짜 검색 모드","영화 제목 검색 모드"};
-			String inputMenu = InputRule.MenuRule(menu);
-			if(Objects.isNull(inputMenu)) {
+			int inputMenu = InputRule.MenuRule(menu);
+			if(inputMenu == -1) {
 				System.out.println("올바르지 않은 입력입니다.");
 			}else {
-				int m = Integer.parseInt(inputMenu);
-				switch(m) {
+				switch(inputMenu) {
 				case 0: //돌아가기
 					return;
 				case 1:
@@ -42,8 +41,9 @@ public class SearchMovie {
 		System.out.println("14:25 | 별관 | 문어 게임");
 		System.out.println("19:30 | 3관 | 오징어 게임\n");
 		System.out.print("예매할 영화를 선택해주세요(뒤로가기 : 0) >>>");
-		String input = InputRule.MenuRule(null); //*****
-		if((Objects.isNull(input)) return;
+		String[] str = {""};
+		int input = InputRule.MenuRule(str); //*****
+		if(input == -1) return;
 	}
 	
 	public static void SearchByTitle() {
@@ -55,7 +55,8 @@ public class SearchMovie {
 		System.out.println("14:25 | 별관 | 문어 게임");
 		System.out.println("19:30 | 3관 | 오징어 게임\n");
 		System.out.print("예매할 영화를 선택해주세요(뒤로가기 : 0) >>>");
-		String input = InputRule.MenuRule(null); //*****
-		if((Objects.isNull(input)) return;
+		String[] str = {""};
+		int input = InputRule.MenuRule(str); //*****
+		if(input == -1) return;
 	}
 }
