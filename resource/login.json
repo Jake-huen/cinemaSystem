@@ -1,0 +1,11 @@
+{
+	"admin":[
+		{"id" : "ididid1", "pw" : "pwpwpw123"},
+		{"id" : "ididid2", "pw" : "pwpwpw1234"}
+	],
+	
+	"user":[
+		{"id" : "ididid3", "pw" : "pwpwpw111", "code" : []},
+		{"id" : "ididid4", "pw" : "pwpwpw222", "code" : []}
+	]
+}

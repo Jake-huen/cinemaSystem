@@ -8,5 +8,6 @@ public class Main {
 		//System.out.println(time);
 		//ManagerMainPage.managerMainPage();
 		InitialPage.initialPage();
+		
 	}
 }
