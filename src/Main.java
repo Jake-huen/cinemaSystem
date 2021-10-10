@@ -7,7 +7,13 @@ public class Main {
 		//int time = InputRule.TimeRule();
 		//System.out.println(time);
 		//ManagerMainPage.managerMainPage();
-		InitialPage.initialPage();
+		//InitialPage.initialPage();
+		//System.out.println(LoginDataManagePage.is_Admin("ididid1", "pwpwpw123"));
+		//System.out.println(LoginDataManagePage.is_Admin("ididid1", "pwpwpw12345"));
 		
+		//System.out.println(LoginDataManagePage.is_User("ididid1", "pwpwpw123"));
+		//System.out.println(LoginDataManagePage.is_User("ididid3", "pwpwpw111"));
+		
+		LoginDataManagePage.setAdmin("123123dd", "123123ddd");
 	}
 }
