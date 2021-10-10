@@ -7,7 +7,6 @@ public class Main {
 		//int time = InputRule.TimeRule();
 		//System.out.println(time);
 		//ManagerMainPage.managerMainPage();
-		//ManagerMainPage.managerMainPage();
 		InitialPage.initialPage();
 	}
 }

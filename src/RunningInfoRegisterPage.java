@@ -17,7 +17,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 			System.out.print("영화를 등록할 상영관을 선택해주세요>>>");
 			
 			String[] tmp={"메인페이지로가기","상영관등록","상영관수정및삭제"};
-			int menuNum=Integer.parseInt(InputRule.MenuRule(tmp));
+			int menuNum=InputRule.MenuRule(tmp);
 			
 			if(menuNum==0) return;
 			

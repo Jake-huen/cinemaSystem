@@ -14,7 +14,7 @@ public class ManagerMainPage {
 			System.out.print(">>>");
 			
 			String[] tmp={"영화관리","상영관 관리","상영정보등록","예매정보확인","종료"};
-			int menuNum=Integer.parseInt(InputRule.MenuRule(tmp));
+			int menuNum=InputRule.MenuRule(tmp);
 			
 			switch(menuNum+1) {
 			case 1:
@@ -33,6 +33,8 @@ public class ManagerMainPage {
 				System.out.println("프로그램을 종료합니다");
 				System.exit(0);
 				break;
+			default:
+            	System.out.println("올바르지 않은 입력입니다.");
 			}
 		}
 	}

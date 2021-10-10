@@ -15,20 +15,16 @@ public class SignupPage {
          System.out.println("2. 고객용 회원가입");
          System.out.print(">>>");
          
-         String menu = InputRule.MenuRule(menuname);
+         int menu = InputRule.MenuRule(menuname);
          
-         if(menu==null)
-         {
-        	 System.out.println("올바르지 않은 입력입니다."); 
-        	 continue;
-         }
+         
          switch(menu) {	        	
-            case "0":
+            case 0:
                return false;
-            case "1":
+            case 1:
                adminsignupPage();
                return true;
-            case "2":
+            case 2:
                clientsignupPage();
                return true;
             default:

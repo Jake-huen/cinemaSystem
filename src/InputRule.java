@@ -4,28 +4,35 @@ import java.util.regex.Pattern;
 
 public class InputRule {//입력규칙 정의 (static으로)
 	static Scanner sc = new Scanner(System.in);
-	public static String MenuRule(String[] menu_name)
-	   {
+	
+	public static int MenuRule(String[] menu_name)		//7.1 메뉴입력규칙
+	   {									
 	      String menu = sc.nextLine();
-	      for(int i=0; i<menu.length(); i++)
+	      /*for(int i=0; i<menu.length(); i++)
 	      {
 	         char c = menu.charAt(i);
 	         if(Character.isWhitespace(c))
 	         {
-	            return null;
+	            return -1;
 	         }
-	      }
+	      }*/										//공백 제거
 	      
 	      for(int i=0; i<menu_name.length; i++)
-	      {
+	      {									
+	    	  if(menu_name[i] == "" && String.valueOf(i).equals(menu))		//메뉴이름을 입력받으면 안될때, 메뉴이름을 String배열에 ""로 저장
+	    	  {
+	    		  return i;
+	    	  }
+	    	  
 	    	  if(menu_name[i].equals(menu) || String.valueOf(i).equals(menu))
 	    	  {
-	    		  return String.valueOf(i);
+	    		  return i;
 	    	  }
 	      }											//메뉴이름을 String 배열에 index에 맞춰 넣어주세요
-	      return null;
+	      return -1;
 	   }
-	   public static String IDRule()
+	
+	   public static String IDRule()		//7.2로그인 입력규칙 - ID
 	   {
 	      Pattern pattern = Pattern.compile("^[A-Za-z[0-9]]{2,10}$");
 	      String id;
@@ -38,7 +45,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 	      return id;
 	   }
 	   
-	   public static String PWRule()
+	   public static String PWRule()		//7.2로그인 입력규칙 - PW
 	   {   
 	      Pattern pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9]).{8,}$");
 	      String pw;
@@ -319,6 +326,37 @@ public class InputRule {//입력규칙 정의 (static으로)
 		}else
 			return null;
 	}
+	
+	/* 정윤 - 인원수 정상 입력 : 인원수 반환 / 0 입력 : 0반환 / 잘못된 입력 -1 반환 */ 
+	public static int rsrvPplInput() { // 7.8 예매인원 입력 규칙 
+		String pplStr;
+		int pplNum;
+		
+		pplStr = sc.nextLine();
+		pplStr=pplStr.trim(); // 앞뒤 공백제거 
+		
+		// 0 입력한 경우 
+		if(pplStr.equals("0"))
+			return 0;  
+		
+		// 0을 제외한 입력 
+		int lastIdx = pplStr.length()-1;
+		if(pplStr.charAt(lastIdx)=='명' || pplStr.charAt(lastIdx)=='인') {
+			pplStr= pplStr.substring(0, lastIdx); // 명 or 인을 제외한 문자열로 재할당 
+		}
+		
+		pplStr=pplStr.trim(); // 앞뒤 공백제거 
+		 
+		try {
+			pplNum = Integer.parseInt(pplStr);
+		} catch (NumberFormatException e) {
+			return -1;
+		}
+		
+		return pplNum;
+	}
+	
+
 	public static String SeatRule() { //7.9 예매 좌석 입력 규칙
         String seat = sc.nextLine();
         seat = seat.replace(" ", "");

@@ -12,21 +12,16 @@ public class InitialPage {
          System.out.println("2. 로그인");
          System.out.print(">>> ");
          
-         String menu = InputRule.MenuRule(menuname);
-         if(menu==null)
-         {
-        	 System.out.println("올바르지 않은 입력입니다."); 
-        	 continue;
-         }
-         switch(menu) {	        	
-            case "1":
+         int menu = InputRule.MenuRule(menuname);
+         switch(menu) {
+            case 1:
                if(SignupPage.signupPage())
                {
                   LoginPage.loginPage();
                }
                continue;
                
-            case "2":
+            case 2:
                LoginPage.loginPage();
                
             default:
