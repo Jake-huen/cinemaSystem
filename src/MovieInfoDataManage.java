@@ -41,8 +41,8 @@ public class MovieInfoDataManage {
 		}
 		
 	}
-	public static void main(String args[]) {
-		setJson("오징어 게임","90분");
-		getJson();
-	}
+//	public static void main(String args[]) {
+//		setJson("오징어 게임","90분");
+//		getJson();
+//	}
 }
