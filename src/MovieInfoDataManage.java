@@ -16,29 +16,31 @@ import com.google.gson.JsonObject;
 public class MovieInfoDataManage {
 	static String title;
 	static String runtime;
-	static List<Map<String,String>> movieData;
+	static List<Map<String,String>> movieData; //기존의 movieData
 	static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	static MovieInfo movieinfo;
+	
 	public static void getJson() { // json 파일 get
 		try {
 			//json 파일 읽어서, movieinfo 형태로 변환
 			Reader reader = new FileReader(".\\resource\\movie.json");
-			movieinfo = gson.fromJson(reader,MovieInfo.class);
+			movieinfo = gson.fromJson(reader,MovieInfo.class); //json -> movieinfo
 			movieData = movieinfo.getMovie();
-			System.out.println(movieinfo);
+			// System.out.println(movieinfo);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public static void setJson(String title,String runtime) { //json 파일 set
+	public static void setJson(String new_title,String new_runtime) { //json 파일 set
 		getJson();
-		MovieInfoDataManage.title=title;
-		MovieInfoDataManage.runtime = runtime;
+		title=new_title;
+		runtime = new_runtime;
 		Map<String,String> movie = new LinkedHashMap<>();
 		movie.put("title",title);
 		movie.put("runtime",runtime);
-		List<Map<String,String>> new_movie = new ArrayList<>();
+		System.out.println(movie);
+		List<Map<String,String>> new_movie = new ArrayList<>(); //기존 데이터에서 movie 추가
 		for(int i=0;i<movieData.size();i++) {
 			new_movie.add(movieData.get(i));
 		}
@@ -54,10 +56,5 @@ public class MovieInfoDataManage {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	}
-	public static void main(String args[]) {
-		setJson("오징어 게임","90분");
-		getJson();
 	}
 }
