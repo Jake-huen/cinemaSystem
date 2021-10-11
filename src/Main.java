@@ -8,12 +8,9 @@ public class Main {
 		//System.out.println(time);
 		//ManagerMainPage.managerMainPage();
 		//InitialPage.initialPage();
-		//System.out.println(LoginDataManagePage.is_Admin("ididid1", "pwpwpw123"));
-		//System.out.println(LoginDataManagePage.is_Admin("ididid1", "pwpwpw12345"));
+		//LoginDataManagePage.addCode("ididid3", "pwpwpw111","333");
+		//LoginDataManagePage.addCode("ididid4", "12444414","333");
+		//LoginDataManagePage.addCode("ididid1", "pwpwpw123","333");
 		
-		//System.out.println(LoginDataManagePage.is_User("ididid1", "pwpwpw123"));
-		//System.out.println(LoginDataManagePage.is_User("ididid3", "pwpwpw111"));
-		
-		LoginDataManagePage.setAdmin("123123dd", "123123ddd");
 	}
 }

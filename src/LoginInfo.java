@@ -1,10 +1,8 @@
 import java.util.List;
 import java.util.Map;
 
-public class LoginInfo {//사용자정보
-	String id;
-	String pw;
-	String[] code;
+public class LoginInfo {//전체사용자정보
+	List<String> code;
 	List<Map<String, String>> admin;
 	List<Map<String, Object>> user;
 	
