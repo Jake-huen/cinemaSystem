@@ -61,7 +61,7 @@ public class LoginPage {
                if(idpw[0][1].equals(pw))
                {
                   System.out.println("====로그인 완료====");
-                  getDate();
+                  getDate(id,pw);
                   System.exit(0);
                }
             }
@@ -99,7 +99,7 @@ public class LoginPage {
                if(idpw[0][1].equals(pw))
                {
                   System.out.println("====로그인 완료====");
-                  getDate();
+                  getDate(id,pw);
                   System.exit(0);
                }
             }
@@ -109,31 +109,31 @@ public class LoginPage {
       }
    }
    
-   public static String[] getDate()
+   public static UserInfo getDate(String id, String pw)
    {
       while(true)
       {
-      System.out.println("날짜를 입력해 주세요");
-      System.out.print(">>");
-      String date = scan.next();         //날짜 입력규칙에 의해 처리
-      if(date.equals("이상하다면"))
-      {
-         System.out.println("올바르지 않은 입력입니다.");
-         continue;
-      }
-      System.out.println("시각을 입력해 주세요");
-      System.out.print(">>");
-      String time = scan.next();         //시각 입력규칙에 의해 처리
-       
-      if(time.equals("이상하다면"))
-      {
-         System.out.println("올바르지 않은 입력입니다.");
-         continue;
-      }
+	      System.out.println("날짜를 입력해 주세요");
+	      System.out.print(">>");
+	      String date = InputRule.DateRule();
+	      if (date == null)
+	      {
+	    	  System.out.println("올바르지 않은 입력입니다.");
+	    	  continue;
+	      }
+	      System.out.println("시각을 입력해 주세요");
+	      System.out.print(">>");
+	      String time = InputRule.TimeRule();        //시각 입력규칙에 의해 처리
+	      if (time == null)
+	      {
+	    	  System.out.println("올바르지 않은 입력입니다.");
+	    	  continue;
+	      }
       
-      String[] datetime = {date, time};
-      System.out.println("====환영합니다====");
-      return datetime;
-      }
+	      System.out.println("====환영합니다====");
+	      
+	      UserInfo userinfo = new UserInfo(id, pw, date, time);
+	      return userinfo;
+     }
    }
 }

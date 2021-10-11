@@ -1,0 +1,21 @@
+{
+	"movies" : [
+		{
+		"code" : "202110110820A",
+		"movie" : "오징어 게임",
+		"date" : "20211011",
+		"time" : "0820",
+		"theater" : "A",
+		"reserve" : [
+				{
+				"userId" : "teamproject6",
+				"seat" : ["A3"]
+				},
+				{
+				"userId" : "teamproject5",
+				"seat" : ["B4"]
+				}
+			]
+		}
+	]
+}
