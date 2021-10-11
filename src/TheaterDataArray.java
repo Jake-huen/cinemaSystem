@@ -1,10 +1,31 @@
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.Reader;
+import java.util.*;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 
 public class TheaterDataArray {
-	public static ArrayList<TheaterInfo> theaterData = new ArrayList<>();
+	static String theaterName;
+	static int row;
+	static int col;
+	static List<Map<String, Object>> theaters;
+	static TheaterInfo theaterinfo;
+	static Gson gson = new Gson();
 	
-	//json에서 상영관정보읽어서 ArrayList의 TheaterInfo클래스에 입력
 	public static void readData() {
+		JsonParser parser = new JsonParser();
+		try {
+			Reader reader = new FileReader("filepath.json");
+			
+			theaterinfo = gson.fromJson(reader, TheaterInfo.class);
+			theaters = theaterinfo.getTheaters();
+		} catch (FileNotFoundException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 		
 	}
 	
