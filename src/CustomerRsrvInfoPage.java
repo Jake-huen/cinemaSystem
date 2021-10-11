@@ -17,13 +17,15 @@ public class CustomerRsrvInfoPage {
 	
 			// 메뉴 출력 
 			Print.menu(makeMenuNameforPrint(), true);
-			System.out.println("\n 수정 및 삭제할 예매 내역을 선택하세요 >>> ");
+			System.out.println("\n수정 및 삭제할 예매 내역을 선택하세요 >>> ");
 			
 			// 메뉴 입력 
 			int menuNum=InputRule.MenuRule(makeMenuNameforInput());
 			
+			// 메뉴 입력에 따른 행동  
 			if(menuNum == 0)
 				return;
+			
 			else if(menuNum == -1) {
 				System.out.println("올바르지 않은 입력입니다.");
 				continue;
@@ -85,7 +87,7 @@ public class CustomerRsrvInfoPage {
 		
 		private String id;
 		/*private 상영정보 담은 객체 - 미구현*/
-		private String[] menuName= {"돌아가기","예매 인원 수정"," 예매 좌석 수정","예매 취소"};
+		private String[] menuName= {"돌아가기","예매 인원 수정","예매 좌석 수정","예매 취소"};
 		
 		public RsrvModCancelPage(String id) {
 			this.id = id;
@@ -97,7 +99,8 @@ public class CustomerRsrvInfoPage {
 			while(true) {
 				System.out.println("===== 예매 수정 및 취소 =====");
 				
-				printRsrvInfo(); // 예매 정보 출력
+				// 예매 정보 출력
+				printRsrvInfo(); 
 				
 				Print.menu(menuName, true);
 				System.out.print(">>> ");
@@ -108,13 +111,13 @@ public class CustomerRsrvInfoPage {
 				switch(menuNum) {
 				case 0: // 돌아가기
 					return;
-				case 2:// 예매 인원 수정
+				case 1:// 예매 인원 수정
 					modRsrvPplNum();
 					break;
-				case 3:// 예매 좌석 수정
+				case 2:// 예매 좌석 수정
 					// 예매 좌석 수정 객체 - 미구현 
 					break;
-				case 4: // 예매 취소 
+				case 3: // 예매 취소 
 					cancelRsrv();
 					return; // 8.3.4로 돌아가기 
 					
