@@ -21,7 +21,7 @@ public class MovieDataManage {
 	static Map<String,Object> movie;
 	// static List<Map<String,String>> movieInfo;
 	static MovieInfo movieInfo;
-	static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	
 	
 	public static void getMovie() {
 		
@@ -30,19 +30,9 @@ public class MovieDataManage {
 		
 	}
 	public static void main(String args[]) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         
-        JsonObject jsonobject = new JsonObject();
-        jsonobject.addProperty("title", "오징어게임");
-        jsonobject.addProperty("runtime", "90");        
-       
-		 String json = gson.toJson(jsonobject);
-		 System.out.println(jsonobject);
-		 try {
-			FileWriter writer = new FileWriter(".\\resource\\movie.json");
-			writer.write(json);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        MovieInfo movie = new MovieInfo();
+        
 	}
 }

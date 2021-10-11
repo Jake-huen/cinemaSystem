@@ -3,84 +3,46 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 import com.google.gson.JsonParser;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 public class MovieInfoDataManage {
-
-	public static void getJson()
-	{
-		JsonParser parser = new JsonParser();
+	static String title;
+	static String runtime;
+	static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	public static void getJson() { // json 파일 get
 		try {
-			Reader reader = new FileReader(".\\resource\\movieinformation.json");
+			//json 파일 읽어서, movieinfo 형태로 변환
+			Reader reader = new FileReader(".\\resource\\movie.json");
+			MovieInfo movieinfo = gson.fromJson(reader,MovieInfo.class);
 			
-			movieinfo = gson.fromJson(reader, MovieInfo.class);
-			adminData = logininfo.getAdmin();
-			userData = logininfo.getUser();
-			System.out.println(logininfo);
-			
+			System.out.println(movieinfo);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public static boolean is_Admin(String id, String pw)
-	{
-		getJson();
-		for(int i=0; i<adminData.size(); i++)
-		{
-			if(((String)adminData.get(i).get("id")).equals(id) &&((String)adminData.get(i).get("pw")).equals(pw))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public static boolean is_User(String id, String pw)
-	{
-		getJson();
-		for(int i=0; i<userData.size(); i++)
-		{
-			if(((String)userData.get(i).get("id")).equals(id) &&((String)userData.get(i).get("pw")).equals(pw))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public static void setAdmin(String ins_id, String ins_pw)
-	{
-		getJson();
-		id = ins_id;
-		pw = ins_pw;
+	public static void setJson(String title,String runtime) { //json 파일 set
+		MovieInfo movieinfo = new MovieInfo();
+		movieinfo.setTitle(title);
+		movieinfo.setRuntime(runtime);
 		
-		Map<String, String> admin = new HashMap<>();
-		admin.put("id", id);
-		admin.put("pw", pw);
-		
-		List<Map<String, String>> new_admin = new ArrayList<>();
-		for(int i=0; i<adminData.size(); i++)
-		{
-			new_admin.add(adminData.get(i));
-		}
-		new_admin.add(admin);
-		logininfo.setAdmin(new_admin);
 		try {
-			FileWriter fw = new FileWriter(".\\resource\\login.json");
-			gson.toJson(logininfo, fw);
+			FileWriter fw = new FileWriter(".\\resource\\movie.json");
+			gson.toJson(movieinfo,fw);
 			fw.flush();
 			fw.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return;
+		
 	}
-
+	public static void main(String args[]) {
+		setJson("오징어 게임","90분");
+		getJson();
+	}
 }
