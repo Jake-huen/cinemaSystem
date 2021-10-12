@@ -56,25 +56,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 	         return null;
 	      }
 	      return pw;
-	   }
-	
-	public static String MTRule() { //7.3영화제목입력규칙
-		String movie;
-		while(true) {
-			movie = sc.nextLine();
-			movie=movie.trim();
-			if(movie.equals("0")) {
-				System.out.println("올바르지 않은 입력입니다.");
-			}
-			else if(movie.length()<1 || movie.length()>30) {
-				System.out.println("올바르지 않은 입력입니다.");
-			}
-			else {
-				break;
-			}
-		}
-		return movie;
-	}
+	   }	
 	
 	public static String MTRule(String movie) { //7.3영화제목입력규칙 parameter
 			movie=movie.trim();
@@ -190,6 +172,9 @@ public class InputRule {//입력규칙 정의 (static으로)
 			return null;
 		}
 		else if(screen.charAt(screen.length()-1)!='관'){
+			return null;
+		}
+		else if(screen.equals('관')) {
 			return null;
 		}
 		// 입력으로 '관' 만 입력하는 경우 --->(기획서 반영?)

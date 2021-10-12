@@ -22,12 +22,12 @@ public class MovieInfo {//영화정보
 		return "MovieTitle:"+getTitle()+"상영시간 : "+getRuntime(); 
 	}
 
-	public List<Map<String, String>> getMovie() {
+	/*public List<Map<String, String>> getMovie() {
 		return movies;
 	}
 
 	public void setMovie(List<Map<String, String>> new_movie) {
 		// TODO Auto-generated method stub
 		movies = new_movie;
-	}
+	}*/
 }
