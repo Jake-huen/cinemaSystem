@@ -2,9 +2,7 @@ import java.util.Scanner;
 
 public class LoginPage {
    static Scanner scan = new Scanner(System.in);
-   static String[][] idpw = {{"ims1", "check123123"}};                //임시저장용
-   
-   
+   static UserInfo info;
    public static void loginPage()
    {
 	  String[] menuname = {"뒤로가기", "관리자용로그인", "고객용로그인"};
@@ -54,20 +52,14 @@ public class LoginPage {
             continue;
          }
          
-         for(int i=0; i<idpw.length; i++)
+         if(LoginDataManage.is_Admin(id, pw))
          {
-            if(idpw[0][0].equals(id))
-            {
-               if(idpw[0][1].equals(pw))
-               {
-                  System.out.println("====로그인 완료====");
-                  getDate(id,pw);
-                  System.exit(0);
-               }
-            }
+        	 System.out.println("====로그인 완료====");
+             info = getDate(id,pw);
+             System.exit(0);
          }
-         System.out.println("아이디나 비밀번호를 다시 확인해주세요");
-         continue;
+         else
+        	System.out.println("아이디나 비밀번호를 다시 확인해주세요");
       }
    }
    
@@ -92,20 +84,15 @@ public class LoginPage {
             continue;
          }
          
-         for(int i=0; i<idpw.length; i++)
+         if(LoginDataManage.is_User(id, pw))
          {
-            if(idpw[0][0].equals(id))
-            {
-               if(idpw[0][1].equals(pw))
-               {
-                  System.out.println("====로그인 완료====");
-                  getDate(id,pw);
-                  System.exit(0);
-               }
-            }
+        	 System.out.println("====로그인 완료====");
+             info = getDate(id,pw);
+             System.exit(0);
          }
-         System.out.println("아이디나 비밀번호를 다시 확인해주세요");
-         continue;
+         else
+        	 System.out.println("아이디나 비밀번호를 다시 확인해주세요");
+         
       }
    }
    
