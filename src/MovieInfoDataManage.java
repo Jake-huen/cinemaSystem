@@ -3,41 +3,67 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
-import com.google.gson.JsonParser;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 public class MovieInfoDataManage {
 	static String title;
 	static String runtime;
 	static Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	static MovieInfo movieinfo;
-	
-	public static void getJson() { // json 파일 get
-		
-	}
-	public static void setJson() { //json 파일 set //String new_title,String new_runtime
-		JsonObject jsonobject = new JsonObject();
-		jsonobject.addProperty("DP","90분");
-		String json = gson.toJson(jsonobject);
-		System.out.println(json);
-		FileWriter writer;
+	public static JsonObject getJson(){ // json 파일 get
 		try {
-			writer = new FileWriter(".\\resource\\movie.json");
-			System.out.println(json);
+			Reader reader = new FileReader(".\\resource\\movie.json");
+			JsonParser jsonParser = new JsonParser();
+			JsonElement element = jsonParser.parse(reader);
+			JsonObject jsonobject = element.getAsJsonObject();
+			// JsonArray movieInfos = (JsonArray)jsonobject.get("movies");//영화 전체 가져오기
+			return jsonobject;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public static void getTitle() { //영화 제목들만 받아오기 -->for문으로 영화제목판별
+		JsonObject jsonobject = getJson();
+		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
+		for(int i=0;i<movieInfos.size();i++) { //영화전체 크기만큼 가져오기
+			JsonObject movieinfo =(JsonObject)movieInfos.get(i);
+			System.out.println(movieinfo.get("title"));
+		}
+	}
+	public static void getRuntime() { //영화 제목들만 받아오기
+		JsonObject jsonobject = getJson();
+		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
+		for(int i=0;i<movieInfos.size();i++) { //영화전체 크기만큼 가져오기
+			JsonObject movieinfo =(JsonObject)movieInfos.get(i);
+			System.out.println(movieinfo.get("runtime"));
+		}
+	}
+	
+	public static void setJson(String new_title,String new_runtime) { //json 파일 set //String new_title,String new_runtime
+		JsonObject jsonobject= getJson(); //Json파일 전체 받아옴
+		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
+		JsonObject temp=new JsonObject();
+		temp.addProperty("title",new_title);
+		temp.addProperty("runtime",new_runtime);
+		movieInfos.add(temp);
+		jsonobject.add("movies",movieInfos);
+		String json = gson.toJson(jsonobject);
+		// System.out.println(json);
+		try {
+			FileWriter writer = new FileWriter(".\\resource\\movie.json");
 			writer.write(json);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) {
-		setJson();
-	}
+//	public static void main(String[] args) {
+//		setJson("뷰티인사이드","120분");
+//	}
 }
