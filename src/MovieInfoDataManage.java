@@ -45,7 +45,7 @@ public class MovieInfoDataManage {
 		}
 	}
 	
-	public static void setJson(String new_title,String new_runtime) { //json 파일 set //String new_title,String new_runtime
+	public static void setJsonMovie(String new_title,String new_runtime) { //json 파일 set
 		JsonObject jsonobject= getJson(); //Json파일 전체 받아옴
 		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
 		JsonObject temp=new JsonObject();
@@ -53,17 +53,21 @@ public class MovieInfoDataManage {
 		temp.addProperty("runtime",new_runtime);
 		movieInfos.add(temp);
 		jsonobject.add("movies",movieInfos);
+		System.out.println(jsonobject);
 		String json = gson.toJson(jsonobject);
-		// System.out.println(json);
+		FileWriter writer = null;
+		System.out.println(json);
 		try {
-			FileWriter writer = new FileWriter(".\\resource\\movie.json");
+			writer = new FileWriter(".\\resource\\movie.json");
 			writer.write(json);
+			writer.flush();
+			writer.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-//	public static void main(String[] args) {
-//		setJson("뷰티인사이드","120분");
-//	}
+	public static void main(String[] args) {
+		setJsonMovie("뷰티인사이드","120분");
+	}
 }

@@ -1,8 +1,12 @@
 {
-"movies":[{
-"title":"오징어 게임",
-"runtime":"90분"},
-{
-"title":"DP",
-"runtime":"120분"}]
+  "movies": [
+    {
+      "title": "오징어 게임",
+      "runtime": "90분"
+    },
+    {
+      "title": "DP",
+      "runtime": "120분"
+    }
+  ]
 }
