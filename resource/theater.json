@@ -2,13 +2,18 @@
   "theaters": [
     {
       "theater": "차리서관",
-      "row": 1,
-      "col": 3
-    },
-    {
-      "theater": "차리서관",
       "row": 10,
       "col": 30
+    },
+    {
+      "theater": "수정관",
+      "row": 10,
+      "col": 21
+    },
+    {
+      "theater": "테스트관",
+      "row": 15,
+      "col": 4
     }
   ]
 }
