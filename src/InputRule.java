@@ -57,38 +57,17 @@ public class InputRule {//입력규칙 정의 (static으로)
 	         return null;
 	      }
 	      return pw;
-	   }
-	
-	public static String MTRule() { //7.3영화제목입력규칙
-		String movie;
-		while(true) {
-			movie = sc.nextLine();
-			movie=movie.trim();
-			if(movie.equals("0")) {
-				System.out.println("올바르지 않은 입력입니다.");
-			}
-			else if(movie.length()<1 || movie.length()>30) {
-				System.out.println("올바르지 않은 입력입니다.");
-			}
-			else {
-				break;
-			}
-		}
-		return movie;
-	}
+	   }	
 	
 	public static String MTRule(String movie) { //7.3영화제목입력규칙 parameter
 			movie=movie.trim();
 			if(movie.equals("0")) {
-				System.out.println("올바르지 않은 입력입니다.");
 				return null;
 			}
 			else if(movie.length()<1 || movie.length()>30) {
-				System.out.println("올바르지 않은 입력입니다.");
 				return null;
 			}
-			
-		return movie;
+			return movie;
 	}
 	
 	public static int RunTimeRule(){ //7.4시간입력규칙
@@ -185,43 +164,24 @@ public class InputRule {//입력규칙 정의 (static으로)
 	}
 	public static String ScreenRule() {//7.5 상영관입력규칙
 		String screen;
-		while(true) {
-			screen=sc.nextLine();
-			String check_screen = screen.trim();
-			if(!screen.equals(check_screen)) {
-				System.out.println("올바르지 않은 입력입니다.");
-			}
-			else if(screen.length()<1 || screen.length()>100) {
-				System.out.println("올바르지 않은 입력입니다.");
-			}
-			else if(screen.charAt(screen.length()-1)!='관'){
-				System.out.println("올바르지 않은 입력입니다.");
-			}
-			// 입력으로 '관' 만 입력하는 경우 --->(기획서 반영?)
-			else {
-				break;
-			}
+		screen=sc.nextLine();
+		String check_screen = screen.trim();
+		if(!screen.equals(check_screen)) {
+			return null;
 		}
-		return screen;
-	}
-	
-	public static String ScreenRule(String screen) {//7.5 상영관입력규칙 parameter
-		
-			String check_screen = screen.trim();
-			if(!screen.equals(check_screen)) {
-				System.out.println("올바르지 않은 입력입니다.");
-				return null;
-			}
-			else if(screen.length()<1 || screen.length()>100) {
-				System.out.println("올바르지 않은 입력입니다.");
-				return null;
-			}
-			else if(screen.charAt(screen.length()-1)!='관'){
-				System.out.println("올바르지 않은 입력입니다.");
-				return null;
-			}
-			
-		return screen;
+		else if(screen.length()<1 || screen.length()>100) {
+			return null;
+		}
+		else if(screen.charAt(screen.length()-1)!='관'){
+			return null;
+		}
+		else if(screen.equals('관')) {
+			return null;
+		}
+		// 입력으로 '관' 만 입력하는 경우 --->(기획서 반영?)
+		else {
+			return screen;
+		}
 	}
 
 	public static String DateRule() {// 7.6 날짜입력규칙 _ return 값은 YYYYMMDD형식
