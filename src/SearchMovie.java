@@ -49,7 +49,8 @@ public class SearchMovie {
 	public static void SearchByTitle() {
 		System.out.println("===== 영화검색_영화 제목 검색 모드 ======");
 		System.out.print("검색할 영화제목을 입력해주세요(뒤로가기: 0) >>> ");
-		String title = InputRule.MTRule();
+		String title=""; //영화제목입력받기
+		InputRule.MTRule(title);
 		if(Objects.isNull(title)) return;
 		System.out.println("08:30 | 차리서관 | 오징어 게임");
 		System.out.println("14:25 | 별관 | 문어 게임");

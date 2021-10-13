@@ -28,23 +28,31 @@ public class MovieInfoDataManage {
 		}
 		return null;
 	}
-	public static void getTitle() { //영화 제목들만 받아오기 -->for문으로 영화제목판별
+	public static String[] getTitle() { //영화 제목들만 받아오기 -->for문으로 영화제목판별
 		JsonObject jsonobject = getJson();
 		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
+		if(movieInfos.size()==0) return null;
+		String[] rt=new String[movieInfos.size()];
 		for(int i=0;i<movieInfos.size();i++) { //영화전체 크기만큼 가져오기
-			JsonObject movieinfo =(JsonObject)movieInfos.get(i);
-			System.out.println(movieinfo.get("title"));
+			rt[i]=((JsonObject) movieInfos.get(i)).get("title").toString();
+			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
+			//System.out.println(movieinfo.get("title"));
 		}
+		return rt;
 	}
-	public static void getRuntime() { //영화 제목들만 받아오기
+	public static String[] getRuntime() { //영화 runtime들만 받아오기
 		JsonObject jsonobject = getJson();
 		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
+		if(movieInfos.size()==0) return null;
+		String[] rt=new String[movieInfos.size()];
 		for(int i=0;i<movieInfos.size();i++) { //영화전체 크기만큼 가져오기
-			JsonObject movieinfo =(JsonObject)movieInfos.get(i);
-			System.out.println(movieinfo.get("runtime"));
+			rt[i]=((JsonObject) movieInfos.get(i)).get("runtime").toString();
+			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
+			//System.out.println(movieinfo.get("runtime"));
 		}
+		return rt;
 	}
-	
+
 	public static void setJsonMovie(String new_title,String new_runtime) { //json 파일 set
 		JsonObject jsonobject= getJson(); //Json파일 전체 받아옴
 		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
@@ -53,10 +61,8 @@ public class MovieInfoDataManage {
 		temp.addProperty("runtime",new_runtime);
 		movieInfos.add(temp);
 		jsonobject.add("movies",movieInfos);
-		System.out.println(jsonobject);
 		String json = gson.toJson(jsonobject);
 		FileWriter writer = null;
-		System.out.println(json);
 		try {
 			writer = new FileWriter(".\\resource\\movie.json");
 			writer.write(json);
@@ -67,7 +73,80 @@ public class MovieInfoDataManage {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) {
-		setJsonMovie("뷰티인사이드","120분");
+	public static String readIndexMovie(int index) {//index해당하는 영화 출력
+		JsonObject jsonobject = getJson();
+		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
+		String rt=((JsonObject) movieInfos.get(index)).get("title").toString();
+		rt+="/"+((JsonObject) movieInfos.get(index)).get("runtime").toString();
+			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
+			//System.out.println(movieinfo.get("runtime"));
+		return rt;
+	}
+	public static void fixMovie(int index,String newT,String newR) {//index받아와서 해당 영화 수정
+		try {
+			Reader reader = new FileReader(".\\resource\\movie.json");
+			JsonParser jsonParser = new JsonParser();
+			JsonElement element = jsonParser.parse(reader);
+			JsonObject jsonobject = element.getAsJsonObject();
+
+			JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
+			JsonObject movieinfo =(JsonObject)movieInfos.get(index);
+			movieinfo.addProperty("title", newT);
+			movieinfo.addProperty("runtime", newR);
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String json = gson.toJson(element);
+			FileWriter writer=null;
+			try {
+				writer = new FileWriter(".\\resource\\movie.json");
+				writer.write(json);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				try {
+					writer.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("수정완료");
+	}
+	public static void deleteMovie(int index) {//해당 index의 영화 삭제
+		try {
+			Reader reader = new FileReader(".\\resource\\movie.json");
+			JsonParser jsonParser = new JsonParser();
+			JsonElement element = jsonParser.parse(reader);
+			JsonObject jsonobject = element.getAsJsonObject();
+			JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
+			movieInfos.remove(index);
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String json = gson.toJson(element);
+			FileWriter writer=null;
+			try {
+				writer = new FileWriter(".\\resource\\movie.json");
+				writer.write(json);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				try {
+					writer.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("삭제완료");
 	}
 }
