@@ -31,40 +31,37 @@ public class MovieManagePage {//8.2.1영화관리페이지
 				movieCheckPage();
 				break;
 			default:
-            	System.out.println("올바르지 않은 입력입니다.");
+				System.out.println("올바르지 않은 입력입니다.");
 			}
 		}
 	}
 	public static void movieRegisterPage() {//8.2.1.1 영화정보등록
 		String title="",runtime="";
-		
+
 		System.out.print("영화제목>>");
 		title=scan.nextLine();
-		if(InputRule.MTRule(title)!=null) {
+		if(InputRule.MTRule(title)==null) {
 			System.out.println("올바르지 않은 입력입니다.");
 			return;
 		}
-		
+
 		System.out.print("상영시간>>");
-		runtime=scan.nextLine();
-		if(InputRule.MTRule(runtime)!=null) {//runtimerule로수정하기
-			System.out.println("올바르지 않은 입력입니다.");
+		if((runtime=InputRule.RunTimeRule())==null) {
 			return;
 		}
-		
+
 		MovieInfoDataManage.setJsonMovie(title,runtime); //데이터베이스에 등록
-		
+
 		System.out.println("=====등록완료=====");
 	}
 	public static void movieCheckPage() {//8.2.1.2 영화정보확인
 		String[] title=MovieInfoDataManage.getTitle(); //영화제목 받아오기
 		String[] runtime=MovieInfoDataManage.getRuntime(); //영화시간 받아오기
-		String[] movieInfo = null,moviemenu=null;
-		for(int i=0;i<title.length;i++) {
-			if(i==0) movieInfo[i]="뒤로가기";
-			movieInfo[i]=title[i]+"/"+runtime[i];
-			if(i==0) moviemenu[i]="뒤로가기";
-			moviemenu[i]=title[i];
+		String[] movieInfo =new String[title.length+1],moviemenu=new String[title.length+1];
+		movieInfo[0]="뒤로가기"; moviemenu[0]="뒤로가기";
+		for(int i=1;i<title.length+1;i++) {
+			movieInfo[i]=title[i-1]+"/"+runtime[i-1];
+			moviemenu[i]=title[i-1];
 		}
 		System.out.println("======영화목록======");
 		Print.menu(movieInfo, true);
@@ -73,13 +70,13 @@ public class MovieManagePage {//8.2.1영화관리페이지
 		String[] tmp={"뒤로가기","오징어게임","DP"};
 		int menuNum=InputRule.MenuRule(tmp);
 		if(menuNum==0) return;//8.2.1로
-		
+
 		//정상입력시
-		movieFixPage(menuNum);
+		movieFixPage(menuNum-1);
 	}
 	public static void movieFixPage(int num) {//8.2.1.2.1 영화정보수정및삭제
 		System.out.println("======영화 수정 및 삭제======");
-		System.out.println("오징어게임 /90분");
+		System.out.println(MovieInfoDataManage.readIndexMovie(num));
 		System.out.println("0. 뒤로가기");
 		System.out.println("1. 수정");
 		System.out.println("2. 삭제");
@@ -87,12 +84,26 @@ public class MovieManagePage {//8.2.1영화관리페이지
 		String[] tmp2={"뒤로가기","수정","삭제"};
 		int menuNum=InputRule.MenuRule(tmp2);
 		if(menuNum==0) return;
-		System.out.println("======영화수정======"); //or 영화삭제
-		
+		else if(menuNum==1) {//영화 수정
+			System.out.println("======영화수정======"); //or 영화삭제
 
-		System.out.print("영화제목>>");
-		
-		System.out.print("상영시간>>");
-		//time=InputRule.RunTimeRule();
+			String title="",runtime="";
+			System.out.print("영화제목>>");
+			title=scan.nextLine();
+			if(InputRule.MTRule(title)==null) {
+				System.out.println("올바르지 않은 입력입니다.");
+				return;
+			}
+
+			System.out.print("상영시간>>");
+			if((runtime=InputRule.RunTimeRule())==null) {//분이 사라지는 문제
+				return;
+			}
+			MovieInfoDataManage.fixMovie(num, title, runtime);
+		}else if(menuNum==2) {//영화 삭제
+			MovieInfoDataManage.deleteMovie(num);
+		}
+
+
 	}
 }

@@ -7,6 +7,14 @@
     {
       "title": "DP",
       "runtime": "120분"
+    },
+    {
+      "title": "문어게임",
+      "runtime": "115"
+    },
+    {
+      "title": "가나다",
+      "runtime": "10"
     }
   ]
 }

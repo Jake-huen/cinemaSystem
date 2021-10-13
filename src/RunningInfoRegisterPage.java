@@ -46,7 +46,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 		System.out.println("=========================");
 
 		System.out.print("영화를 선택해주세요>>>");
-		tmp=InputRule.MTRule();
+		//tmp=InputRule.MTRule();
 		if(tmp.equals("0")) return;
 		System.out.println();
 
