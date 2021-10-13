@@ -67,8 +67,7 @@ public class MovieManagePage {//8.2.1영화관리페이지
 		Print.menu(movieInfo, true);
 		System.out.println("=================");
 		System.out.print("수정 및 삭제할 영화를 선택하세요>>>");
-		String[] tmp={"뒤로가기","오징어게임","DP"};
-		int menuNum=InputRule.MenuRule(tmp);
+		int menuNum=InputRule.MenuRule(moviemenu);
 		if(menuNum==0) return;//8.2.1로
 
 		//정상입력시
