@@ -26,7 +26,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			case 2:
 				theaterCheckPage();
 				break;
-			}
+			}//
 		}
 	}
 	public static void theaterRegisterPage() {//8.2.2.1 상영관정보등록
