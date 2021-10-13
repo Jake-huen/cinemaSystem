@@ -28,21 +28,29 @@ public class MovieInfoDataManage {
 		}
 		return null;
 	}
-	public static void getTitle() { //영화 제목들만 받아오기 -->for문으로 영화제목판별
+	public static String[] getTitle() { //영화 제목들만 받아오기 -->for문으로 영화제목판별
 		JsonObject jsonobject = getJson();
 		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
+		if(movieInfos.size()==0) return null;
+		String[] rt=new String[movieInfos.size()];
 		for(int i=0;i<movieInfos.size();i++) { //영화전체 크기만큼 가져오기
-			JsonObject movieinfo =(JsonObject)movieInfos.get(i);
-			System.out.println(movieinfo.get("title"));
+			rt[i]=((JsonObject) movieInfos.get(i)).get("title").toString();
+			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
+			//System.out.println(movieinfo.get("title"));
 		}
+		return rt;
 	}
-	public static void getRuntime() { //영화 제목들만 받아오기
+	public static String[] getRuntime() { //영화 runtime들만 받아오기
 		JsonObject jsonobject = getJson();
 		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
+		if(movieInfos.size()==0) return null;
+		String[] rt=new String[movieInfos.size()];
 		for(int i=0;i<movieInfos.size();i++) { //영화전체 크기만큼 가져오기
-			JsonObject movieinfo =(JsonObject)movieInfos.get(i);
-			System.out.println(movieinfo.get("runtime"));
+			rt[i]=((JsonObject) movieInfos.get(i)).get("runtime").toString();
+			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
+			//System.out.println(movieinfo.get("runtime"));
 		}
+		return rt;
 	}
 	
 	public static void setJsonMovie(String new_title,String new_runtime) { //json 파일 set
@@ -67,7 +75,12 @@ public class MovieInfoDataManage {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) {
-		setJsonMovie("뷰티인사이드","120분");
+	
+	public static void fixMovie(int index) {//index받아와서 해당 영화 수정
+		JsonObject jsonobject = getJson();
+		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
+		JsonObject movieinfo =(JsonObject)movieInfos.get(index);
+		movieinfo.addProperty("title", runtime);
+		
 	}
 }
