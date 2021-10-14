@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
@@ -21,7 +22,6 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 			System.out.print("영화를 등록할 상영관을 선택해주세요>>>");
 			
 			int menuNum=InputRule.MenuRule(theatermenu);
-			
 			if(menuNum==0) return;
 			
 			System.out.println();
@@ -33,34 +33,49 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 			}
 			System.out.println();
 			
-			runningInfoDetailPage(date);
+			runningInfoDetailPage(menuNum-1,date);
 		}
 	}
-	public static void runningInfoDetailPage(String inputdate) { //8.2.3.1 상영관
-		String tmp="";
-		System.out.println("==2021년9월23일, 2관 상영정보==");
-		//특정상영관 특정 날짜에 등록된 영화들 읽어오기 (DataManage클래스 내 함수 호출)
-		System.out.println("07:00~08:30 오징어게임");
-		System.out.println("09:50~11:30 오징어게임");
-		System.out.println("15:00~16:30 오징어게임");
+	public static void runningInfoDetailPage(int theaterIndex,String inputdate) { //8.2.3.1 상영관
+		ArrayList<String[]> ri=RunningInfoManage.readDateRi(inputdate,theaterIndex);
+		System.out.println(inputdate.substring(0, 4)+"년"+inputdate.substring(4, 6)+"월"
+				+inputdate.substring(6, 8)+"일,"+
+				TheaterDataManage.readIndexTheaterName(theaterIndex)+" 상영정보");
 		System.out.println("==========================");
-
-		System.out.println("==========영화목록==========");
-		//등록된 영화 읽어오기 (DataManage클래스 내 함수 호출)
-		System.out.println("0. 뒤로가기");
-		System.out.println("1. 오징어게임 /90분");
-		System.out.println("2. DP /100분");
-		System.out.println("=========================");
+		for(int i=0;i<ri.size();i++) {
+			System.out.println(ri.get(i)[0].substring(0,2)+":"+
+					ri.get(i)[0].substring(2,4)+"~"+"끝시간"+" "+
+					ri.get(i)[1]);
+		}
+		
+		//등록된 영화 출력
+		String[] title=MovieInfoDataManage.getTitle(); //영화제목 받아오기
+		String[] runtime=MovieInfoDataManage.getRuntime(); //영화시간 받아오기
+		String[] movieInfo =new String[title.length+1],moviemenu=new String[title.length+1];
+		movieInfo[0]="뒤로가기"; moviemenu[0]="뒤로가기";
+		for(int i=1;i<title.length+1;i++) {
+			movieInfo[i]=title[i-1]+"/"+runtime[i-1];
+			moviemenu[i]=title[i-1];
+		}
+		System.out.println("======영화목록======");
+		Print.menu(movieInfo, true);
+		System.out.println("=================");
 
 		System.out.print("영화를 선택해주세요>>>");
-		//tmp=InputRule.MTRule();
-		if(tmp.equals("0")) return;
-		System.out.println();
-
-		System.out.print("상영시작시간을 설정하세요>>>");
-		tmp=InputRule.TimeRule();
-		System.out.println();
-
+		int menuNum=InputRule.MenuRule(moviemenu);
+		if(menuNum==0) return;//8.2.1로
+		//정상입력시
+		System.out.print("상영시작시간을 설정하세요>>>");//상영시간 중복시 오류처리 해야됨
+		String startTime=InputRule.TimeRule();
+		while(startTime==null) {
+			System.out.println("올바르지 않은 입력입니다.");
+			System.out.print("상영시작시간을 설정하세요>>>");
+			startTime=InputRule.TimeRule();
+		}
+		
+		
+		RunningInfoManage.setJson(inputdate, startTime,title[menuNum-1] , 
+				TheaterDataManage.readIndexTheaterName(theaterIndex), null);//제대로추가안됨
 		System.out.println("정상추가 되었습니다");
 	}
 }

@@ -88,6 +88,14 @@ public class TheaterDataManage {
 			//System.out.println(movieinfo.get("runtime"));
 		return rt;
 	}
+	public static String readIndexTheaterName(int index) {//index해당하는 영화관 출력
+		JsonObject jsonobject = getJson();
+		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
+		String rt=((JsonObject) theaterInfos.get(index)).get("theater").toString();
+			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
+			//System.out.println(movieinfo.get("runtime"));
+		return rt;
+	}
 	public static void fixTheater(int index,String newT,int row,int col) {//index받아와서 해당 영화관 수정
 		try {
 			Reader reader = new FileReader(".\\resource\\theater.json");
