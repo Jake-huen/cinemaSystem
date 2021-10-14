@@ -29,10 +29,10 @@ public class RunningInfoManage {
         }
     }
 
-    public static void setJson(String date, String time, String theater, ReserveInfo[] rsiArr) {
+    public static void setJson(String date, String time, String movie, String theater, ReserveInfo[] rsiArr) {
         getJson();
         try(FileWriter fw = new FileWriter(path)){
-            RunningInfo ri = new RunningInfo(date,time,theater,rsiArr);
+            RunningInfo ri = new RunningInfo(date,time,movie,theater,rsiArr);
             riArr[count++] = ri;
             RunningInfo[] riArrTmp = new RunningInfo[count];
 
