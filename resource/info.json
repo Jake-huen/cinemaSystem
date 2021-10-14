@@ -1,21 +1,102 @@
-{
-	"movies" : [
-		{
-		"code" : "202110110820A",
-		"movie" : "오징어 게임",
-		"date" : "20211011",
-		"time" : "0820",
-		"theater" : "A",
-		"reserve" : [
-				{
-				"userId" : "teamproject6",
-				"seat" : ["A3"]
-				},
-				{
-				"userId" : "teamproject5",
-				"seat" : ["B4"]
-				}
-			]
-		}
-	]
-}
+[
+  {
+    "code": "202110141249A",
+    "date": "20211014",
+    "time": "1249",
+    "theater": "A",
+    "reserve": [
+      {
+        "userId": "id",
+        "seat": [
+          "a3"
+        ]
+      }
+    ]
+  },
+  {
+    "code": "202110131249A",
+    "date": "20211013",
+    "time": "1249",
+    "theater": "A",
+    "reserve": [
+      {
+        "userId": "id",
+        "seat": [
+          "a3"
+        ]
+      }
+    ]
+  },
+  {
+    "code": "202110151021B",
+    "date": "20211015",
+    "time": "1021",
+    "theater": "B",
+    "reserve": [
+      {
+        "userId": "ganadara123",
+        "seat": [
+          "A3",
+          "A4",
+          "C5"
+        ]
+      },
+      {
+        "userId": "hellohi123",
+        "seat": [
+          "A3",
+          "A4",
+          "C5"
+        ]
+      }
+    ]
+  },
+  {
+    "code": "202110151021B",
+    "date": "20211015",
+    "time": "1021",
+    "theater": "B",
+    "reserve": [
+      {
+        "userId": "ganadara123",
+        "seat": [
+          "A3",
+          "A4",
+          "C5"
+        ]
+      },
+      {
+        "userId": "hellohi123",
+        "seat": [
+          "A3",
+          "A4",
+          "C5"
+        ]
+      }
+    ]
+  },
+  {
+    "code": "202110151021B",
+    "date": "20211015",
+    "time": "1021",
+    "theater": "B",
+    "reserve": [
+      {
+        "userId": "ganadara123",
+        "seat": [
+          "A3",
+          "A4",
+          "C5"
+        ]
+      },
+      {
+        "userId": "hellohi123",
+        "seat": [
+          "A3",
+          "A4",
+          "C5"
+        ]
+      }
+    ]
+  }
+]
