@@ -2,4 +2,4 @@
 /bin/
 *.class
 .classpath
-.setting/
+.settings/
