@@ -1,4 +1,3 @@
-
 public class CustomerMainPage {
 	private String id;
 	private String date;

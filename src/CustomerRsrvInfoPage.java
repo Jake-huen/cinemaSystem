@@ -1,4 +1,3 @@
-
 public class CustomerRsrvInfoPage {
 	private String id;
 	private String date;
