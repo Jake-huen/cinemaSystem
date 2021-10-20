@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 public class RunningInfo {//상영정보
     private String code;
@@ -6,9 +6,9 @@ public class RunningInfo {//상영정보
     private String date; //날짜, 시각, 상영관, 예약 좌석
     private String time;
     private String theater;
-    private ReserveInfo[] reserve;
+    private ArrayList<ReserveInfo> reserve;
 
-    RunningInfo(String date, String time, String movie, String theater, ReserveInfo[] reserve){
+    RunningInfo(String date, String time, String movie, String theater, ArrayList<ReserveInfo> reserve){
         this.code = date + time + theater;
         this.movie = movie;
         this.date = date;
@@ -57,11 +57,11 @@ public class RunningInfo {//상영정보
         this.theater = theater;
     }
 
-    public ReserveInfo[] getReserve() {
+    public ArrayList<ReserveInfo> getReserve() {
         return reserve;
     }
 
-    public void setReserve(ReserveInfo[] reserve) {
+    public void setReserve(ArrayList<ReserveInfo> reserve) {
         this.reserve = reserve;
     }
 

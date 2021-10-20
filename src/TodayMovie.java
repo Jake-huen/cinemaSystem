@@ -3,9 +3,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class TodayMovie {
-	private static ArrayList<RunningInfo> riArr;
+    private static ArrayList<RunningInfo> riArr;
     private static ArrayList<RunningInfo> riList;
-
     static Scanner scan = new Scanner(System.in);
 
     public static void ImportToday(String date) {
@@ -15,19 +14,19 @@ public class TodayMovie {
             if(riArr.get(i).getDate().equals(date))  riList.add(riArr.get(i));
         }
     }
-    public static void PrintToday(String date) { //초기 화면
+    public static void PrintToday(String ID, String date) { //초기 화면
         ImportToday(date);
-        System.out.println("===== 오늘 영화 예매하기 ======");
+        System.out.println("===== 오늘 영화 예매하기 " +date+" ======");
         for(RunningInfo ri : riList){
             System.out.println(ri.getTime()+" | "+ri.getTheater()+"관 | "+ri.getMovieName());
         }
 //        System.out.println("08:30 | 차리서관 | 오징어 게임");
 //        System.out.println("14:25 | 별관 | 문어 게임");
 //        System.out.println("19:30 | 3관 | 오징어 게임\n");
-        InputToday();
+        InputToday(ID);
     }
 
-    public static void InputToday() {
+    public static void InputToday(String ID) {
         while(true) {
             System.out.println("예매할 영화를 입력해주세요. (시간␣상영관␣오징어게임)");
             System.out.print(">>>");
@@ -53,7 +52,20 @@ public class TodayMovie {
                     }
                 }
                 if(index < riList.size()) {
-                    SeatSelect.SeatMain(riList.get(index));
+                    Pair[] pairs = SeatSelect.SeatMain(riList.get(index));
+                    if(pairs == null) break; //좌석 선택 실패
+                    
+                    String[] seat = new String[pairs.length];
+                    int i = 0;
+                    for(Pair pair : pairs){
+                        char chx = (char)(pair.getRow() + 'A');
+                        String tmpx = ""+chx;
+                        String tmpy = Integer.toString(pair.getCol()+1);
+                        String tmpSeat = tmpx + tmpy;
+                        seat[i++] = tmpSeat;
+                    }
+                    ReserveInfo rsi = new ReserveInfo(ID, seat);
+                    RunningInfoManage.updateReserve(riList.get(index), rsi);
                     break;
                 }
             }

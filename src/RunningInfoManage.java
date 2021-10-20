@@ -30,12 +30,32 @@ public class RunningInfoManage {
         }
     }
 
-    public static void setJson(String date, String time, String movie, String theater, ReserveInfo[] rsiArr) {
+    public static void setJson(String date, String time, String movie, String theater, ArrayList<ReserveInfo> rsiArr) {
         getJson();
         try(FileWriter fw = new FileWriter(path)){
             RunningInfo ri = new RunningInfo(date,time,movie,theater,rsiArr);
             riArr.add(ri);
 
+            gson.toJson(riArr, fw);
+            fw.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void updateReserve(RunningInfo ri, ReserveInfo rsi){
+        getJson();
+        try(FileWriter fw = new FileWriter(path)){
+            for(RunningInfo jsonRI : riArr){
+                if(ri.getMovieName().equals(jsonRI.getMovieName())
+                && ri.getTheater().equals(jsonRI.getTheater())
+                && ri.getTime().equals(jsonRI.getTime())
+                && ri.getDate().equals(jsonRI.getDate())){
+                    System.out.println("true");
+                    ArrayList<ReserveInfo> jsonReserve = jsonRI.getReserve();
+                    jsonReserve.add(rsi);
+                }
+            }
             gson.toJson(riArr, fw);
             fw.flush();
         }
