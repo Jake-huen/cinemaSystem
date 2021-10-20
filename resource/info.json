@@ -3,8 +3,33 @@
     "code": "202110151021A",
     "movie": "오징어 게임",
     "date": "20211015",
-    "time": "1021",
-    "theater": "차리서관",
+    "time": "10:21",
+    "theater": "A",
+    "reserve": [
+      {
+        "userId": "ganadara123",
+        "seat": [
+          "A3",
+          "A4",
+          "C5"
+        ]
+      },
+      {
+        "userId": "hellohi123",
+        "seat": [
+          "A3",
+          "A4",
+          "C5"
+        ]
+      }
+    ]
+  },
+  {
+    "code": "202110151021A",
+    "movie": "오징어 게임",
+    "date": "20211014",
+    "time": "10:21",
+    "theater": "A",
     "reserve": [
       {
         "userId": "ganadara123",
