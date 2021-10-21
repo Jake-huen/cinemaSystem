@@ -1,63 +1,113 @@
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class SearchMovie {
-	public static void SearchMain() {
-		System.out.println("===== 상영영화 검색 ======");
-		System.out.println("0. 돌아가기");
-		System.out.println("1. 날짜 검색 모드");
-		System.out.println("2. 영화 제목 검색 모드");
-		while(true) {
-			System.out.print("메뉴를 선택해주세요 >>>");
-			String[] menu = {"돌아가기", "날짜 검색 모드","영화 제목 검색 모드"};
-			int inputMenu = InputRule.MenuRule(menu);
-			if(inputMenu == -1) {
-				System.out.println("올바르지 않은 입력입니다.");
-			}else {
-				switch(inputMenu) {
-				case 0: //돌아가기
-					return;
-				case 1:
-					//날짜 검색 모드
-					SearchByDate();
-					break;
-				case 2:
-					//영화 제목 검색 모드
-					SearchByTitle();
-					break;
-				}
-			}
-			
-		}
-		
-	}
-	
-	public static void SearchByDate() {
-		System.out.println("===== 영화검색_날짜 검색 모드 ======");
-		System.out.print("검색할 날짜를 입력해주세요(뒤로가기: 0)>>> ");
-		String date = InputRule.DateRule();
-		if(date.equals("0")) return;
-		System.out.println("===== 오늘 영화 예매하기 : 2021년 9월 24일 ======");
-		System.out.println("08:30 | 차리서관 | 오징어 게임");
-		System.out.println("14:25 | 별관 | 문어 게임");
-		System.out.println("19:30 | 3관 | 오징어 게임\n");
-		System.out.print("예매할 영화를 선택해주세요(뒤로가기 : 0) >>>");
-		String[] str = {""};
-		int input = InputRule.MenuRule(str); //*****
-		if(input == -1) return;
-	}
-	
-	public static void SearchByTitle() {
-		System.out.println("===== 영화검색_영화 제목 검색 모드 ======");
-		System.out.print("검색할 영화제목을 입력해주세요(뒤로가기: 0) >>> ");
-		String title=""; //영화제목입력받기
-		InputRule.MTRule(title);
-		if(Objects.isNull(title)) return;
-		System.out.println("08:30 | 차리서관 | 오징어 게임");
-		System.out.println("14:25 | 별관 | 문어 게임");
-		System.out.println("19:30 | 3관 | 오징어 게임\n");
-		System.out.print("예매할 영화를 선택해주세요(뒤로가기 : 0) >>>");
-		String[] str = {""};
-		int input = InputRule.MenuRule(str); //*****
-		if(input == -1) return;
-	}
+    static Scanner sc = new Scanner(System.in);
+
+    public static void SearchMain(String ID) {
+        System.out.println("===== 상영영화 검색 ======");
+        System.out.println("0. 돌아가기");
+        System.out.println("1. 날짜 검색 모드");
+        System.out.println("2. 영화 제목 검색 모드");
+        while(true) {
+            System.out.print("메뉴를 선택해주세요 >>>");
+            String[] menu = {"돌아가기", "날짜 검색 모드","영화 제목 검색 모드"};
+            int inputMenu = InputRule.MenuRule(menu);
+            if(inputMenu == -1) {
+                System.out.println("올바르지 않은 입력입니다.");
+            }else {
+                switch(inputMenu) {
+                    case 0: //돌아가기
+                        return;
+                    case 1:
+                        //날짜 검색 모드
+                        SearchByDate(ID);
+                        break;
+                    case 2:
+                        //영화 제목 검색 모드
+                        SearchByTitle(ID);
+                        break;
+                }
+            }
+
+        }
+
+    }
+
+    public static void SearchByDate(String ID) {
+        System.out.println("===== 영화검색_날짜 검색 모드 ======");
+        System.out.print("검색할 날짜를 입력해주세요(뒤로가기: 0)>>> ");
+        String date = InputRule.DateRule();
+        if(date.equals("0")) return;
+
+        ArrayList<RunningInfo> riList = new ArrayList<>();
+        ArrayList<RunningInfo> riArr = RunningInfoManage.getRiArr();
+        int count = 0;
+        for(int i = 0; i < riArr.size(); i++) {
+            if(riArr.get(i).getDate().equals(date))  {
+                count++;
+                riList.add(riArr.get(i));
+            }
+        }
+        if(count == 0){
+            System.out.println("해당 날짜에 상영되는 영화가 없습니다.");
+            return;
+        }
+
+        int p = 1;
+        for(RunningInfo ri : riList){
+            System.out.println(p+". "+ri.getDate()+" | "+ri.getTime()+" | "+ri.getTheater()+"관 | "+ri.getMovieName());
+            p++;
+        }
+        System.out.print("예매할 영화를 선택해주세요(뒤로가기 : 0) >>>");
+        int input = sc.nextInt();
+        if(input == 0) return;
+        else success(ID, riList, input-1);
+    }
+
+    public static void SearchByTitle(String ID) {
+        System.out.println("===== 영화검색_영화 제목 검색 모드 ======");
+        System.out.print("검색할 영화제목을 입력해주세요(뒤로가기: 0) >>> ");
+        String title=sc.nextLine(); //영화제목입력받기
+        String movieTitle = InputRule.MTRule(title);
+        if(Objects.isNull(title)) return;
+
+        ArrayList<RunningInfo> riList = new ArrayList<>();
+        ArrayList<RunningInfo> riArr = RunningInfoManage.getRiArr();
+        int count = 0;
+        for(int i = 0; i < riArr.size(); i++) {
+            if(riArr.get(i).getMovieName().contains(movieTitle))  {
+                count++;
+                riList.add(riArr.get(i));
+            }
+        }
+
+        int p = 1;
+        for(RunningInfo ri : riList){
+            System.out.println(p+". "+ri.getDate()+" | "+ri.getTime()+" | "+ri.getTheater()+"관 | "+ri.getMovieName());
+            p++;
+        }
+        System.out.print("예매할 영화를 선택해주세요(뒤로가기 : 0) >>>");
+        int input = sc.nextInt();
+        if(input == 0) return;
+        else success(ID, riList, input-1);
+    }
+
+    public static void success(String ID, ArrayList<RunningInfo> riList, int index) {
+        Pair[] pairs = SeatSelect.SeatMain(riList.get(index));
+        if(pairs == null) return;//좌석 선택 실패
+
+        String[] seat = new String[pairs.length];
+        int i = 0;
+        for(Pair pair : pairs){
+            char chx = (char)(pair.getRow() + 'A');
+            String tmpx = ""+chx;
+            String tmpy = Integer.toString(pair.getCol()+1);
+            String tmpSeat = tmpx + tmpy;
+            seat[i++] = tmpSeat;
+        }
+        ReserveInfo rsi = new ReserveInfo(ID, seat);
+        test.updateReserve(riList.get(index), rsi);
+    }
 }
