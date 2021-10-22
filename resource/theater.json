@@ -11,18 +11,8 @@
       "col": 21
     },
     {
-      "theater": "테스트관",
-      "row": 15,
-      "col": 4
-    },
-    {
-      "theater": "리서관",
-      "row": 3,
-      "col": 6
-    },
-    {
-      "theater": "삼성관",
-      "row": 3,
+      "theater": "bo관",
+      "row": 4,
       "col": 6
     }
   ]

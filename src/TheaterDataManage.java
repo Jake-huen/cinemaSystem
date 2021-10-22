@@ -52,7 +52,7 @@ public class TheaterDataManage {
 		String[] rt=new String[theaterInfos.size()];
 		for(int i=0;i<theaterInfos.size();i++) { //영화전체 크기만큼 가져오기
 			rt[i]=((JsonObject) theaterInfos.get(i)).get("theater").toString();
-			System.out.println(rt[i]);
+			// System.out.println(rt[i]);
 			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
 			//System.out.println(movieinfo.get("title"));
 		}
@@ -83,9 +83,10 @@ public class TheaterDataManage {
 		JsonObject jsonobject = getJson();
 		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
 		String rt=((JsonObject) theaterInfos.get(index)).get("theater").toString();
+		rt = rt.substring(1,rt.length()-1);
 		int row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
 		int col=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("col").toString());
-		rt+="/"+row*col+"석";
+		rt+=" / "+row*col+"석";
 			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
 			//System.out.println(movieinfo.get("runtime"));
 		return rt;
