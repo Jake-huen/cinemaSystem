@@ -1,4 +1,4 @@
-package src.customer;
+
 
 public class UserRsrvInfo {
 	private RunningInfo runInfo;

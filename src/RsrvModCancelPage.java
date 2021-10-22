@@ -1,4 +1,3 @@
-package src.customer;
 
 public class RsrvModCancelPage {
 	private UserInfo user;
