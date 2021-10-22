@@ -15,4 +15,5 @@ public class UserRsrvInfo {
 		infoStr += rsrvInfo.toString();
 		return infoStr;
 	}
+	
 }
