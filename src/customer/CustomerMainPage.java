@@ -1,5 +1,7 @@
+package src.customer;
+
 public class CustomerMainPage {
-	private String id;
+	private UserInfo user;
 	private String date;
 	private String time;
 	private String [] menuName = {"", "오늘 영화 예매하기","영화 검색","예매정보 확인 및 수정 삭제","종료하기"};
@@ -7,11 +9,11 @@ public class CustomerMainPage {
 	
 	private CustomerRsrvInfoPage cusRsrvPage;
 	
-	public CustomerMainPage(String id, String date, String time) {
-		this.id = id;
+	public CustomerMainPage(UserInfo user, String date, String time) {
+		this.user = user;
 		this.date = date;
 		this.time = time;
-		cusRsrvPage = new CustomerRsrvInfoPage(this.id, this.date, this.time);
+		cusRsrvPage = new CustomerRsrvInfoPage(this.user, this.date, this.time);
 	}
 	
 	public void menu() {
@@ -39,8 +41,7 @@ public class CustomerMainPage {
 					// 영화 검색 객체 or 함수 추가 
 					break;
 				case 3:// 예매 정보 확인 및 수정 삭제
-					CustomerRsrvInfoPage cusResInfo = new CustomerRsrvInfoPage(id,date,time);
-					cusResInfo.menu();
+					cusRsrvPage.menu();
 					break;
 				case 4: // 종료 
 					System.exit(0);
@@ -52,8 +53,6 @@ public class CustomerMainPage {
 		}
 		
 	}
-	
-
 	
 	
 	
