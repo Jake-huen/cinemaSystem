@@ -23,5 +23,15 @@ public class Print {
 		
 		return year+"년 "+month +"월 "+day+"일";
 	}
+	
+	// 시간 0000 을 00:00 형태로 변환하는 함수 
+	public static String makeTimeFormet(String time) {
+		final int HOUR_IDX = 2;
+		
+		String hour = time.substring(0,HOUR_IDX);
+		String min = time.substring(HOUR_IDX);
+		
+		return hour+":"+min;
+	}
 
 }
