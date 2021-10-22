@@ -99,9 +99,10 @@ public class MovieManagePage {//8.2.1영화관리페이지
 			}
 
 			System.out.print("상영시간>>");
-			if((runtime=InputRule.RunTimeRule())==null) {//분이 사라지는 문제
+			if((runtime=InputRule.RunTimeRule())==null) {
 				return;
 			}
+			runtime = runtime +"분";
 			MovieInfoDataManage.fixMovie(num, title, runtime);
 		}else if(menuNum==2) {//영화 삭제
 			MovieInfoDataManage.deleteMovie(num);

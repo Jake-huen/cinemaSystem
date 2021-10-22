@@ -9,23 +9,19 @@
       "runtime": "120분"
     },
     {
-      "title": "문어게임",
-      "runtime": "115"
-    },
-    {
-      "title": "가나다",
-      "runtime": "10"
-    },
-    {
       "title": "김태헌",
       "runtime": "100"
     },
     {
-      "title": "마이네임",
-      "runtime": "90"
+      "title": "마이 네임",
+      "runtime": "120분"
     },
     {
       "title": "가나다라",
+      "runtime": "90분"
+    },
+    {
+      "title": "겟마을",
       "runtime": "90분"
     }
   ]

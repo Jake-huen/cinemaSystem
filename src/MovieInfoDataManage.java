@@ -77,7 +77,11 @@ public class MovieInfoDataManage {
 		JsonObject jsonobject = getJson();
 		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
 		String rt=((JsonObject) movieInfos.get(index)).get("title").toString();
-		rt+="/"+((JsonObject) movieInfos.get(index)).get("runtime").toString();
+		rt= rt.substring(1,rt.length()-1);
+		String runtime_temp = ((JsonObject) movieInfos.get(index)).get("runtime").toString();
+		runtime_temp= runtime_temp.substring(1,runtime_temp.length()-1);
+		rt+=" / "+runtime_temp;
+		// System.out.println(rt);
 			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
 			//System.out.println(movieinfo.get("runtime"));
 		return rt;
