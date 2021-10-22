@@ -42,7 +42,7 @@ public class MovieManagePage {//8.2.1영화관리페이지
 
 		System.out.print("영화제목>>");
 		title=scan.nextLine();
-		if(InputRule.MTRule(title)==null) {
+		if(InputRule.MTRule(title)==null) { //중복 입력인 경우 오류처리 필요
 			System.out.println("올바르지 않은 입력입니다.");
 			return;
 		}
@@ -51,7 +51,7 @@ public class MovieManagePage {//8.2.1영화관리페이지
 		if((runtime=InputRule.RunTimeRule())==null) {
 			return;
 		}
-
+		runtime = runtime+"분";
 		MovieInfoDataManage.setJsonMovie(title,runtime); //데이터베이스에 등록
 
 		System.out.println("=====등록완료=====");
@@ -62,7 +62,9 @@ public class MovieManagePage {//8.2.1영화관리페이지
 		String[] movieInfo =new String[title.length+1],moviemenu=new String[title.length+1];
 		movieInfo[0]="뒤로가기"; moviemenu[0]="뒤로가기";
 		for(int i=1;i<title.length+1;i++) {
-			movieInfo[i]=title[i-1]+"/"+runtime[i-1];
+			title[i-1]=title[i-1].substring(1,title[i-1].length()-1);
+			runtime[i-1]=runtime[i-1].substring(1,runtime[i-1].length()-1);
+			movieInfo[i]=title[i-1]+" / "+runtime[i-1];
 			moviemenu[i]=title[i-1];
 		}
 		System.out.println("======영화목록======");
