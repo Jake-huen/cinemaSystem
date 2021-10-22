@@ -4,7 +4,7 @@ public class TheaterInfo {//상영관정보
 	private int row;
 	private int col;
 	
-	public TheaterInfo (Sting name, int row, int col) {
+	public TheaterInfo (String name, int row, int col) {
 		this.name= name;
 		this.row =row;
 		this.col=col;
@@ -14,11 +14,11 @@ public class TheaterInfo {//상영관정보
 		return name;
 	}
 	
-	public String getRow() {
+	public int getRow() {
 		return row;
 	}
 	
-	public String getCol() {
+	public int getCol() {
 		return col;
 	}
 	

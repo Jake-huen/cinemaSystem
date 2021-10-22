@@ -11,8 +11,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import examples.TheaterInfo;
-
 public class TheaterDataManage {
 	static String theater;
 	static int row;
