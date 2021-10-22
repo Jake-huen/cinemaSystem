@@ -1,16 +1,25 @@
-import java.util.*;
 
 public class TheaterInfo {//상영관정보
-	String Name;
-	int row;
-	int col;
-	List<Map<String, Object>> theaters;
+	private String name;
+	private int row;
+	private int col;
 	
-	public List<Map<String, Object>> getTheaters() {
-		return theaters;
+	public TheaterInfo (Sting name, int row, int col) {
+		this.name= name;
+		this.row =row;
+		this.col=col;
 	}
-	public void setTheaters(List<Map<String, Object>> theaters) {
-		this.theaters = theaters;
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getRow() {
+		return row;
+	}
+	
+	public String getCol() {
+		return col;
 	}
 	
 }

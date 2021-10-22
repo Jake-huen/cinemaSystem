@@ -11,6 +11,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import examples.TheaterInfo;
+
 public class TheaterDataManage {
 	static String theater;
 	static int row;
@@ -52,7 +54,6 @@ public class TheaterDataManage {
 		String[] rt=new String[theaterInfos.size()];
 		for(int i=0;i<theaterInfos.size();i++) { //영화전체 크기만큼 가져오기
 			rt[i]=((JsonObject) theaterInfos.get(i)).get("theater").toString();
-			// System.out.println(rt[i]);
 			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
 			//System.out.println(movieinfo.get("title"));
 		}
@@ -83,10 +84,9 @@ public class TheaterDataManage {
 		JsonObject jsonobject = getJson();
 		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
 		String rt=((JsonObject) theaterInfos.get(index)).get("theater").toString();
-		rt = rt.substring(1,rt.length()-1);
 		int row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
 		int col=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("col").toString());
-		rt+=" / "+row*col+"석";
+		rt+="/"+row*col+"석";
 			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
 			//System.out.println(movieinfo.get("runtime"));
 		return rt;
@@ -167,8 +167,24 @@ public class TheaterDataManage {
 		}
 		System.out.println("삭제완료");
 	}
-//	public static void main(String args[]) {
-//		getTheaterName();
-//	}
+	
+	
+	//상영관 명 입력하면 TheaterInfo객체 반환하는 함수 
+	public static TheaterInfo findTheater(String theaterName) {
+		JsonObject jsonobject = getJson();
+		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
+		
+		for( int i = 0;i<theaterInfos.size();i++) {
+			String theater=((JsonObject) theaterInfos.get(i)).get("theater").toString();
+			if(theater.equals(theaterName)) {
+				int row=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("row").toString());
+				int col=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("col").toString());
+				
+				return new TheaterInfo(theater,row,col);
+			}
+			
+		}
+		return null;
+	}
 }
 	

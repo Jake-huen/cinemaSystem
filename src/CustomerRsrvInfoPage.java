@@ -1,4 +1,5 @@
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,31 +8,21 @@ public class CustomerRsrvInfoPage {
 	private String date;
 	private String time;
 	private int rsrvNum = 0; // 예약 영화 개수
-	private ArrayList<RunningInfo> rsvInfos = new ArrayList<RunningInfo>(); 
+	// 상영정보 + 예매정보 저장 배열 
+	private ArrayList<UserRsrvInfo> userRsrvInfos; 
 	
 	public CustomerRsrvInfoPage(UserInfo user, String date, String time) {
 		this.user = user;
 		this.date = date;
 		this.time = time;
 		
-		/* 예매 영화 상영정보 가져오기*/
-		// user 정보 중 code 가져오기 
-		List<String> movCodes =new ArrayList<String>();
-		movCodes = LoginDataManage.getCode(user.getId());
-		
-		// 현재 등록된 전체 상영정보 가져오기
-		ArrayList<RunningInfo> riArr = RunningInfoManage.getRiArr();
 
-		// 사용자가 예매한 상영정보만 저장하기
-		for(String movieCode : movCodes) {
-			for(RunningInfo runInfo : riArr) {
-				if(runInfo.getCode().equals(movieCode))
-					rsvInfos.add(runInfo);
-			}
-		}
 	}
 	
 	public void menu() {
+		// 예매 정보 (상영정보 + 예매좌석) 가져오기
+		getCurRunRsrvInfo();
+		
 		while(true) {
 			System.out.println("===== 예매 정보 =====");
 	
@@ -52,7 +43,7 @@ public class CustomerRsrvInfoPage {
 			}
 			else {
 				// 예매 수정 및 취소 페이지 
-				RsrvModCancelPage modCancelPg = new RsrvModCancelPage(user,rsvInfos.get(menuNum));
+				RsrvModCancelPage modCancelPg = new RsrvModCancelPage(user, userRsrvInfos.get(menuNum));
 				modCancelPg.menu();
 			} 
 		}
@@ -62,25 +53,15 @@ public class CustomerRsrvInfoPage {
 	private String[] makeMenuNameforPrint() {
 		
 		// 데이터에서 예매 정보 개수 가져오기 - 미구현 (현재 날짜랑 시간을 인자로 받아야함)
-		rsrvNum = rsvInfos.size() + 1; // 상영정보 개수 + 돌아가기 메뉴 
+		rsrvNum = userRsrvInfos.size() + 1; // 상영정보 개수 + 돌아가기 메뉴 
 		String[] menuName = new String[rsrvNum];
 		
-		// 메뉴 이름 배열 만들기 - 미구현 
-		
-		/* <구현방식>
-		 * 1. 우선 예매된 상영정보에 대한 내용을 객체로 받아오기 - ok
-		 * 1.1 id로 login.json의 code 가져오기 - ok
-		 * 1.2 code로 info.json의 상영정보 찾기 - ok
-		 * 1.3 필요한 데이터 모두 모아서 객체로 받아오기 - ok
-		 * 2. 상영정보 객체 String으로 반환하는 함수 만들기 (어디서 만들지 결정 필요) 
-		 * 3. 반환된 String 값 -> menuName에 넣기 
-		 */ 
-		
+		// 메뉴 이름 배열 만들기
 		for(int i=0;i<rsrvNum;i++) { // 임시 
 			if(i==0)
 				menuName[0]="돌아가기";
 			else 
-				menuName[i]="영화"+i;
+				menuName[i]=userRsrvInfos.get(i).toString();
 		}
 		
 		return menuName;
@@ -100,108 +81,38 @@ public class CustomerRsrvInfoPage {
 		return menuName;
 	}
 	
-	
-// --------------------------- 중첩 class -----------------------------------------------
-	// 영화 수정 취소 페이지 
-	class RsrvModCancelPage{
+	private ReserveInfo getRsrvInfo(RunningInfo runInfo) {
+		// 상영정보에서 해당 user의 예매 정보만 가져오기 
+		ArrayList<ReserveInfo> totalRsrvInfos = runInfo.getReserve();
 		
-		private UserInfo user;
-		private RunningInfo rsvInfo;
-		
-		
-		private String[] menuName= {"돌아가기","예매 인원 수정","예매 좌석 수정","예매 취소"};
-		
-		// 생성자 
-		public RsrvModCancelPage(UserInfo user, RunningInfo rsvInfo) {
-			this.user = user;
-			this.rsvInfo = rsvInfo;
+		for(ReserveInfo rsrvInfo : totalRsrvInfos) {
+			if(rsrvInfo.getUserId().equals(user.getId()))
+				return rsrvInfo;
 		}
 		
-		
-		public void menu() {
-			while(true) {
-				System.out.println("===== 예매 수정 및 취소 =====");
-				
-				// 예매 정보 출력
-				printRsrvInfo(); 
-				
-				Print.menu(menuName, true);
-				System.out.print(">>> ");
-				
-				// 메뉴 입력
-				int menuNum=InputRule.MenuRule(menuName);
-				
-				switch(menuNum) {
-				case 0: // 돌아가기
-					return;
-				case 1:// 예매 인원 수정
-					modRsrvPplNum();
-					break;
-				case 2:// 예매 좌석 수정
-					// 예매 좌석 수정 객체 - 미구현 
-					break;
-				case 3: // 예매 취소 
-					cancelRsrv();
-					return; // 8.3.4로 돌아가기 
-					
-				default:
-					System.out.println("올바르지 않은 입력입니다.\n");
-				}
-			}
-		}
-		
-		// 예매 인원 수정 함수 
-		private void modRsrvPplNum() {
-			int modPplNum;
-			
-			while(true) {
-				System.out.println("===== 예매 인원 수정 =====");
-				printRsrvInfo(); // 예매 정보 출력 
-				System.out.print("예매 인원(뒤로가기 : 0) >>> ");
-				modPplNum = InputRule.rsrvPplInput(); // 수정 인원 입력받기 
-				
-				if(modPplNum == 0)
-					return; // 돌아가기 
-				else if(modPplNum == -1) {
-					System.out.println("올바르지 않은 입력입니다.\n");
-					continue;
-				}else 
-					break;
-			}
-			
-			// 예매 좌석 객체에 인원수 전달 && 예매 좌석 선택 함수 실행 - 미구현 
-		}
-		
-		// 예매 취소 함수 
-		private void cancelRsrv() {
-			while(true) {
-				System.out.println("===== 예매 취소 =====");
-				printRsrvInfo(); // 예매 정보 출력 
-				System.out.print("예매를 취소하시겠습니까? (Y/N) >>> ");
-				
-				int answer = InputRule.YesOrNo();
-				
-				if(answer == 1) {
-					// 예매 정보 삭제하는 함수 실행 - 미구현(파일접근 필요) 
-					return;
-				}
-				else if(answer == -1) {
-					return;
-				}else 
-					System.out.println("올바르지 않은 입력입니다.\n");
-			}
-			
-		}
-		
-		// 예매 정보 출력 함수 
-		private void printRsrvInfo() {
-			System.out.println("-------- 예매 정보 --------- ");
-			// 예매 정보 출력하는 함수 넣기 - 미구현 
-			
-			System.out.println("몇월 몇일 땡땡 영화");
-			System.out.println("-------------------------- ");
-		}
-		
+		return null;
 	}
+	
+	// 상영 예매 정보 새로 가져오는 함수 
+	private void getCurRunRsrvInfo() {
+		
+		/* 예매 영화 상영정보 가져오기*/
+		userRsrvInfos = new ArrayList<UserRsrvInfo>(); 
+		// user 정보 중 code 가져오기 
+		List<String> movCodes =new ArrayList<String>();
+		movCodes = LoginDataManage.getCode(user.getId());
+		
+		// 현재 등록된 전체 상영정보 가져오기
+		ArrayList<RunningInfo> riArr = RunningInfoManage.getRiArr();
+
+		// 사용자가 예매한 상영정보 + 예매 정보 만 저장하기
+		for(String movieCode : movCodes) {
+			for(RunningInfo runInfo : riArr) {
+				if(runInfo.getCode().equals(movieCode)) 
+					userRsrvInfos.add(new UserRsrvInfo(runInfo , getRsrvInfo(runInfo)));
+			}
+		}
+	}
+
 }
 
