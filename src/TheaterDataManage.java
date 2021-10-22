@@ -11,6 +11,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import examples.TheaterInfo;
+
 public class TheaterDataManage {
 	static String theater;
 	static int row;
@@ -164,6 +166,25 @@ public class TheaterDataManage {
 			e.printStackTrace();
 		}
 		System.out.println("삭제완료");
+	}
+	
+	
+	//상영관 명 입력하면 TheaterInfo객체 반환하는 함수 
+	public static TheaterInfo findTheater(String theaterName) {
+		JsonObject jsonobject = getJson();
+		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
+		
+		for( int i = 0;i<theaterInfos.size();i++) {
+			String theater=((JsonObject) theaterInfos.get(i)).get("theater").toString();
+			if(theater.equals(theaterName)) {
+				int row=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("row").toString());
+				int col=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("col").toString());
+				
+				return new TheaterInfo(theater,row,col);
+			}
+			
+		}
+		return null;
 	}
 }
 	
