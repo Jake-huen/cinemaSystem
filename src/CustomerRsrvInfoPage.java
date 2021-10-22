@@ -1,13 +1,34 @@
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomerRsrvInfoPage {
-	private String id;
+	private UserInfo user;
 	private String date;
 	private String time;
-	private int rsrvNum = 0; // 예약 영화 개수 
+	private int rsrvNum = 0; // 예약 영화 개수
+	private ArrayList<RunningInfo> rsvInfos = new ArrayList<RunningInfo>(); 
 	
-	public CustomerRsrvInfoPage(String id, String date, String time) {
-		this.id = id;
+	public CustomerRsrvInfoPage(UserInfo user, String date, String time) {
+		this.user = user;
 		this.date = date;
 		this.time = time;
+		
+		/* 예매 영화 상영정보 가져오기*/
+		// user 정보 중 code 가져오기 
+		List<String> movCodes =new ArrayList<String>();
+		movCodes = LoginDataManage.getCode(user.getId());
+		
+		// 현재 등록된 전체 상영정보 가져오기
+		ArrayList<RunningInfo> riArr = RunningInfoManage.getRiArr();
+
+		// 사용자가 예매한 상영정보만 저장하기
+		for(String movieCode : movCodes) {
+			for(RunningInfo runInfo : riArr) {
+				if(runInfo.getCode().equals(movieCode))
+					rsvInfos.add(runInfo);
+			}
+		}
 	}
 	
 	public void menu() {
@@ -31,7 +52,7 @@ public class CustomerRsrvInfoPage {
 			}
 			else {
 				// 예매 수정 및 취소 페이지 
-				RsrvModCancelPage modCancelPg = new RsrvModCancelPage(id);
+				RsrvModCancelPage modCancelPg = new RsrvModCancelPage(user,rsvInfos.get(menuNum));
 				modCancelPg.menu();
 			} 
 		}
@@ -41,16 +62,16 @@ public class CustomerRsrvInfoPage {
 	private String[] makeMenuNameforPrint() {
 		
 		// 데이터에서 예매 정보 개수 가져오기 - 미구현 (현재 날짜랑 시간을 인자로 받아야함)
-		rsrvNum = 3; // 임시 
+		rsrvNum = rsvInfos.size() + 1; // 상영정보 개수 + 돌아가기 메뉴 
 		String[] menuName = new String[rsrvNum];
 		
 		// 메뉴 이름 배열 만들기 - 미구현 
 		
 		/* <구현방식>
-		 * 1. 우선 예매된 상영정보에 대한 내용을 객체로 받아오기 
-		 * 1.1 id로 login.json의 code 가져오기 
-		 * 1.2 code로 info.json의 상영정보 찾기 
-		 * 1.3 필요한 데이터 모두 모아서 객체로 받아오기
+		 * 1. 우선 예매된 상영정보에 대한 내용을 객체로 받아오기 - ok
+		 * 1.1 id로 login.json의 code 가져오기 - ok
+		 * 1.2 code로 info.json의 상영정보 찾기 - ok
+		 * 1.3 필요한 데이터 모두 모아서 객체로 받아오기 - ok
 		 * 2. 상영정보 객체 String으로 반환하는 함수 만들기 (어디서 만들지 결정 필요) 
 		 * 3. 반환된 String 값 -> menuName에 넣기 
 		 */ 
@@ -84,13 +105,16 @@ public class CustomerRsrvInfoPage {
 	// 영화 수정 취소 페이지 
 	class RsrvModCancelPage{
 		
-		private String id;
-		/*private 상영정보 담은 객체 - 미구현*/
+		private UserInfo user;
+		private RunningInfo rsvInfo;
+		
+		
 		private String[] menuName= {"돌아가기","예매 인원 수정","예매 좌석 수정","예매 취소"};
 		
-		public RsrvModCancelPage(String id) {
-			this.id = id;
-			// 상영정보 담은 객체 초기화 구문 <- 인자에도 추가하기 : 미구현 
+		// 생성자 
+		public RsrvModCancelPage(UserInfo user, RunningInfo rsvInfo) {
+			this.user = user;
+			this.rsvInfo = rsvInfo;
 		}
 		
 		
@@ -173,9 +197,11 @@ public class CustomerRsrvInfoPage {
 		private void printRsrvInfo() {
 			System.out.println("-------- 예매 정보 --------- ");
 			// 예매 정보 출력하는 함수 넣기 - 미구현 
+			
 			System.out.println("몇월 몇일 땡땡 영화");
 			System.out.println("-------------------------- ");
 		}
+		
 	}
 }
 
