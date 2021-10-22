@@ -42,13 +42,25 @@ public class MovieManagePage {//8.2.1영화관리페이지
 
 		System.out.print("영화제목>>");
 		title=scan.nextLine();
-		if(InputRule.MTRule(title)==null) { //중복 입력인 경우 오류처리 필요
+		String check_title = InputRule.MTRule(title);
+		if(check_title==null) { //중복 입력인 경우 오류처리 필요
 			System.out.println("올바르지 않은 입력입니다.");
 			return;
+		}
+		String[] current_titles = MovieInfoDataManage.getTitle();
+		for(int i=0;i<current_titles.length;i++) {
+			current_titles[i]=current_titles[i].substring(1,current_titles[i].length()-1);
+			// System.out.println(current_titles[i]);
+			// System.out.println(check_title);
+			if(current_titles[i].equals(check_title)) {
+				System.out.println("동일한 영화가 존재합니다.");
+				return;
+			}
 		}
 
 		System.out.print("상영시간>>");
 		if((runtime=InputRule.RunTimeRule())==null) {
+			System.out.println("올바르지 않은 입력입니다.");
 			return;
 		}
 		runtime = runtime+"분";

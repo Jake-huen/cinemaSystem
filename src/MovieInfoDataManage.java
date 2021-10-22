@@ -35,8 +35,10 @@ public class MovieInfoDataManage {
 		String[] rt=new String[movieInfos.size()];
 		for(int i=0;i<movieInfos.size();i++) { //영화전체 크기만큼 가져오기
 			rt[i]=((JsonObject) movieInfos.get(i)).get("title").toString();
+			// rt[i]=rt[i].substring(1,rt[i].length()-1);
 			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
-			//System.out.println(movieinfo.get("title"));
+			//System.out.println(movieinfos.get("title"));
+			// System.out.println(rt[i]);
 		}
 		return rt;
 	}
@@ -153,4 +155,7 @@ public class MovieInfoDataManage {
 		}
 		System.out.println("삭제완료");
 	}
+//	public static void main(String args[]) {
+//		getTitle();
+//	}
 }
