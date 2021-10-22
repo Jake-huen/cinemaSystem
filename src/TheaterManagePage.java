@@ -39,14 +39,26 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			System.out.println("올바르지 않은 입력입니다.");
 			return;
 		}
+		String theaters[] = TheaterDataManage.getTheaterName();
+		for(int i=0;i<theaters.length;i++) {
+			if(theaters[i].substring(1,theaters[i].length()-1).equals(theater)) {
+				System.out.println("이미 존재하는 이름입니다.");
+				return;
+			}
+		}
 		
-		System.out.print("좌석의 행과 열 수>>");//입력규칙정의필요
+		System.out.print("좌석의 행과 열 수>>");
 		rc=scan.nextLine();
-		String[] tmp=rc.split(" ");
+		rc=rc.replace(" ","");
+		String[] tmp=rc.split("-|/");
 		int row=Integer.parseInt(tmp[0]);
 		int col=Integer.parseInt(tmp[1]);
-		TheaterDataManage.setJsonTheater(theater,row,col);
+		if(row<1||row>26||col<1||col>50) {
+			System.out.println("올바르지 않은 입력입니다.");
+			return;
+		}
 		
+		TheaterDataManage.setJsonTheater(theater,row,col);
 		System.out.println("=====등록완료=====");
 	}
 	public static void theaterCheckPage() {//8.2.2.2 상영관정보확인

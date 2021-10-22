@@ -172,7 +172,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 
 	public static String DateRule() {// 7.6 날짜입력규칙 _ return 값은 YYYYMMDD형식
 		String checkdate = sc.nextLine();
-		boolean isNumeric = checkdate.chars().allMatch(Character::isDigit);
+		boolean isNumeric = checkdate.chars().allMatch(Character::isDigit);	
 		if (isNumeric) {// 문법규칙(1)의 경우
 			if (checkdate.length() == 8) {
 				//매우 올바른형식임_아래 의미규칙만 확인
