@@ -36,9 +36,10 @@ public class TheaterDataManage {
 		String[] rt=new String[theaterInfos.size()];
 		for(int i=0;i<theaterInfos.size();i++) { //영화전체 크기만큼 가져오기
 			rt[i]=((JsonObject) theaterInfos.get(i)).get("theater").toString();
+			rt[i]=rt[i].substring(1,rt[i].length()-1);
 			int row=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("row").toString());
 			int col=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("col").toString());
-			rt[i]+="/"+row*col+"석";
+			rt[i]+=" / "+row*col+"석";
 			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
 			//System.out.println(movieinfo.get("title"));
 		}

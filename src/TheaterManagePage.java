@@ -13,7 +13,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 				System.out.println(theaters[i]);
 			}
 			System.out.println("===================");
-			String[] tmp={"메인페이지로가기","상영관등록","상영관수정및삭제"};
+			String[] tmp={"메인 페이지로가기","상영관 등록","상영관 수정 및 삭제"};
 			Print.menu(tmp,true);
 			System.out.print(">>>");
 			int menuNum=InputRule.MenuRule(tmp);
@@ -26,12 +26,14 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			case 2:
 				theaterCheckPage();
 				break;
-			}//
+			default:
+				System.out.println("올바르지 않은 입력입니다.");
+			}
 		}
 	}
 	public static void theaterRegisterPage() {//8.2.2.1 상영관정보등록
 		String theater="",rc="";
-		System.out.print("상영관이름>>");
+		System.out.print("상영관 이름>>");
 		theater=InputRule.ScreenRule();
 		if(theater==null) {
 			System.out.println("올바르지 않은 입력입니다.");
