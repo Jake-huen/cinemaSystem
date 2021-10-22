@@ -13,11 +13,11 @@ public class ManagerMainPage {
 			System.out.println("5. 종료");
 			System.out.print(">>>");
 			
-			String[] tmp={"영화관리","상영관 관리","상영정보등록","예매정보확인","종료"};
+			String[] tmp={"영화관리","상영관 관리","상영정보등록","예매정보확인","종료",""};
 			
 			int menuNum=InputRule.MenuRule(tmp);
-			
-			switch(menuNum+1) {
+			System.out.println(menuNum);
+			switch(menuNum) {
 			case 1:
 				MovieManagePage.movieManagePage();
 				break;

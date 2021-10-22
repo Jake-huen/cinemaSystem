@@ -9,14 +9,6 @@ public class InputRule {//입력규칙 정의 (static으로)
 	   {									
 	      String menu = sc.nextLine();
 	      menu.trim();
-	      /*for(int i=0; i<menu.length(); i++)
-	      {
-	         char c = menu.charAt(i);
-	         if(Character.isWhitespace(c))
-	         {
-	            return -1;
-	         }
-	      }*/										//공백 제거
 	      
 	      for(int i=0; i<menu_name.length; i++)
 	      {									
