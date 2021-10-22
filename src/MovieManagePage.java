@@ -11,7 +11,9 @@ public class MovieManagePage {//8.2.1영화관리페이지
 			System.out.println("======영화목록======");
 			//등록된 영화 읽어오기 (DataManage클래스 내 함수 호출)
 			for(int i=0;i<title.length;i++) {
-				System.out.println(title[i]+"/"+runtime[i]);
+				title[i]=title[i].substring(1,title[i].length()-1);
+				runtime[i]=runtime[i].substring(1,runtime[i].length()-1);
+				System.out.println(title[i]+" / "+runtime[i]);
 			}
 			System.out.println("=================");
 			System.out.println("0. 뒤로가기");
