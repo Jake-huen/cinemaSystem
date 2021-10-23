@@ -172,7 +172,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 
 	public static String DateRule() {// 7.6 날짜입력규칙 _ return 값은 YYYYMMDD형식
 		String checkdate = sc.nextLine();
-		boolean isNumeric = checkdate.chars().allMatch(Character::isDigit);
+		boolean isNumeric = checkdate.chars().allMatch(Character::isDigit);	
 		if (isNumeric) {// 문법규칙(1)의 경우
 			if (checkdate.length() == 8) {
 				//매우 올바른형식임_아래 의미규칙만 확인
@@ -374,5 +374,32 @@ public class InputRule {//입력규칙 정의 (static으로)
         else if(yon.equals("no") || yon.equals("n")) return 0; //no or n --> 0
         else return -1; //others --> -1
     }
+	//7.9 예매 좌석 입력 규칙 - 오버로딩 (상영관 행 열 반영)
+	public static String SeatRule(int row, int col) { 
+        String seat = sc.nextLine();
+        seat = seat.replace(" ", "");
+        seat = seat.trim();
+        seat = seat.toLowerCase();
+        int ascii = seat.charAt(0);
+        if(ascii >= 97 && ascii <= (char)(row+'A')) {
+            if(seat.length() > 3 || seat.length() == 1) {
+                return null;
+            }
+            else if(seat.length() == 3) {
+                int a = seat.charAt(1) - '0';
+                int b = seat.charAt(2) - '0';
+                int num = a * 10 + b;
+                if(num >= 1 && num <= col) return seat;
+                else return null;
+            } else {
+                int num = seat.charAt(1) - '0';
+                if(num >= 1 && num <= 9) return seat;
+                else return null;
+            }
+        } else {
+            return null;
+        }
+    }
+	
 	
 }

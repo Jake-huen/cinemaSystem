@@ -11,8 +11,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import examples.TheaterInfo;
-
 public class TheaterDataManage {
 	static String theater;
 	static int row;
@@ -176,6 +174,9 @@ public class TheaterDataManage {
 		
 		for( int i = 0;i<theaterInfos.size();i++) {
 			String theater=((JsonObject) theaterInfos.get(i)).get("theater").toString();
+			// 따옴표 제거 
+			theater =  Print.removeQuotes(theater);
+			
 			if(theater.equals(theaterName)) {
 				int row=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("row").toString());
 				int col=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("col").toString());
