@@ -83,7 +83,7 @@ public class SeatSelect {
                 int tmpx = seat.charAt(0) - 'A';
                 int tmpy = 0;
                 if(seat.length() == 2) tmpy = seat.charAt(1) - '0';
-                else tmpy = (seat.charAt(1) * 10 - '0') + (seat.charAt(2) - '0');
+                else tmpy = ((seat.charAt(1)- '0') * 10 ) + (seat.charAt(2) - '0');
                 pair[s++] = new Pair(tmpx, tmpy);
             }
         }
@@ -136,7 +136,7 @@ public class SeatSelect {
                 int tmpx = seat.charAt(0) - 'A';
                 int tmpy = 0;
                 if(seat.length() == 2) tmpy = seat.charAt(1) - '0';
-                else tmpy = (seat.charAt(1) * 10 - '0') + (seat.charAt(2) - '0');
+                else tmpy = ((seat.charAt(1)- '0') * 10 ) + (seat.charAt(2) - '0');
                 pair[s++] = new Pair(tmpx, tmpy);
             }
         }
