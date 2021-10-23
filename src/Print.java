@@ -43,5 +43,10 @@ public class Print {
 		int col = Integer.parseInt(seat.substring(1));
 		return new Pair(row,col);
 	}
+	
+	// String 앞뒤 따옴표 지우기 
+	public static String removeQuotes(String str) {
+		return str.substring(1, str.length()-1);
+	}
 
 }
