@@ -20,29 +20,27 @@ public class ModifyRsrvSeatPage{
 	public ModifyRsrvSeatPage(UserInfo user, UserRsrvInfo userRsrvInfo,int userSeatNum) {
 		this(user,userRsrvInfo);
 		this.userSeatNum = userSeatNum; // 새로 입력한 좌석 개수 사용 
-		
 	}
 	
 	// 생성자 - 좌석 변경만 하는 경우 
 	public ModifyRsrvSeatPage(UserInfo user,UserRsrvInfo userRsrvInfo) {
 		scan= new Scanner(System.in);
+		// 상영정보 예매정보 초기화 
+		runInfo = userRsrvInfo.getRunInfo();
+		rsrvInfo = userRsrvInfo.getRsrvInfo();
 		
 		// 상영관 정보 받아오기  
 		TheaterInfo theater = TheaterDataManage.findTheater(runInfo.getTheater());
 		
 		// 상영관 행, 열 받아오기
-		int row = theater.getRow();
-		int col = theater.getCol();
+		row = theater.getRow();
+		col = theater.getCol();
 		
 		// 상영관 배열 및 좌석배열 초기화 
 		theaterMap = new int[row][col]; // 0 : 빈 좌석, 1: 예매된 좌석 , 2: 기존 사용자 예매 좌석 3: 현재 사용자 예매 좌석  
 		initTheaterMap(theater);
 		
 		selectedSeats = new ArrayList<Pair>();
-		
-		// 상영정보 예매정보 초기화 
-		runInfo = userRsrvInfo.getRunInfo();
-		rsrvInfo = userRsrvInfo.getRsrvInfo();
 		
 		// user 정보 초기화 
 		this.user = user;
@@ -57,15 +55,15 @@ public class ModifyRsrvSeatPage{
 		
 		System.out.println();
 		
-		while(curSelectednum > userSeatNum) {
+		while(curSelectednum <= userSeatNum ) {
 			String curSeatInfo = "["+ curSelectednum +"/"+userSeatNum+"]";
 			System.out.print("좌석을 선택해 주세요."+curSeatInfo+" (뒤로가기:0) >>>");
 			
 			// 좌석 입력받기 
 			String seat =scan.nextLine();
-			
+			seat = seat.trim();
 			// 0 입력한 경우 
-			if(seat.trim().equals("0")) {
+			if(seat.equals("0")) {
 				if(curSelectednum == 1)
 					return;
 				else {
@@ -78,7 +76,7 @@ public class ModifyRsrvSeatPage{
 			seat = InputRule.SeatRule(seat, row, col);
 			
 			// 좌석 양식과 다른 입력 or 범위 벗어난 입력인 경우 
-			if(seat.isEmpty()) {
+			if(seat == null) {
 				System.out.println("해당 좌석이 존재하지 않습니다.");
 				continue;
 			}
@@ -87,6 +85,7 @@ public class ModifyRsrvSeatPage{
 			Pair seatPair = Print.seatStrToPair(seat);
 			int curRow= seatPair.getRow();
 			int curCol= seatPair.getCol();
+			System.out.println("cur Row : "+curRow +"cur Col : "+curCol);
 			
 			// 이미 선택된 좌석인 경우 ( 다른 사람이 선택한 좌석 or 본인이 현재 선택한 좌석 ) 
 			if(theaterMap[curRow][curCol] == 1 ||theaterMap[curRow][curCol] == 3) {
@@ -107,13 +106,13 @@ public class ModifyRsrvSeatPage{
 		System.out.println("좌석 수정이 완료되었습니다.");
 		
 		// json 에서 데이터 수정
-		rsrvInfo.setSeat(ModifyRsrvInfo());
+		rsrvInfo.setSeat(modifyRsrvInfo());
 		RunningInfoManage.modifyReserve(runInfo, rsrvInfo, user.getId());
 		
 	}
 	
 	// 변경된 좌석 배열 반환 
-	private String[] ModifyRsrvInfo() {
+	private String[] modifyRsrvInfo() {
 		String[] seatStrs= new String[userSeatNum];
 		for(int i = 0; i<userSeatNum ;i++) {
 			seatStrs[i] = Print.PairToSeatStr(selectedSeats.get(i));
@@ -158,11 +157,11 @@ public class ModifyRsrvSeatPage{
 		// 첫번째 행
 		for(int c=0;c<=col;c++) {
 			if(c==0)
-				System.out.print("\t");
+				System.out.print("  ");
 			else 
 				System.out.print( c +" ");
 				
-			if(c ==col-1)
+			if(c == col)
 				System.out.println();
 		}
 		
@@ -174,17 +173,14 @@ public class ModifyRsrvSeatPage{
 				
 				String symbol= "";
 				switch(theaterMap[r][c]) {
-				case 0: 
+				case 0: case 2:
 					symbol = "□";
 					break;
 				case 1:
 					symbol = "▩";
 					break;
-				case 2:
-					if(includeCurSeat)
-						symbol = "■";
-					else
-						symbol = "□";
+				case 3:
+					symbol = "■";
 					break;
 				}
 				

@@ -62,8 +62,8 @@ public class RsrvModCancelPage {
 			else if(modPplNum == -1) {
 				System.out.println("올바르지 않은 입력입니다.\n");
 				continue;
-			}else if(modPplNum < leftSeats) {
-				System.out.println("남은 좌석이 입력한 인원보다 적습니다.");
+			}else if(modPplNum > leftSeats) {
+				System.out.println("남은 좌석이 입력한 인원보다 적습니다.\n");
 				continue;
 			}else {
 				break;
@@ -86,9 +86,9 @@ public class RsrvModCancelPage {
 			curRsrvedSeat += rsrvInfo.getSeat().length;
 		}
 		
+		
 		// 현재 사용자가 예매한 좌석 수는 제외 
 		curRsrvedSeat-= userRsrvInfo.getRsrvInfo().getSeat().length;
-		
 		return totalSeat - curRsrvedSeat;
 	}
 	

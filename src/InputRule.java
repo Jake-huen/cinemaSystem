@@ -378,9 +378,9 @@ public class InputRule {//입력규칙 정의 (static으로)
 	public static String SeatRule(String seat,int row, int col) { 
         seat = seat.replace(" ", "");
         seat = seat.trim();
-        seat = seat.toLowerCase();
+        seat = seat.toUpperCase();
         int ascii = seat.charAt(0);
-        if(ascii >= 97 && ascii <= (char)(row+'A')) {
+        if(ascii >= 'A' && ascii <= row+'A') {
             if(seat.length() > 3 || seat.length() == 1) {
                 return null;
             }
