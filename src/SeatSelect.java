@@ -5,7 +5,7 @@ public class SeatSelect {
     public static Pair[] SeatMain(RunningInfo ri) {
         System.out.println("===== 영화예매 ======\r\n"
                 + "----------- 선택한 영화 정보 -----------");
-        System.out.println(ri.getDate()+" | "+ri.getTime()+" | "+ ri.getTheater()+" | "+ri.getMovieName());
+        System.out.println(Print.makeDateFormet(ri.getDate())+" | "+Print.makeTimeFormet(ri.getTime())+" | "+ ri.getTheater()+" | "+ri.getMovieName());
         System.out.print("예매 인원 >>>");
         int ppl = InputRule.rsrvPplInput();
 

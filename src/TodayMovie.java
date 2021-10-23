@@ -16,9 +16,9 @@ public class TodayMovie {
     }
     public static void PrintToday(String ID, String date) { //초기 화면
         ImportToday(date);
-        System.out.println("===== 오늘 영화 예매하기 " +date+" ======");
+        System.out.println("===== 오늘 영화 예매하기 " +Print.makeDateFormet(date)+" ======");
         for(RunningInfo ri : riList){
-            System.out.println(ri.getTime()+" | "+ri.getTheater()+" | "+ri.getMovieName());
+            System.out.println(Print.makeTimeFormet(ri.getTime())+" | "+ri.getTheater()+" | "+ri.getMovieName());
         }
 //        System.out.println("08:30 | 차리서관 | 오징어 게임");
 //        System.out.println("14:25 | 별관 | 문어 게임");
@@ -32,7 +32,7 @@ public class TodayMovie {
             System.out.print(">>>");
             String input = scan.nextLine();
             String[] inputArr = input.split(" ");
-            String tr = InputRule.TimeRule(inputArr[0]);
+            String tr = (InputRule.TimeRule(inputArr[0])).replace(":","");
             String sr = InputRule.ScreenRule(inputArr[1]);
             String mr = "";
             for(int i = 2; i < inputArr.length; i++){
