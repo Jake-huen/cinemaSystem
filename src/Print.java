@@ -44,6 +44,16 @@ public class Print {
 		return new Pair(row,col);
 	}
 	
+	// 좌석 Pair -> String 로 변환하는 함수 
+	public static String PairToSeatStr(Pair seat) {
+		String seatStr="";
+		char row = (char)(seat.getRow() +'A');
+		seatStr+= Character.toString(row);
+		seatStr+=Integer.toString(seat.getCol());
+		return seatStr;
+		
+	}
+	
 	// String 앞뒤 따옴표 지우기 
 	public static String removeQuotes(String str) {
 		return str.substring(1, str.length()-1);

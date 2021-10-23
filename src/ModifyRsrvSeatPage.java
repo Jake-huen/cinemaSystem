@@ -7,6 +7,8 @@ public class ModifyRsrvSeatPage{
 
 	private int[][]  theaterMap;
 	private ArrayList<Pair> selectedSeats;
+	private RunningInfo runInfo;
+	private ReserveInfo userRsrvInfo;
 	private int row;
 	private int col; 
 	private int userSeatNum;
@@ -14,7 +16,7 @@ public class ModifyRsrvSeatPage{
 	
 	private UserInfo user;
 	
-	public ModifyRsrvSeatPage(UserInfo user,TheaterInfo theater, RunningInfo runInfo, ReserveInfo userRsrvInfo) {
+	public ModifyRsrvSeatPage(UserInfo user,int userSeatNum,TheaterInfo theater, RunningInfo runInfo, ReserveInfo userRsrvInfo) {
 		scan= new Scanner(System.in);
 		
 		// 상영관 행, 열 받아오기
@@ -23,14 +25,15 @@ public class ModifyRsrvSeatPage{
 		
 		// 배열 및 좌석 개수 초기화 
 		theaterMap = new int[row][col]; // 0 : 빈 좌석, 1: 예매된 좌석 , 2: 기존 사용자 예매 좌석 3: 현재 사용자 예매 좌석  
-		initTheaterMap(theater, runInfo, userRsrvInfo);
+		initTheaterMap(theater);
 		
 		selectedSeats = new ArrayList<Pair>();
 		
-		userSeatNum=userRsrvInfo.getSeat().length;
+		userSeatNum=userRsrvInfo.getSeat().length; /// 주의 : 인원 바뀐 경우 반영되어야 함!!!!! 
 		
 		// user 초기화 
 		this.user = user;
+		this.userSeatNum = userSeatNum;
 		
 	}
 
@@ -95,11 +98,21 @@ public class ModifyRsrvSeatPage{
 		 * - runningInfo 
 		 * 
 		 * */
+		userRsrvInfo.setSeat(ModifyRsrvInfo());
 		
 	}
 	
+	private String[] ModifyRsrvInfo() {
+		String[] seatStrs= new String[userSeatNum];
+		for(int i = 0; i<userSeatNum ;i++) {
+			seatStrs[i] = Print.PairToSeatStr(selectedSeats.get(i));
+		}
+		return seatStrs;
+			
+	}
+	
 	// theaterMap 초기화 함수 
-	private void initTheaterMap(TheaterInfo theater, RunningInfo runInfo, ReserveInfo userRsrvInfo) {
+	private void initTheaterMap(TheaterInfo theater) {
 		ArrayList<Pair> totalRsrvSeats = new ArrayList<Pair>(); // 전체 예매된 좌석 담는 배열
 		ArrayList<Pair> userRsrvSeats = new ArrayList<Pair>(); // 사용자가 현재 예매한 좌석 담는 배열 
 		
