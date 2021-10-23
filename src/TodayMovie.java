@@ -40,13 +40,11 @@ public class TodayMovie {
             }
             mr = mr.trim();
 
-            System.out.println(mr);
-
             if(Objects.nonNull(tr) && Objects.nonNull(sr) && Objects.nonNull(mr)) {
                 int index;
                 for(index=0; index < riList.size(); index++){
                     RunningInfo ritmp = riList.get(index);
-                    String movieTheater = ritmp.getTheater()+"관";
+                    String movieTheater = ritmp.getTheater();
                     if(ritmp.getTime().equals(tr)&&movieTheater.equals(sr)&&ritmp.getMovieName().equals(mr)){
                         break;
                     }
