@@ -81,7 +81,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			String[] theatermenu=new String[theatersName.length+1];
 			theatermenu[0]="뒤로가기";
 			for(int i=1;i<theaters.length+1;i++) {
-				theatermenu[i]=theatersName[i-1];
+				theatermenu[i]=theatersName[i-1].replaceAll("\"", "");
 			}
 			System.out.println("======상영관 목록======");
 			System.out.println("0. 뒤로가기");
@@ -90,10 +90,13 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			System.out.println("===================");
 			System.out.print("수정 및 삭제할 상영관을 선택하세요>>>");
 			int menuNum=InputRule.MenuRule(theatermenu);
-			if(menuNum==-1) {
+			
+			while(menuNum==-1) {
 				System.out.println("올바르지 않은 입력입니다.");
+				System.out.print("수정 및 삭제할 상영관을 선택하세요>>>");
+				menuNum=InputRule.MenuRule(theatermenu);
 			}
-			else if(menuNum==0) break;
+			if(menuNum==0) break;
 			else {
 				theaterFixPage(menuNum-1);//정상입력시
 			}
@@ -104,7 +107,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 		while(true) {
 			String theater="",rc="";
 			System.out.println("======영화 수정 및 삭제======");
-			System.out.println(TheaterDataManage.readIndexTheater(index));
+			System.out.println(TheaterDataManage.readIndexTheater(index).replaceAll("\"",""));
 			System.out.println("0. 뒤로가기");
 			System.out.println("1. 수정");
 			System.out.println("2. 삭제");
