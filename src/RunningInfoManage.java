@@ -200,7 +200,7 @@ public class RunningInfoManage {
 					if(reserveInfo == null)
 						return 0;
 					for(int j = 0; j<reserveInfo.size(); j++) {
-						sumReservedSeats+=reserveInfo.get(j).getSeat().length;
+						sumReservedSeats+=reserveInfo.get(j).getSeat().size();
 					}
 					return sumReservedSeats;
 				}else {
