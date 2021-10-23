@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 // 자주 사용되는 출력 관련 메소드 
 public class Print {
 	
@@ -32,6 +34,20 @@ public class Print {
 		String min = time.substring(HOUR_IDX);
 		
 		return hour+":"+min;
+	}
+	
+	// 현재 예매 좌석 제외하고 출력하기 
+	public static void printSeatExclCurRsv(TheaterInfo theater, RunningInfo runInfo, ReserveInfo rsrvInfo) {		
+		ArrayList<Pair> totalRsrvSeats = new ArrayList<Pair>();
+		ArrayList<Pair> userRsrvSeats = new ArrayList<Pair>();
+		ArrayList<ReserveInfo> rsrvInfos  = runInfo.getReserve();
+		//for(ReserveInfo rInfo : rsrvInfos)
+	}
+	
+	private static Pair seatStrToPair(String seat) {
+		int row = seat.indexOf(0) -'A';
+		int col = Integer.parseInt(seat.substring(1));
+		return new Pair(row,col);
 	}
 
 }
