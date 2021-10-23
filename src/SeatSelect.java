@@ -11,9 +11,9 @@ public class SeatSelect {
 
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         String theater = ri.getTheater();
-        //영화관 정보를 받아와야 합니다.*****
-        int theaterX = 10;
-        int theaterY = 10;
+        TheaterInfo ti = TheaterDataManage.findTheater(theater);
+        int theaterX = ti.getRow();
+        int theaterY = ti.getCol();
 
         int[][] seatArr = seatPrint(ri);
         String seatInput = null;
@@ -64,9 +64,10 @@ public class SeatSelect {
     }
 
     public static int[][] seatPrint(RunningInfo ri) {
-        int row = 10;
-        int col = 10;
-        //Theater의 정보 필요*****
+        String theater = ri.getTheater();
+        TheaterInfo ti = TheaterDataManage.findTheater(theater);
+        int row = ti.getRow();
+        int col = ti.getCol();
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         int count = 0;
         for(ReserveInfo rsi : rsiArr){
@@ -116,9 +117,10 @@ public class SeatSelect {
     }
 
     public static void seatReservedPrint(RunningInfo ri, Pair[] rsPair) {
-        int row = 10;
-        int col = 10;
-        //Theater의 정보 필요*****
+        String theater = ri.getTheater();
+        TheaterInfo ti = TheaterDataManage.findTheater(theater);
+        int row = ti.getRow();
+        int col = ti.getCol();
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         int count = 0;
         for(ReserveInfo rsi : rsiArr){
