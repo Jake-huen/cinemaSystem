@@ -102,6 +102,24 @@ public class MovieInfoDataManage {
 			//System.out.println(movieinfo.get("runtime"));
 		return runtime_temp;
 	}
+	public static String getmovieRuntime(String title) { //특정 영화 runtime만 받아오기
+		JsonObject jsonobject = getJson();
+		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
+		String rt=null;
+		for(int i=0;i<movieInfos.size();i++) {
+			if(((JsonObject) movieInfos.get(i)).get("title").toString().equals("\""+title+"\"")) {
+				rt=((JsonObject) movieInfos.get(i)).get("runtime").toString();
+			}
+		}
+		// System.out.println(rt);
+			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
+			//System.out.println(movieinfo.get("runtime"));
+		if(rt!=null) {
+			rt=rt.replaceAll("\"", "");
+			rt=rt.replaceAll("분", "");
+		}
+		return rt;
+	}
 	public static void fixMovie(int index,String newT,String newR) {//index받아와서 해당 영화 수정
 		try {
 			Reader reader = new FileReader(pathMovie);

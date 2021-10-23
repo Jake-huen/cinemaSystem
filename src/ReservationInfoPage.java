@@ -20,7 +20,11 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 			temp = temp.trim();
 			array[1] = temp;
 			array[2] = array[num-1];
+
 		}
+		//array[0] = 날짜, array[1] = 영화제목,array[2] = 상영관
+		
+
 		//array[0] = 날짜, array[1] = 영화제목,array[2] = 상영관
 		
 		//입력규칙 확인
