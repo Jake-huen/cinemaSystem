@@ -77,6 +77,19 @@ public class RunningInfoManage {
         }
         return rt;
     }
+    
+    // 해당 날짜에 상영하는 상영정보 반환 (날짜만 고려) 
+    public static ArrayList<RunningInfo> readDateRi(String date) {//특정날짜에 상영하는 상영정보 뽑기
+        getJson();
+        ArrayList<RunningInfo> rt=new ArrayList<RunningInfo>();
+        for(int i=0; i<riArr.size();i++) {
+            if(riArr.get(i).getDate().equals(date)) {
+                rt.add(riArr.get(i));
+            }
+        }
+        return rt;
+    }
+    
     // 예매 내역 수정하는 함수 
     public static void modifyReserve(RunningInfo ri, ReserveInfo rsi, String id){
         getJson();

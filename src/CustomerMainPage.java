@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 public class CustomerMainPage {
 	private UserInfo user;
@@ -22,8 +22,9 @@ public class CustomerMainPage {
 			// 오늘 날짜 출력
 			System.out.println("====== "+ Print.makeDateFormet(date) +" 상영 영화 ======");
 			
-			// 오늘 상영하는 영화 - 미구현
-			System.out.println("오늘영화 주르룩 출력");
+			// 오늘 상영하는 영화 출력 
+			printTodayMovie();
+			
 			System.out.println("====================================");
 			
 			// 메뉴 출력
@@ -54,6 +55,13 @@ public class CustomerMainPage {
 		
 	}
 	
+	// 오늘 상영하는 영화 출력 
+	private void printTodayMovie() {
+		ArrayList<RunningInfo> todayRunning = RunningInfoManage.readDateRi(date);
+		
+		for(RunningInfo runInfo : todayRunning)
+			System.out.println(runInfo);
+	}
 	
 	
 	
