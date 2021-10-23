@@ -87,6 +87,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			if(menuNum==-1) {
 				System.out.println("올바르지 않은 입력입니다.");
 			}
+			else if(menuNum==0) break;
 			else {
 				theaterFixPage(menuNum-1);//정상입력시
 			}
