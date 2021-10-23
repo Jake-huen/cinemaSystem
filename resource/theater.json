@@ -1,73 +1,24 @@
-[
-  {
-    "code": "202110151021A",
-    "movie": "오징어 게임",
-    "date": "20211015",
-    "time": "10:21",
-    "theater": "A",
-    "reserve": [
-      {
-        "userId": "ganadara123",
-        "seat": [
-          "A3",
-          "A4",
-          "C5"
-        ]
-      },
-      {
-        "userId": "hellohi123",
-        "seat": [
-          "A2",
-          "A1",
-          "D4"
-        ]
-      },
-      {
-        "userId": "Hey1234",
-        "seat": [
-          "B1",
-          "B2"
-        ]
-      }
-    ]
-  },
-  {
-    "code": "202110151021A",
-    "movie": "오징어 게임",
-    "date": "20211014",
-    "time": "10:21",
-    "theater": "A",
-    "reserve": [
-      {
-        "userId": "ganadara123",
-        "seat": [
-          "A3",
-          "A4",
-          "C5"
-        ]
-      },
-      {
-        "userId": "hellohi123",
-        "seat": [
-          "A3",
-          "A4",
-          "C5"
-        ]
-      }
-    ]
-  },
-  {
-    "code": "2021102310:30\"bo관\"",
-    "movie": "\"가나다라\"",
-    "date": "20211023",
-    "time": "10:30",
-    "theater": "\"bo관\""
-  },
-  {
-    "code": "2021031509:40\"차리서관\"",
-    "movie": "\"오징어 게임\"",
-    "date": "20210315",
-    "time": "09:40",
-    "theater": "\"차리서관\""
-  }
-]
+{
+  "theaters": [
+    {
+      "theater": "차리서관",
+      "row": 10,
+      "col": 30
+    },
+    {
+      "theater": "수정관",
+      "row": 10,
+      "col": 21
+    },
+    {
+      "theater": "bo관",
+      "row": 4,
+      "col": 6
+    },
+    {
+      "theater": "관관관",
+      "row": 10,
+      "col": 10
+    }
+  ]
+}

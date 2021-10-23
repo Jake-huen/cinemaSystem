@@ -46,9 +46,10 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 				+inputdate.substring(6, 8)+"일,"+
 				TheaterDataManage.readIndexTheaterName(theaterIndex)+" 상영정보");
 		System.out.println("==========================");
+		System.out.println(ri.size());
 		for(int i=0;i<ri.size();i++) {
-			System.out.println(ri.get(i)[0].substring(0,2)+":"+
-					ri.get(i)[0].substring(2,4)+"~"+"끝시간"+" "+
+			System.out.println(ri.get(i)[0].substring(0,2)+
+					ri.get(i)[0].substring(3,5)+"~"+"끝시간"+" "+
 					ri.get(i)[1]);
 		}
 		

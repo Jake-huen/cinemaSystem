@@ -108,7 +108,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			if(menuNum==-1) {
 				System.out.println("올바르지 않은 입력입니다.");
 			}
-			if(menuNum==0) {// 여기 오류나는데 잘 모르겠음 왜인지..
+			if(menuNum==0) {
 				break;
 			}
 			else if(menuNum==1){

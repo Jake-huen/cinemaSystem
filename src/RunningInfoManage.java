@@ -69,11 +69,13 @@ public class RunningInfoManage {
     public static ArrayList<String[]> readDateRi(String date,int theaterindex) {//특정날짜에 상영하는 상영정보 뽑기
         getJson();
         String theaterName=(TheaterDataManage.readIndexTheaterName(theaterindex)).replaceAll("\"","");
+        System.out.println(theaterName+","+riArr.size());
         ArrayList<String[]> rt=new ArrayList<String[]>();
         String[] tmp=new String[2];//tmp[0]은 시간정보, [1]은 영화이름
         for(int i=0; i<riArr.size();i++) {
-            if(riArr.get(i).getDate().equals(date)&&riArr.get(i).getTheater().equals(theaterName)) {
-                tmp[0]=riArr.get(i).getTime();
+        	String getTheater=riArr.get(i).getTheater().replace("\"", "");
+            if(riArr.get(i).getDate().equals(date)&&getTheater.equals(theaterName)) {
+            	tmp[0]=riArr.get(i).getTime();
                 tmp[1]=riArr.get(i).getMovieName();
                 rt.add(tmp);
             }
