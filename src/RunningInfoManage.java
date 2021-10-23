@@ -35,7 +35,21 @@ public class RunningInfoManage {
     public static void setJson(String date, String time, String movie, String theater, ArrayList<ReserveInfo> rsiArr) {
         getJson();
         try{
-        	FileWriter fw = new FileWriter(".\\resource\\theater.json");
+        	FileWriter fw = new FileWriter(".\\resource\\info.json");
+            RunningInfo ri = new RunningInfo(date,time,movie,theater,rsiArr);
+            riArr.add(ri);
+
+            gson.toJson(riArr, fw);
+            fw.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void setJson2(String date, String time, String movie, String theater, ArrayList<ReserveInfo> rsiArr) {
+        getJson();
+        try{
+        	FileWriter fw = new FileWriter(".\\resource\\info.json");
             RunningInfo ri = new RunningInfo(date,time,movie,theater,rsiArr);
             riArr.add(ri);
 
@@ -63,7 +77,7 @@ public class RunningInfoManage {
     public static void updateReserve(RunningInfo ri, ReserveInfo rsi){
         getJson();
         try{
-        	FileWriter fw = new FileWriter(".\\resource\\theater.json");
+        	FileWriter fw = new FileWriter(".\\resource\\info.json");
             for(RunningInfo jsonRI : riArr){
                 if(ri.getMovieName().equals(jsonRI.getMovieName())
                 && ri.getTheater().equals(jsonRI.getTheater())
@@ -87,8 +101,9 @@ public class RunningInfoManage {
         ArrayList<String[]> rt=new ArrayList<String[]>();
         String[] tmp=new String[2];//tmp[0]은 시간정보, [1]은 영화이름
         for(int i=0; i<riArr.size();i++) {
-            if(riArr.get(i).getDate().equals(date)&&riArr.get(i).getTheater().equals(theaterName)) {
-                tmp[0]=riArr.get(i).getTime();
+        	String getTheater=riArr.get(i).getTheater().replace("\"", "");
+            if(riArr.get(i).getDate().equals(date)&&getTheater.equals(theaterName)) {
+            	tmp[0]=riArr.get(i).getTime();
                 tmp[1]=riArr.get(i).getMovieName();
                 rt.add(tmp);
             }
