@@ -39,9 +39,19 @@ public class Print {
 
 	// 좌석 String -> Pair로 변환하는 함수 
 	public static Pair seatStrToPair(String seat) {
-		int row = seat.indexOf(0) -'A';
-		int col = Integer.parseInt(seat.substring(1));
+		int row = seat.charAt(0) -'A';
+		int col = Integer.parseInt(seat.substring(1))-1;
 		return new Pair(row,col);
+	}
+	
+	// 좌석 Pair -> String 로 변환하는 함수 
+	public static String PairToSeatStr(Pair seat) {
+		String seatStr="";
+		char row = (char)(seat.getRow() +'A');
+		seatStr+= Character.toString(row);
+		seatStr+=Integer.toString(seat.getCol()+1);
+		return seatStr;
+		
 	}
 	
 	// String 앞뒤 따옴표 지우기 

@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class LoginPage {
    static Scanner scan = new Scanner(System.in);
    static UserInfo info;
-   public static void loginPage()
+   public static UserInfo loginPage()
    {
 	  String[] menuname = {"뒤로가기", "관리자용로그인", "고객용로그인"};
       while(true) {
@@ -17,13 +17,11 @@ public class LoginPage {
          
          switch(menu) {
             case 0:
-               return;
+              return null;
             case 1:
-               adminloginPage();
-               continue;
+              return adminloginPage();
             case 2:
-               clientloginPage();
-               continue;
+              return clientloginPage();
             default:
             	System.out.println("올바르지 않은 입력입니다.");
             }   
@@ -31,7 +29,7 @@ public class LoginPage {
       
       
    }
-   public static void adminloginPage()
+   public static UserInfo adminloginPage()
    {
       while(true)
       {
@@ -56,14 +54,14 @@ public class LoginPage {
          {
         	 System.out.println("====로그인 완료====");
              info = getDate(id,pw);
-             System.exit(0);
+             return info;
          }
-         else
+         else 
         	System.out.println("아이디나 비밀번호를 다시 확인해주세요");
       }
    }
    
-   public static void clientloginPage()
+   public static UserInfo clientloginPage()
    {
       while(true)
       {
@@ -88,7 +86,7 @@ public class LoginPage {
          {
         	 System.out.println("====로그인 완료====");
              info = getDate(id,pw);
-             System.exit(0);
+             return info;
          }
          else
         	 System.out.println("아이디나 비밀번호를 다시 확인해주세요");

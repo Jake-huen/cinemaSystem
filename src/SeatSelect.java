@@ -5,7 +5,7 @@ public class SeatSelect {
     public static Pair[] SeatMain(RunningInfo ri) {
         System.out.println("===== 영화예매 ======\r\n"
                 + "----------- 선택한 영화 정보 -----------");
-        System.out.println(ri.getDate()+" | "+ri.getTime()+" | "+ ri.getTheater()+" | "+ri.getMovieName());
+        System.out.println(Print.makeDateFormet(ri.getDate())+" | "+Print.makeTimeFormet(ri.getTime())+" | "+ ri.getTheater()+" | "+ri.getMovieName());
         System.out.print("예매 인원 >>>");
         int ppl = InputRule.rsrvPplInput();
 
@@ -71,19 +71,19 @@ public class SeatSelect {
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         int count = 0;
         for(ReserveInfo rsi : rsiArr){
-            String[] seatArr = rsi.getSeat();
+            ArrayList<String> seatArr = rsi.getSeat();
             for(String seat : seatArr)
                 count++;
         }
         Pair[] pair = new Pair[count];
         int s = 0;
         for(ReserveInfo rsi : rsiArr){
-            String[] seatArr = rsi.getSeat();
+            ArrayList<String> seatArr = rsi.getSeat();
             for(String seat : seatArr){
                 int tmpx = seat.charAt(0) - 'A';
                 int tmpy = 0;
                 if(seat.length() == 2) tmpy = seat.charAt(1) - '0';
-                else tmpy = (seat.charAt(1) * 10 - '0') + (seat.charAt(2) - '0');
+                else tmpy = ((seat.charAt(1)- '0') * 10 ) + (seat.charAt(2) - '0');
                 pair[s++] = new Pair(tmpx, tmpy);
             }
         }
@@ -93,7 +93,7 @@ public class SeatSelect {
         for(int i = 0; i < count; i++) { // 예약된 좌석 >> 1
             int _row = pair[i].getRow();
             int _col = pair[i].getCol() - 1;
-            System.out.println(_row+" "+_col);
+            System.out.println(_row +" "+_col);
             seat[_row][_col] = 1;
         }
 
@@ -124,7 +124,7 @@ public class SeatSelect {
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         int count = 0;
         for(ReserveInfo rsi : rsiArr){
-            String[] seatArr = rsi.getSeat();
+            ArrayList<String> seatArr = rsi.getSeat();
             for(String seat : seatArr)
                 count++;
         }
@@ -132,12 +132,12 @@ public class SeatSelect {
         Pair[] pair = new Pair[count];
         int s = 0;
         for(ReserveInfo rsi : rsiArr){
-            String[] seatArr = rsi.getSeat();
+            ArrayList<String> seatArr = rsi.getSeat();
             for(String seat : seatArr){
                 int tmpx = seat.charAt(0) - 'A';
                 int tmpy = 0;
                 if(seat.length() == 2) tmpy = seat.charAt(1) - '0';
-                else tmpy = (seat.charAt(1) * 10 - '0') + (seat.charAt(2) - '0');
+                else tmpy = ((seat.charAt(1)- '0') * 10 ) + (seat.charAt(2) - '0');
                 pair[s++] = new Pair(tmpx, tmpy);
             }
         }

@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class RsrvModCancelPage {
 	private UserInfo user;
 	private UserRsrvInfo userRsrvInfo;
-	
+	private ModifyRsrvSeatPage modifyRservSeatPage;
 	
 	private String[] menuName= {"돌아가기","예매 인원 수정","예매 좌석 수정","예매 취소"};
 	
@@ -15,7 +17,7 @@ public class RsrvModCancelPage {
 	
 	public void menu() {
 		while(true) {
-			System.out.println("===== 예매 수정 및 취소 =====");
+			System.out.println("\n\n===== 예매 수정 및 취소 =====");
 			
 			// 예매 정보 출력
 			printRsrvInfo(); 
@@ -33,7 +35,8 @@ public class RsrvModCancelPage {
 				modRsrvPplNum();
 				break;
 			case 2:// 예매 좌석 수정
-				// 예매 좌석 수정 객체 - 미구현 
+				modifyRservSeatPage = new ModifyRsrvSeatPage(user,userRsrvInfo);
+				modifyRservSeatPage.showPage();
 				break;
 			case 3: // 예매 취소 
 				cancelRsrv();
@@ -48,9 +51,10 @@ public class RsrvModCancelPage {
 	// 예매 인원 수정 함수 
 	private void modRsrvPplNum() {
 		int modPplNum;
+		int leftSeats = getLeftSeats();
 		
 		while(true) {
-			System.out.println("===== 예매 인원 수정 =====");
+			System.out.println("\n\n===== 예매 인원 수정 =====");
 			printRsrvInfo(); // 예매 정보 출력 
 			System.out.print("예매 인원(뒤로가기 : 0) >>> ");
 			modPplNum = InputRule.rsrvPplInput(); // 수정 인원 입력받기 
@@ -60,36 +64,42 @@ public class RsrvModCancelPage {
 			else if(modPplNum == -1) {
 				System.out.println("올바르지 않은 입력입니다.\n");
 				continue;
-			}else 
+			}else if(modPplNum > leftSeats) {
+				System.out.println("남은 좌석이 입력한 인원보다 적습니다.\n");
+				continue;
+			}else {
+				// 예매 좌석 수정 함수 실행
+				modifyRservSeatPage = new ModifyRsrvSeatPage(user,userRsrvInfo,modPplNum);
+				int back = modifyRservSeatPage.showPage();
+				if(back ==-1) // -1 이면 좌석 수정 함수에서 뒤로가기 누른 것 
+					continue;
 				break;
+			}
 		}
 		
-		// 예매 좌석 객체에 인원수 전달 && 예매 좌석 선택 함수 실행 - 미구현 
 	}
 	
-	// 좌석 관련 구현 방식 : 좌석관련 클래스 따로 구현하기 
-	/* 1. 상영관 정보 받아오기
-	 * 1.1 상영관 이름은 userRsrvInfo 에서 가져올 수 있음.
-	 * 1.2 파일에 있는 상영관 정보 읽어오기. -> 상영관 관련 json class에서 추가해야할듯.
-	 * 1.2.1 파일 읽어오다가 input한 string이랑 같은 theater 이름이면 theater 객체 반환하도록 
-	 * 
-	 * 2. 상영관 출력하기 
-	 * - 상영관 행,열(TheaterInfo객체), 현재 예매 현황(RunnningInfo 객체), 현재 고객이 예매한 좌석(ReserveInfo) 필요 
-	 * 2.1 TheaterInfo, userRsrvInfo 를 인자로 받으면 좌석 출력해주는 함수 구현
-	 * -> 좌석 예매 page 클래스 안에 구현하기 
-	 * 
-	 * 3. 예매 좌석 수정하는 함수 구현하기
-	 * 3.1 2에서 구현한 함수 이용해서 좌석 출력 
-	 * 3.2 이미 선택된 좌석은 선택 불가하도록 
-	 * 3.3 
-	 * 
-	 * 
-	 * */
+	// 해당 상영 영화의 남은 좌석수 반환 
+	private int getLeftSeats() {
+		RunningInfo runInfo = userRsrvInfo.getRunInfo();
+		TheaterInfo theater = TheaterDataManage.findTheater(runInfo.getTheater());
+		
+		int totalSeat = theater.getRow() * theater.getCol();
+		int curRsrvedSeat=0;
+		for(ReserveInfo rsrvInfo : runInfo.getReserve()) {
+			curRsrvedSeat += rsrvInfo.getSeat().size();
+		}
+		
+		
+		// 현재 사용자가 예매한 좌석 수는 제외 
+		curRsrvedSeat-= userRsrvInfo.getRsrvInfo().getSeat().size();
+		return totalSeat - curRsrvedSeat;
+	}
 	
 	// 예매 취소 함수 
 	private void cancelRsrv() {
 		while(true) {
-			System.out.println("===== 예매 취소 =====");
+			System.out.println("\n\n===== 예매 취소 =====");
 			printRsrvInfo(); // 예매 정보 출력 
 			System.out.print("예매를 취소하시겠습니까? (Y/N) >>> ");
 			
@@ -97,16 +107,26 @@ public class RsrvModCancelPage {
 			int answer = InputRule.YesOrNo();
 			
 			if(answer == 1) {
-				// 예매 정보 삭제하는 함수 실행 - 미구현(파일접근 필요) 
+				// 예매 정보 삭제하는 함수 실행
+				String movieCode = userRsrvInfo.getRunInfo().getCode();
+				
+				// userInfo에서 해당 code 삭제 (json 수정)
+				LoginDataManage.removeCode(user.getId(), user.getPw(), movieCode);
+				
+				// RunningInfo에서 해당 ReserveInfo 삭제 (json 수정)
+				RunningInfoManage.removeReserve(userRsrvInfo.getRunInfo(), userRsrvInfo.getRsrvInfo(), user.getId());
+				
+				System.out.println("예매가 취소되었습니다.");
 				return;
 			}
-			else if(answer == -1) {
+			else if(answer == 0) {
 				return;
 			}else 
 				System.out.println("올바르지 않은 입력입니다.\n");
 		}
 		
 	}
+
 	
 	// 예매 정보 출력 함수 
 	private void printRsrvInfo() {
