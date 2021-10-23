@@ -9,7 +9,7 @@ public class TodayMovie {
 
     public static void ImportToday(String date) {
         riList = new ArrayList<>();
-        riArr = test.getRiArr();
+        riArr = RunningInfoManage.getRiArr();
         for(int i = 0; i < riArr.size(); i++) {
             if(riArr.get(i).getDate().equals(date))  riList.add(riArr.get(i));
         }
