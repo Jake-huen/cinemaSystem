@@ -169,7 +169,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 			return screen;
 		}
 	}
-<<<<<<< HEAD
+
 
 	public static String ScreenRule(String screen) {//7.5 상영관입력규칙
 		String check_screen = screen.trim();
@@ -191,7 +191,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 		}
 	}
 
-=======
+
 	public static String ScreenRule2(String screen) {//7.5 상영관입력규칙
 		String check_screen = screen.trim();
 		if(!screen.equals(check_screen)) {
@@ -211,7 +211,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 			return screen;
 		}
 	}
->>>>>>> refs/heads/th_manager
+
 	public static String DateRule() {// 7.6 날짜입력규칙 _ return 값은 YYYYMMDD형식
 		String checkdate = sc.nextLine();
 		boolean isNumeric = true;
