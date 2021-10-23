@@ -505,5 +505,31 @@ public class InputRule {//입력규칙 정의 (static으로)
         else if(yon.equals("no") || yon.equals("n")) return 0; //no or n --> 0
         else return -1; //others --> -1
     }
+	//7.9 예매 좌석 입력 규칙 - 오버로딩 (상영관 행 열 반영)
+	public static String SeatRule(String seat,int row, int col) { 
+        seat = seat.replace(" ", "");
+        seat = seat.trim();
+        seat = seat.toUpperCase();
+        int ascii = seat.charAt(0);
+        if(ascii >= 'A' && ascii <= row+'A') {
+            if(seat.length() > 3 || seat.length() == 1) {
+                return null;
+            }
+            else if(seat.length() == 3) {
+                int a = seat.charAt(1) - '0';
+                int b = seat.charAt(2) - '0';
+                int num = a * 10 + b;
+                if(num >= 1 && num <= col) return seat;
+                else return null;
+            } else {
+                int num = seat.charAt(1) - '0';
+                if(num >= 1 && num <= 9) return seat;
+                else return null;
+            }
+        } else {
+            return null;
+        }
+    }
+	
 	
 }

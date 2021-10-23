@@ -190,4 +190,19 @@ public class LoginDataManage {
 			System.out.println("해당하는 id가 없거나, 비밀번호가 올바르지 않습니다.");
 		return;
 	}
+	
+	public static void removeCode(String ins_id, String ins_pw, String rm_code)	// 예매 취소한 영화의 code 삭제  
+	{																			
+		getJson();
+		if (is_User(ins_id, ins_pw))
+			{
+				code = getCode(ins_id);
+				code.remove(code.indexOf(rm_code));
+				set_User(ins_id, ins_pw, code);	
+				return;
+			}
+		else
+			System.out.println("해당하는 id가 없거나, 비밀번호가 올바르지 않습니다.");
+		return;
+	}
 }
