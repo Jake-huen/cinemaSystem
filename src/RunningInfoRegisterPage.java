@@ -48,6 +48,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 	}
 	public static void runningInfoDetailPage(int theaterIndex,String inputdate) { //8.2.3.1 상영관
 		ArrayList<String[]> ri=RunningInfoManage.readDateRi(inputdate,theaterIndex);
+		// String[] temp2 = null;
 		System.out.println(inputdate.substring(0, 4)+"년"+inputdate.substring(4, 6)+"월"
 				+inputdate.substring(6, 8)+"일,"+
 				TheaterDataManage.readIndexTheaterName(theaterIndex)+" 상영정보");
@@ -85,13 +86,12 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 					String rt = MovieInfoDataManage.getmovieRuntime(menuNum);
 					// System.out.println(rt);
 					// String[] runtime2=MovieInfoDataManage.getRuntime();
-					System.out.println(runtime);
 					if(startTime==null) {
 						System.out.println("올바르지 않은 입력입니다.");
 					}
-//					else if(!Check(runtime,startTime,rt)) {
-//						System.out.println("상영시간이 중복됩니다.");	
-//					}
+					else if(!Check(runtime,startTime,rt)) {
+						System.out.println("상영시간이 중복됩니다.");	
+					}
 					else {
 						// startTime
 						RunningInfoManage.setJson2(inputdate, startTime,title[menuNum-1] , 
