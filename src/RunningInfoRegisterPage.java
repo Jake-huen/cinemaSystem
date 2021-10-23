@@ -53,11 +53,36 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 				+inputdate.substring(6, 8)+"일,"+
 				TheaterDataManage.readIndexTheaterName(theaterIndex)+" 상영정보");
 		System.out.println("==========================");
-		System.out.println(ri.size());
+		String[] seTime=new String[ri.size()*2];
 		for(int i=0;i<ri.size();i++) {
-			System.out.println(ri.get(i)[0].substring(0,2)+":"+
-					ri.get(i)[0].substring(2,4)+"~"+"끝시간"+" "+
-					ri.get(i)[1]);
+			String startTime="",endTime="";
+			startTime=ri.get(i)[0].substring(0,2)+":"+ri.get(i)[0].substring(2,4);
+			int h=Integer.parseInt(ri.get(i)[0].substring(0,2));
+			int m=Integer.parseInt(ri.get(i)[0].substring(2,4));
+			int runtime=Integer.parseInt(MovieInfoDataManage.getmovieRuntime(ri.get(i)[1]));
+			h+=runtime/60;
+			m+=runtime%60;
+			if(m>=60) {
+				h++;
+				m%=60;
+			}
+			if(h>=24) {
+				h%=24;
+			}
+			endTime=h+":"+m;
+			if(h<10) {
+				endTime="0"+h+":"+m;
+			}
+			else if(m<10) {
+				endTime=h+":"+"0"+m;
+			}
+			else if(h<10&&m<10)
+				endTime="0"+h+":"+"0"+m;
+			
+			System.out.println(startTime+"~"+endTime+" "+ri.get(i)[1]);
+			
+			seTime[i*2]=startTime;
+			seTime[i*2+1]=endTime;
 		}
 		//등록된 영화 출력
 		String[] title=MovieInfoDataManage.getTitle(); //영화제목 받아오기
@@ -90,9 +115,9 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 					if(startTime==null) {
 						System.out.println("올바르지 않은 입력입니다.");
 					}
-					//else if(!Check(runtime,startTime,rt)) {
-					//	System.out.println("상영시간이 중복됩니다.");	
-					//}
+					else if(!Check(seTime,startTime,rt)) {
+						System.out.println("상영시간이 중복됩니다.");	
+					}
 					else {
 						// startTime
 						RunningInfoManage.setJson(inputdate, startTime.replaceAll(":", ""),title[menuNum-1].replaceAll("\"", "") , 

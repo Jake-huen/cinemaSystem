@@ -174,4 +174,52 @@ public class RunningInfoManage {
             e.printStackTrace();
         }
     }
+    
+    public static int count(String date, String movieName, String theaterName) {
+		int count = 0;
+		getJson();
+		for(int i =0; i<riArr.size(); i++) {
+			if(riArr.get(i).getDate().equals(date)&&riArr.get(i).getTheater().equals(theaterName)&&riArr.get(i).getMovieName().equals(movieName)) {
+				count++;
+			}
+		}
+		return count;
+	}
+    //아래의 int flag 변수는 info.json에서 date, movieName, theaterName이 일치하는 RunningInfo가 여러개 들어가 있다면 그 모든 객체를 찾기 위한 변수
+  	public static String checkDateMovieTheater(String date, String movieName, String theaterName, int count) {
+  		//info.json에서 date, movieName, theaterName이 일치하는 RunningInfo을 찾아서 time출력하기
+  		getJson();
+  		int flag = 0;
+  		for(int i =0; i<riArr.size(); i++) {
+  			if(riArr.get(i).getDate().equals(date)&&riArr.get(i).getTheater().equals(theaterName)&&riArr.get(i).getMovieName().equals(movieName)) {
+  				if(flag==count)
+  					return riArr.get(i).getTime();
+  				else
+  					flag++;
+  			}
+  		}
+  		return null;
+  	}
+  	public static int checkReservedSeatsNum(String date, String movieName, String theaterName, int count) {
+		//info.json에서 date, movieName, theaterName이 일치하는 RunningInfo을 찾아서 예약된 자리가 몇자리인지 출력하기
+		getJson();
+		int sumReservedSeats=0;
+		int flag = 0;
+		for(int i =0; i<riArr.size(); i++) {
+			if(riArr.get(i).getDate().equals(date)&&riArr.get(i).getTheater().equals(theaterName)&&riArr.get(i).getMovieName().equals(movieName)) {
+				if(count==flag) {
+					ArrayList<ReserveInfo> reserveInfo = riArr.get(i).getReserve();
+					if(reserveInfo == null)
+						return 0;
+					for(int j = 0; j<reserveInfo.size(); j++) {
+						sumReservedSeats+=reserveInfo.get(j).getSeat().length;
+					}
+					return sumReservedSeats;
+				}else {
+					flag++;
+				}
+			}
+		}return -1;//일치하는 부분 없음
+		
+	}
 }
