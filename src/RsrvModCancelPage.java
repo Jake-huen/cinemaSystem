@@ -46,9 +46,10 @@ public class RsrvModCancelPage {
 		}
 	}
 	
-	// 예매 인원 수정 함수  -- 인원수 제한 추가필요
+	// 예매 인원 수정 함수 
 	private void modRsrvPplNum() {
 		int modPplNum;
+		int leftSeats = getLeftSeats();
 		
 		while(true) {
 			System.out.println("===== 예매 인원 수정 =====");
@@ -61,15 +62,35 @@ public class RsrvModCancelPage {
 			else if(modPplNum == -1) {
 				System.out.println("올바르지 않은 입력입니다.\n");
 				continue;
-			}else 
+			}else if(modPplNum < leftSeats) {
+				System.out.println("남은 좌석이 입력한 인원보다 적습니다.");
+				continue;
+			}else {
 				break;
+			}
 		}
 		
-		// 예매 좌석 객체에 인원수 전달 && 예매 좌석 선택 함수 실행 - 미구현 
+		// 예매 좌석 수정 함수 실행
 		modifyRservSeatPage = new ModifyRsrvSeatPage(user,userRsrvInfo,modPplNum);
 		modifyRservSeatPage.showPage();
 	}
 	
+	// 해당 상영 영화의 남은 좌석수 반환 
+	private int getLeftSeats() {
+		RunningInfo runInfo = userRsrvInfo.getRunInfo();
+		TheaterInfo theater = TheaterDataManage.findTheater(runInfo.getTheater());
+		
+		int totalSeat = theater.getRow() * theater.getCol();
+		int curRsrvedSeat=0;
+		for(ReserveInfo rsrvInfo : runInfo.getReserve()) {
+			curRsrvedSeat += rsrvInfo.getSeat().length;
+		}
+		
+		// 현재 사용자가 예매한 좌석 수는 제외 
+		curRsrvedSeat-= userRsrvInfo.getRsrvInfo().getSeat().length;
+		
+		return totalSeat - curRsrvedSeat;
+	}
 	
 	// 예매 취소 함수 
 	private void cancelRsrv() {
