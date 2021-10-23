@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class ManagerMainPage {
-
+	
 	static Scanner scan = new Scanner(System.in);
 
 	public static void managerMainPage() {
