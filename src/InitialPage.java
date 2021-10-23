@@ -32,6 +32,8 @@ public class InitialPage {
                {
             	   return info;
                }
+               else
+            	   continue;
             default:
             	System.out.println("올바르지 않은 입력입니다."); 
          	}

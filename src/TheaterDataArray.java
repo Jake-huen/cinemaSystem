@@ -18,9 +18,7 @@ public class TheaterDataArray {
 		JsonParser parser = new JsonParser();
 		try {
 			Reader reader = new FileReader("filepath.json");
-			
 			theaterinfo = gson.fromJson(reader, TheaterInfo.class);
-			theaters = theaterinfo.getTheaters();
 		} catch (FileNotFoundException e) {
 			// TODO: handle exception
 			e.printStackTrace();
