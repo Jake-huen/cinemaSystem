@@ -14,6 +14,16 @@
       "theater": "bo관",
       "row": 4,
       "col": 6
+    },
+    {
+      "theater": "건국관",
+      "row": 10,
+      "col": 10
+    },
+    {
+      "theater": "135관",
+      "row": 10,
+      "col": 10
     }
   ]
 }
