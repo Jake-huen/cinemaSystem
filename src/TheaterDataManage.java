@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -16,9 +17,10 @@ public class TheaterDataManage {
 	static int row;
 	static int col;
 	static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	static String pathTheater = "."+File.separator+"resource"+File.separator+"theater.json";
 	public static JsonObject getJson(){ // json 파일 get
 		try {
-			Reader reader = new FileReader(".\\resource\\theater.json");
+			Reader reader = new FileReader(pathTheater);
 			JsonParser jsonParser = new JsonParser();
 			JsonElement element = jsonParser.parse(reader);
 			JsonObject jsonobject = element.getAsJsonObject();
@@ -69,7 +71,7 @@ public class TheaterDataManage {
 		String json = gson.toJson(jsonobject);
 		FileWriter writer = null;
 		try {
-			writer = new FileWriter(".\\resource\\theater.json");
+			writer = new FileWriter(pathTheater);
 			writer.write(json);
 			writer.flush();
 			writer.close();
@@ -99,7 +101,7 @@ public class TheaterDataManage {
 	}
 	public static void fixTheater(int index,String newT,int row,int col) {//index받아와서 해당 영화관 수정
 		try {
-			Reader reader = new FileReader(".\\resource\\theater.json");
+			Reader reader = new FileReader(pathTheater);
 			JsonParser jsonParser = new JsonParser();
 			JsonElement element = jsonParser.parse(reader);
 			JsonObject jsonobject = element.getAsJsonObject();
@@ -114,7 +116,7 @@ public class TheaterDataManage {
 			String json = gson.toJson(element);
 			FileWriter writer=null;
 			try {
-				writer = new FileWriter(".\\resource\\theater.json");
+				writer = new FileWriter(pathTheater);
 				writer.write(json);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -135,7 +137,7 @@ public class TheaterDataManage {
 	}
 	public static void deleteTheater(int index) {//해당 index의 영화관 삭제
 		try {
-			Reader reader = new FileReader(".\\resource\\theater.json");
+			Reader reader = new FileReader(pathTheater);
 			JsonParser jsonParser = new JsonParser();
 			JsonElement element = jsonParser.parse(reader);
 			JsonObject jsonobject = element.getAsJsonObject();
@@ -146,7 +148,7 @@ public class TheaterDataManage {
 			String json = gson.toJson(element);
 			FileWriter writer=null;
 			try {
-				writer = new FileWriter(".\\resource\\theater.json");
+				writer = new FileWriter(pathTheater);
 				writer.write(json);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

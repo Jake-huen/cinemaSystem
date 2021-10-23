@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class RunningInfoManage {
 	public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	private static String path = ".\\resource\\info.json";
+	private static String pathInfo = "."+File.separator+"resource"+File.separator+"info.json";
 	private static ArrayList<RunningInfo> riArr;
 
     public static ArrayList<RunningInfo> getRiArr() {
@@ -25,7 +25,7 @@ public class RunningInfoManage {
         RunningInfo[] riArrTmp;
 
         try  {
-        	Reader reader = new FileReader(path);
+        	Reader reader = new FileReader(pathInfo);
             riArrTmp = gson.fromJson(reader, RunningInfo[].class);
             for(RunningInfo ri : riArrTmp){
                     riArr.add(ri);
@@ -39,7 +39,7 @@ public class RunningInfoManage {
     public static void setJson(String date, String time, String movie, String theater, ArrayList<ReserveInfo> rsiArr) {
         getJson();
         try{
-        	FileWriter fw = new FileWriter(".\\resource\\info.json");
+        	FileWriter fw = new FileWriter(pathInfo);
             RunningInfo ri = new RunningInfo(date,time,movie,theater.replaceAll("\"", ""),rsiArr);
             riArr.add(ri);
 
@@ -53,7 +53,7 @@ public class RunningInfoManage {
     public static void setJson2(String date, String time, String movie, String theater, ArrayList<ReserveInfo> rsiArr) {
         getJson();
         try{
-        	FileWriter fw = new FileWriter(".\\resource\\info.json");
+        	FileWriter fw = new FileWriter(pathInfo);
             RunningInfo ri = new RunningInfo(date,time,movie,theater,rsiArr);
             riArr.add(ri);
 
@@ -69,7 +69,7 @@ public class RunningInfoManage {
     public static void updateReserve(RunningInfo ri, ReserveInfo rsi){
         getJson();
         try{
-        	FileWriter fw = new FileWriter(".\\resource\\info.json");
+        	FileWriter fw = new FileWriter(pathInfo);
             for(RunningInfo jsonRI : riArr){
                 if(ri.getMovieName().equals(jsonRI.getMovieName())
                 && ri.getTheater().equals(jsonRI.getTheater())
@@ -122,7 +122,7 @@ public class RunningInfoManage {
     // 예매 내역 수정하는 함수 
     public static void modifyReserve(RunningInfo ri, ReserveInfo rsi, String id){
         getJson();
-        try(FileWriter fw = new FileWriter(path)){
+        try(FileWriter fw = new FileWriter(pathInfo)){
             for(RunningInfo jsonRI : riArr){
                 if(ri.getMovieName().equals(jsonRI.getMovieName())
                 && ri.getTheater().equals(jsonRI.getTheater())
@@ -148,7 +148,7 @@ public class RunningInfoManage {
     // 예매 내역 삭제하는 함수 
     public static void removeReserve(RunningInfo ri, ReserveInfo rsi, String id){
         getJson();
-        try(FileWriter fw = new FileWriter(path)){
+        try(FileWriter fw = new FileWriter(pathInfo)){
             for(RunningInfo jsonRI : riArr){
                 if(ri.getMovieName().equals(jsonRI.getMovieName())
                 && ri.getTheater().equals(jsonRI.getTheater())
