@@ -51,7 +51,6 @@ public class MovieInfoDataManage {
 			rt[i]=((JsonObject) movieInfos.get(i)).get("runtime").toString();
 			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
 			//System.out.println(movieinfo.get("runtime"));
-			System.out.println(rt[i]);
 		}
 		return rt;
 	}
