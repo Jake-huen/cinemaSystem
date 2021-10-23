@@ -84,6 +84,9 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 		System.out.println("정상추가 되었습니다");
 	}
 	public static boolean Check(String[] temp, String userStartTime, String runtime) {
+		if(temp.length==0) {
+			return true;
+		}
 		int runtimeInt = Integer.parseInt(runtime);
 		double runtimeDouble = runtimeInt/60.0;//120->2.0
 		double[] checktime = new double[temp.length];
@@ -113,7 +116,14 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 	}
 	public static double translate(String string) { // 시간 -> 소수형태로
 		//07:40 -> 7.666
-		String time[] = string.split(":");
+		string = InputRule.TimeRule(string);
+		String time[]  = null;
+		time= string.split(":");
+		if(time.length!=2) {
+			System.out.println("올바른입력이 아닙니다.");
+			return 0.0;
+		}
+				
 		double hour = 0.0;
 		double resultTime, min = 0.0;
 		hour = Double.parseDouble(time[0]);
@@ -125,18 +135,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 		resultTime = hour+min;
 		return resultTime;
 	}
-//	public static void main(String[] args) {
-//		int theaterIndex=1;
-//		String inputdate=""
-//		ArrayList<String[]> ri=RunningInfoManage.readDateRi(inputdate,theaterIndex);
-//		System.out.println(inputdate.substring(0, 4)+"년"+inputdate.substring(4, 6)+"월"
-//				+inputdate.substring(6, 8)+"일,"+
-//				TheaterDataManage.readIndexTheaterName(theaterIndex)+" 상영정보");
-//		System.out.println("==========================");
-//		for(int i=0;i<ri.size();i++) {
-//			System.out.println(ri.get(i)[0].substring(0,2)+":"+
-//					ri.get(i)[0].substring(2,4)+"~"+"끝시간"+" "+
-//					ri.get(i)[1]);
-//		}
+//	public static void main(String args[]) {
+//		System.out.println(translate("0940"));
 //	}
 }
