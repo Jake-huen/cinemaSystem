@@ -27,7 +27,7 @@ public class CustomerRsrvInfoPage {
 	
 			// 메뉴 출력 
 			Print.menu(makeMenuNameforPrint(), true);
-			System.out.print("\n수정 및 삭제할 예매 내역을 선택하세요 >>> ");
+			System.out.print("수정 및 삭제할 예매 내역을 선택하세요 >>> ");
 			
 			// 메뉴 입력 
 			int menuNum=InputRule.MenuRule(makeMenuNameforInput());

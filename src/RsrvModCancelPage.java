@@ -17,7 +17,7 @@ public class RsrvModCancelPage {
 	
 	public void menu() {
 		while(true) {
-			System.out.println("===== 예매 수정 및 취소 =====");
+			System.out.println("\n\n===== 예매 수정 및 취소 =====");
 			
 			// 예매 정보 출력
 			printRsrvInfo(); 
@@ -99,7 +99,7 @@ public class RsrvModCancelPage {
 	// 예매 취소 함수 
 	private void cancelRsrv() {
 		while(true) {
-			System.out.println("===== 예매 취소 =====");
+			System.out.println("\n\n===== 예매 취소 =====");
 			printRsrvInfo(); // 예매 정보 출력 
 			System.out.print("예매를 취소하시겠습니까? (Y/N) >>> ");
 			
@@ -119,7 +119,7 @@ public class RsrvModCancelPage {
 				System.out.println("예매가 취소되었습니다.");
 				return;
 			}
-			else if(answer == -1) {
+			else if(answer == 0) {
 				return;
 			}else 
 				System.out.println("올바르지 않은 입력입니다.\n");
