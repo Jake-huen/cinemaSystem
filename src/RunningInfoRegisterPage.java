@@ -20,67 +20,89 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 				System.out.println((i+1)+". "+theaters[i]);
 			System.out.println("===================");
 			System.out.print("영화를 등록할 상영관을 선택해주세요>>>");
-			
-			int menuNum=InputRule.MenuRule(theatermenu);
-			System.out.println(menuNum);
-			if(menuNum==0) return;
-			else {
-				System.out.print("등록할 날짜를 입력해주세요>>>");
-				String date=InputRule.DateRule();
-				if(date==null) { 
+			while(true) {
+				int menuNum=InputRule.MenuRule(theatermenu);
+				if(menuNum==0) {
+					return;
+				}
+				else if(menuNum==-1){
 					System.out.println("올바르지 않은 입력입니다.");
-					continue;
 				}
 				else {
-					System.out.println(menuNum);
-					System.out.println(date);
-					runningInfoDetailPage(menuNum-1,date);
+					while(true) {
+						System.out.print("등록할 날짜를 입력해주세요>>>");
+						String date=InputRule.DateRule();
+						if(date==null) { 
+							System.out.println("올바르지 않은 입력입니다.");
+						}
+						else {
+							 System.out.println(menuNum);
+							 System.out.println(date);
+							runningInfoDetailPage(menuNum-1,date);
+							return;
+						}
+					}
 				}
-				System.out.println();
 			}
 		}
 	}
 	public static void runningInfoDetailPage(int theaterIndex,String inputdate) { //8.2.3.1 상영관
 		ArrayList<String[]> ri=RunningInfoManage.readDateRi(inputdate,theaterIndex);
+		// String[] temp2 = null;
 		System.out.println(inputdate.substring(0, 4)+"년"+inputdate.substring(4, 6)+"월"
 				+inputdate.substring(6, 8)+"일,"+
 				TheaterDataManage.readIndexTheaterName(theaterIndex)+" 상영정보");
 		System.out.println("==========================");
+		System.out.println(ri.size());
 		for(int i=0;i<ri.size();i++) {
 			System.out.println(ri.get(i)[0].substring(0,2)+
 					ri.get(i)[0].substring(3,5)+"~"+"끝시간"+" "+
 					ri.get(i)[1]);
 		}
-		
 		//등록된 영화 출력
 		String[] title=MovieInfoDataManage.getTitle(); //영화제목 받아오기
 		String[] runtime=MovieInfoDataManage.getRuntime(); //영화시간 받아오기
-		String[] movieInfo =new String[title.length+1],moviemenu=new String[title.length+1];
+		String[] movieInfo =new String[title.length+1];
+		String[] moviemenu=new String[title.length+1];
 		movieInfo[0]="뒤로가기"; moviemenu[0]="뒤로가기";
 		for(int i=1;i<title.length+1;i++) {
-			movieInfo[i]=title[i-1]+"/"+runtime[i-1];
+			// movieInfo[i]=movieInfo[i].substring(1,movieInfo[i].length()-1);
+			movieInfo[i]=title[i-1]+" / "+runtime[i-1];
 			moviemenu[i]=title[i-1];
 		}
 		System.out.println("======영화목록======");
 		Print.menu(movieInfo, true);
 		System.out.println("=================");
-
-		System.out.print("영화를 선택해주세요>>>");
-		int menuNum=InputRule.MenuRule(moviemenu);
-		if(menuNum==0) return;//8.2.1로
-		//정상입력시
-		System.out.print("상영시작시간을 설정하세요>>>");//상영시간 중복시 오류처리 해야됨
-		String startTime=InputRule.TimeRule();
-		while(startTime==null) {
-			System.out.println("올바르지 않은 입력입니다.");
-			System.out.print("상영시작시간을 설정하세요>>>");
-			startTime=InputRule.TimeRule();
+		while(true) {
+			System.out.print("영화를 선택해주세요>>>");
+			int menuNum=InputRule.MenuRule(moviemenu);
+			if(menuNum==0) return;
+			else if(menuNum==-1) {
+				System.out.println("올바르지 않은 입력입니다.");
+			}
+			else {
+				while(true) {
+					System.out.print("상영시작시간을 설정하세요>>>");//상영시간 중복시 오류처리 해야됨
+					String startTime=InputRule.TimeRule();
+					String rt = MovieInfoDataManage.getmovieRuntime(menuNum);
+					// System.out.println(rt);
+					// String[] runtime2=MovieInfoDataManage.getRuntime();
+					if(startTime==null) {
+						System.out.println("올바르지 않은 입력입니다.");
+					}
+					else if(!Check(runtime,startTime,rt)) {
+						System.out.println("상영시간이 중복됩니다.");	
+					}
+					else {
+						// startTime
+						RunningInfoManage.setJson2(inputdate, startTime,title[menuNum-1] , 
+								TheaterDataManage.readIndexTheaterName(theaterIndex), null);
+						System.out.println("정상추가 되었습니다");
+						return;
+					}
+				}
+			}
 		}
-		
-		
-		RunningInfoManage.setJson(inputdate, startTime,title[menuNum-1] , 
-				TheaterDataManage.readIndexTheaterName(theaterIndex), null);//제대로추가안됨
-		System.out.println("정상추가 되었습니다");
 	}
 	public static boolean Check(String[] temp, String userStartTime, String runtime) {
 		if(temp.length==0) {
