@@ -53,9 +53,15 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 					System.out.print("좌석의 행과 열 수>>");
 					rc=scan.nextLine();
 					rc=rc.replace(" ","");
-					String[] tmp=rc.split("-|/");
-					int row=Integer.parseInt(tmp[0]);
-					int col=Integer.parseInt(tmp[1]);
+					int row=0,col=0;
+					try {
+						String[] tmp=rc.split("-|/");
+						row=Integer.parseInt(tmp[0]);
+						col=Integer.parseInt(tmp[1]);
+					}catch(ArrayIndexOutOfBoundsException e) {
+						System.out.println("올바르지 않은 입력입니다.");
+						continue;
+					}
 					if(row<1||row>26||col<1||col>50) {
 						System.out.println("올바르지 않은 입력입니다.");
 					}
@@ -134,9 +140,16 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 						System.out.print("좌석의 행과 열 수>>");
 						rc=scan.nextLine();
 						rc=rc.replace(" ","");
-						String[] tmp=rc.split("-|/");
-						int row=Integer.parseInt(tmp[0]);
-						int col=Integer.parseInt(tmp[1]);
+						int row=0,col=0;
+						try {
+							String[] tmp=rc.split("-|/");
+							row=Integer.parseInt(tmp[0]);
+							col=Integer.parseInt(tmp[1]);
+						}catch(ArrayIndexOutOfBoundsException e) {
+							System.out.println("올바르지 않은 입력입니다.");
+							continue;
+						}
+						
 						if(row<1||row>26||col<1||col>50) {
 							System.out.println("올바르지 않은 입력입니다.");
 						}
