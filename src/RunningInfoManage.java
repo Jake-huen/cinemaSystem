@@ -17,10 +17,11 @@ public class RunningInfoManage {
     }
 
     public static void getJson() {
-        riArr = new ArrayList<>();
+        riArr = new ArrayList<RunningInfo>();
         RunningInfo[] riArrTmp;
 
-        try (Reader reader = new FileReader(path)) {
+        try  {
+        	Reader reader = new FileReader(path);
             riArrTmp = gson.fromJson(reader, RunningInfo[].class);
             for(RunningInfo ri : riArrTmp){
                     riArr.add(ri);
@@ -32,7 +33,8 @@ public class RunningInfoManage {
 
     public static void setJson(String date, String time, String movie, String theater, ArrayList<ReserveInfo> rsiArr) {
         getJson();
-        try(FileWriter fw = new FileWriter(path)){
+        try{
+        	FileWriter fw = new FileWriter(".\\resource\\theater.json");
             RunningInfo ri = new RunningInfo(date,time,movie,theater,rsiArr);
             riArr.add(ri);
 
@@ -45,7 +47,8 @@ public class RunningInfoManage {
     }
     public static void updateReserve(RunningInfo ri, ReserveInfo rsi){
         getJson();
-        try(FileWriter fw = new FileWriter(path)){
+        try{
+        	FileWriter fw = new FileWriter(".\\resource\\theater.json");
             for(RunningInfo jsonRI : riArr){
                 if(ri.getMovieName().equals(jsonRI.getMovieName())
                 && ri.getTheater().equals(jsonRI.getTheater())
