@@ -87,12 +87,12 @@ public class RsrvModCancelPage {
 		int totalSeat = theater.getRow() * theater.getCol();
 		int curRsrvedSeat=0;
 		for(ReserveInfo rsrvInfo : runInfo.getReserve()) {
-			curRsrvedSeat += rsrvInfo.getSeat().length;
+			curRsrvedSeat += rsrvInfo.getSeat().size();
 		}
 		
 		
 		// 현재 사용자가 예매한 좌석 수는 제외 
-		curRsrvedSeat-= userRsrvInfo.getRsrvInfo().getSeat().length;
+		curRsrvedSeat-= userRsrvInfo.getRsrvInfo().getSeat().size();
 		return totalSeat - curRsrvedSeat;
 	}
 	

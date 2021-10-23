@@ -169,7 +169,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 			return screen;
 		}
 	}
-	
+
 	public static String ScreenRule(String screen) {//7.5 상영관입력규칙
 		String check_screen = screen.trim();
 		if(!screen.equals(check_screen)) {

@@ -71,14 +71,14 @@ public class SeatSelect {
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         int count = 0;
         for(ReserveInfo rsi : rsiArr){
-            String[] seatArr = rsi.getSeat();
+            ArrayList<String> seatArr = rsi.getSeat();
             for(String seat : seatArr)
                 count++;
         }
         Pair[] pair = new Pair[count];
         int s = 0;
         for(ReserveInfo rsi : rsiArr){
-            String[] seatArr = rsi.getSeat();
+            ArrayList<String> seatArr = rsi.getSeat();
             for(String seat : seatArr){
                 int tmpx = seat.charAt(0) - 'A';
                 int tmpy = 0;
@@ -93,6 +93,7 @@ public class SeatSelect {
         for(int i = 0; i < count; i++) { // 예약된 좌석 >> 1
             int _row = pair[i].getRow();
             int _col = pair[i].getCol() - 1;
+            System.out.println(_row +" "+_col);
             seat[_row][_col] = 1;
         }
 
@@ -123,7 +124,7 @@ public class SeatSelect {
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         int count = 0;
         for(ReserveInfo rsi : rsiArr){
-            String[] seatArr = rsi.getSeat();
+            ArrayList<String> seatArr = rsi.getSeat();
             for(String seat : seatArr)
                 count++;
         }
@@ -131,7 +132,7 @@ public class SeatSelect {
         Pair[] pair = new Pair[count];
         int s = 0;
         for(ReserveInfo rsi : rsiArr){
-            String[] seatArr = rsi.getSeat();
+            ArrayList<String> seatArr = rsi.getSeat();
             for(String seat : seatArr){
                 int tmpx = seat.charAt(0) - 'A';
                 int tmpy = 0;

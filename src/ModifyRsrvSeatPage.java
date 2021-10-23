@@ -44,7 +44,7 @@ public class ModifyRsrvSeatPage{
 		
 		// user 정보 초기화 
 		this.user = user;
-		userSeatNum=userRsrvInfo.getRsrvInfo().getSeat().length; // 사용자의 원래 예매 좌석 개수 그대로 활용 
+		userSeatNum=userRsrvInfo.getRsrvInfo().getSeat().size(); // 사용자의 원래 예매 좌석 개수 그대로 활용
 		
 	}
 
@@ -123,10 +123,10 @@ public class ModifyRsrvSeatPage{
 	}
 	
 	// 변경된 좌석 배열 반환 - 파일에 반영 안됌  
-	private String[] modifyRsrvInfo() {
-		String[] seatStrs= new String[userSeatNum];
+	private ArrayList<String> modifyRsrvInfo() {
+		ArrayList<String> seatStrs= new ArrayList<String>();
 		for(int i = 0; i<userSeatNum ;i++) {
-			seatStrs[i] = Print.PairToSeatStr(selectedSeats.get(i));
+			seatStrs.add(Print.PairToSeatStr(selectedSeats.get(i)));
 		}
 		return seatStrs;
 			

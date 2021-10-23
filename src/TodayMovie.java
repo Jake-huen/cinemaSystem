@@ -52,18 +52,31 @@ public class TodayMovie {
                 if(index < riList.size()) {
                     Pair[] pairs = SeatSelect.SeatMain(riList.get(index));
                     if(pairs == null) break; //좌석 선택 실패
-                    
-                    String[] seat = new String[pairs.length];
-                    int i = 0;
+
+                    ArrayList<String> seat = new ArrayList<String>();
                     for(Pair pair : pairs){
                         char chx = (char)(pair.getRow() + 'A');
                         String tmpx = ""+chx;
                         String tmpy = Integer.toString(pair.getCol()+1);
                         String tmpSeat = tmpx + tmpy;
-                        seat[i++] = tmpSeat;
+                        seat.add(tmpSeat);
                     }
-                    ReserveInfo rsi = new ReserveInfo(ID, seat);
-                    RunningInfoManage.updateReserve(riList.get(index), rsi);
+
+                    ArrayList<ReserveInfo> rsiArr = riList.get(index).getReserve();
+                    ReserveInfo rsitmp = null;
+                    for(ReserveInfo rsi : rsiArr){
+                        if(rsi.getUserId().equals(ID))
+                            rsitmp = rsi;
+                    }
+
+                    if(rsitmp == null)
+                        rsitmp = new ReserveInfo(ID, seat);
+                    else{
+                        for(String s : seat){
+                            rsitmp.getSeat().add(s);
+                        }
+                    }
+                    RunningInfoManage.updateReserve(riList.get(index), rsitmp);
                     break;
                 }
             }
