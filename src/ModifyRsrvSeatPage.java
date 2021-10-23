@@ -3,25 +3,34 @@ import java.util.Scanner;
 
 public class ModifyRsrvSeatPage{
 	
+	public Scanner scan;
+
 	private int[][]  theaterMap;
+	private ArrayList<Pair> selectedSeats;
 	private int row;
 	private int col; 
 	private int userSeatNum;
 	private int curSelectednum=1;
-	public Scanner scan;
 	
-	public ModifyRsrvSeatPage(TheaterInfo theater, RunningInfo runInfo, ReserveInfo userRsrvInfo) {
+	private UserInfo user;
+	
+	public ModifyRsrvSeatPage(UserInfo user,TheaterInfo theater, RunningInfo runInfo, ReserveInfo userRsrvInfo) {
+		scan= new Scanner(System.in);
 		
 		// 상영관 행, 열 받아오기
 		int row = theater.getRow();
 		int col = theater.getCol();
 		
+		// 배열 및 좌석 개수 초기화 
 		theaterMap = new int[row][col]; // 0 : 빈 좌석, 1: 예매된 좌석 , 2: 기존 사용자 예매 좌석 3: 현재 사용자 예매 좌석  
 		initTheaterMap(theater, runInfo, userRsrvInfo);
 		
+		selectedSeats = new ArrayList<Pair>();
+		
 		userSeatNum=userRsrvInfo.getSeat().length;
 		
-		scan= new Scanner(System.in);
+		// user 초기화 
+		this.user = user;
 		
 	}
 
@@ -57,10 +66,12 @@ public class ModifyRsrvSeatPage{
 				continue;
 			}
 			
-			// 이미 선택된 좌석인 경우 ( 다른 사람이 선택한 좌석 or 본인이 현재 선택한 좌석 ) 
+			// string -> Pair 객체로 변환 
 			Pair seatPair = Print.seatStrToPair(seat);
 			int curRow= seatPair.getRow();
 			int curCol= seatPair.getCol();
+			
+			// 이미 선택된 좌석인 경우 ( 다른 사람이 선택한 좌석 or 본인이 현재 선택한 좌석 ) 
 			if(theaterMap[curRow][curCol] == 1 ||theaterMap[curRow][curCol] == 3) {
 				System.out.println("이미 선택된 좌석입니다.");
 				continue;
@@ -69,6 +80,7 @@ public class ModifyRsrvSeatPage{
 			// 정상 좌석인 경우 
 			curSelectednum++;
 			theaterMap[curRow][curCol] = 3;
+			selectedSeats.add(seatPair);
 			
 		}
 		
@@ -77,7 +89,12 @@ public class ModifyRsrvSeatPage{
 		System.out.println();
 		System.out.println("좌석 수정이 완료되었습니다.");
 		
-		// json 에서 데이터 수정 
+		// json 에서 데이터 수정 - 미구현 
+		/* 
+		 * <수정해야할 데이터>
+		 * - runningInfo 
+		 * 
+		 * */
 		
 	}
 	
