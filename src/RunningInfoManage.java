@@ -60,7 +60,24 @@ public class RunningInfoManage {
             e.printStackTrace();
         }
     }
+<<<<<<< HEAD
     
+=======
+    public static void setJson2(String date, String time, String movie, String theater, ArrayList<ReserveInfo> rsiArr) {
+        getJson();
+        try{
+        	FileWriter fw = new FileWriter(".\\resource\\info.json");
+            RunningInfo ri = new RunningInfo(date,time,movie,theater,rsiArr);
+            riArr.add(ri);
+
+            gson.toJson(riArr, fw);
+            fw.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+>>>>>>> 64ec7eec6823350eac16eca16d5a1fd0c5201dd6
     public static void updateReserve(RunningInfo ri, ReserveInfo rsi){
         getJson();
         try{
@@ -85,9 +102,9 @@ public class RunningInfoManage {
     public static ArrayList<String[]> readDateRi(String date,int theaterindex) {//특정날짜에 상영하는 상영정보 뽑기
         getJson();
         String theaterName=(TheaterDataManage.readIndexTheaterName(theaterindex)).replaceAll("\"","");
-        ArrayList<String[]> rt=new ArrayList<String[]>();
-        String[] tmp=new String[2];//tmp[0]은 시간정보, [1]은 영화이름
+        ArrayList<String[]> rt=new ArrayList<String[]>(0);
         for(int i=0; i<riArr.size();i++) {
+        	String[] tmp=new String[2];//tmp[0]은 시간정보, [1]은 영화이름
         	String getTheater=riArr.get(i).getTheater().replace("\"", "");
             if(riArr.get(i).getDate().equals(date)&&getTheater.equals(theaterName)) {
             	tmp[0]=riArr.get(i).getTime();

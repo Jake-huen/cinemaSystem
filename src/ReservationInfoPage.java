@@ -6,7 +6,7 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 	
 	public static void reservationInfoPage() {
 		String tmp="";
-		System.out.println("================");
+		System.out.println("=========================");
 		System.out.println("확인할 예매 정보를 검색해주세요(날짜␣영화제목␣상영관)");
 		System.out.print(">>>");
 		tmp=scan.nextLine();
