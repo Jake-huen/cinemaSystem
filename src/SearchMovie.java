@@ -85,7 +85,7 @@ public class SearchMovie {
 
         int p = 1;
         for(RunningInfo ri : riList){
-            System.out.println(p+". "+ri.getDate()+" | "+ri.getTime()+" | "+ri.getTheater()+"관 | "+ri.getMovieName());
+            System.out.println(p+". "+ri.getDate()+" | "+ri.getTime()+" | "+ri.getTheater()+" | "+ri.getMovieName());
             p++;
         }
         System.out.print("예매할 영화를 선택해주세요(뒤로가기 : 0) >>>");
@@ -108,6 +108,6 @@ public class SearchMovie {
             seat[i++] = tmpSeat;
         }
         ReserveInfo rsi = new ReserveInfo(ID, seat);
-        test.updateReserve(riList.get(index), rsi);
+        RunningInfoManage.updateReserve(riList.get(index), rsi);
     }
 }

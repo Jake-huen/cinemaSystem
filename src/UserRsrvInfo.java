@@ -15,5 +15,15 @@ public class UserRsrvInfo {
 		infoStr += rsrvInfo.toString();
 		return infoStr;
 	}
+
+	public RunningInfo getRunInfo() {
+		return runInfo;
+	}
+
+	public ReserveInfo getRsrvInfo() {
+		return rsrvInfo;
+	}
+
+	
 	
 }

@@ -5,15 +5,15 @@ public class SeatSelect {
     public static Pair[] SeatMain(RunningInfo ri) {
         System.out.println("===== 영화예매 ======\r\n"
                 + "----------- 선택한 영화 정보 -----------");
-        System.out.println(ri.getDate()+" | "+ri.getTime()+" | "+ ri.getTheater()+"관 | "+ri.getMovieName());
+        System.out.println(ri.getDate()+" | "+ri.getTime()+" | "+ ri.getTheater()+" | "+ri.getMovieName());
         System.out.print("예매 인원 >>>");
         int ppl = InputRule.rsrvPplInput();
 
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         String theater = ri.getTheater();
-        //영화관 정보를 받아와야 합니다.*****
-        int theaterX = 10;
-        int theaterY = 10;
+        TheaterInfo ti = TheaterDataManage.findTheater(theater);
+        int theaterX = ti.getRow();
+        int theaterY = ti.getCol();
 
         int[][] seatArr = seatPrint(ri);
         String seatInput = null;
@@ -64,9 +64,10 @@ public class SeatSelect {
     }
 
     public static int[][] seatPrint(RunningInfo ri) {
-        int row = 10;
-        int col = 10;
-        //Theater의 정보 필요*****
+        String theater = ri.getTheater();
+        TheaterInfo ti = TheaterDataManage.findTheater(theater);
+        int row = ti.getRow();
+        int col = ti.getCol();
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         int count = 0;
         for(ReserveInfo rsi : rsiArr){
@@ -92,7 +93,6 @@ public class SeatSelect {
         for(int i = 0; i < count; i++) { // 예약된 좌석 >> 1
             int _row = pair[i].getRow();
             int _col = pair[i].getCol() - 1;
-            System.out.println(_row+" "+_col);
             seat[_row][_col] = 1;
         }
 
@@ -116,9 +116,10 @@ public class SeatSelect {
     }
 
     public static void seatReservedPrint(RunningInfo ri, Pair[] rsPair) {
-        int row = 10;
-        int col = 10;
-        //Theater의 정보 필요*****
+        String theater = ri.getTheater();
+        TheaterInfo ti = TheaterDataManage.findTheater(theater);
+        int row = ti.getRow();
+        int col = ti.getCol();
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         int count = 0;
         for(ReserveInfo rsi : rsiArr){

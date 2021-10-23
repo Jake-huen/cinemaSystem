@@ -9,7 +9,7 @@ public class TodayMovie {
 
     public static void ImportToday(String date) {
         riList = new ArrayList<>();
-        riArr = test.getRiArr();
+        riArr = RunningInfoManage.getRiArr();
         for(int i = 0; i < riArr.size(); i++) {
             if(riArr.get(i).getDate().equals(date))  riList.add(riArr.get(i));
         }
@@ -18,7 +18,7 @@ public class TodayMovie {
         ImportToday(date);
         System.out.println("===== 오늘 영화 예매하기 " +date+" ======");
         for(RunningInfo ri : riList){
-            System.out.println(ri.getTime()+" | "+ri.getTheater()+"관 | "+ri.getMovieName());
+            System.out.println(ri.getTime()+" | "+ri.getTheater()+" | "+ri.getMovieName());
         }
 //        System.out.println("08:30 | 차리서관 | 오징어 게임");
 //        System.out.println("14:25 | 별관 | 문어 게임");
@@ -40,13 +40,11 @@ public class TodayMovie {
             }
             mr = mr.trim();
 
-            System.out.println(mr);
-
             if(Objects.nonNull(tr) && Objects.nonNull(sr) && Objects.nonNull(mr)) {
                 int index;
                 for(index=0; index < riList.size(); index++){
                     RunningInfo ritmp = riList.get(index);
-                    String movieTheater = ritmp.getTheater()+"관";
+                    String movieTheater = ritmp.getTheater();
                     if(ritmp.getTime().equals(tr)&&movieTheater.equals(sr)&&ritmp.getMovieName().equals(mr)){
                         break;
                     }

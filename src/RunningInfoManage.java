@@ -16,6 +16,10 @@ public class RunningInfoManage {
 //        test.riArr = riArr;
 //    }
 
+    public static void setRiArr(ArrayList<RunningInfo> riArr) {
+        RunningInfoManage.riArr = riArr;
+    }
+
     public static void getJson() {
         riArr = new ArrayList<RunningInfo>();
         RunningInfo[] riArrTmp;
@@ -102,4 +106,72 @@ public class RunningInfoManage {
 //    public static void main(String[] args) {
 //    	getJson();
 //    }
+
+    // 해당 날짜에 상영하는 상영정보 반환 (날짜만 고려) 
+    public static ArrayList<RunningInfo> readDateRi(String date) {//특정날짜에 상영하는 상영정보 뽑기
+        getJson();
+        ArrayList<RunningInfo> rt=new ArrayList<RunningInfo>();
+        for(int i=0; i<riArr.size();i++) {
+            if(riArr.get(i).getDate().equals(date)) {
+                rt.add(riArr.get(i));
+            }
+        }
+        return rt;
+    }
+    
+    // 예매 내역 수정하는 함수 
+    public static void modifyReserve(RunningInfo ri, ReserveInfo rsi, String id){
+        getJson();
+        try(FileWriter fw = new FileWriter(path)){
+            for(RunningInfo jsonRI : riArr){
+                if(ri.getMovieName().equals(jsonRI.getMovieName())
+                && ri.getTheater().equals(jsonRI.getTheater())
+                && ri.getTime().equals(jsonRI.getTime())
+                && ri.getDate().equals(jsonRI.getDate())){
+
+                	ArrayList<ReserveInfo> jsonReserve = jsonRI.getReserve();
+                    for(ReserveInfo rsrvInfo : jsonReserve) {
+                    	// 해당 id 갖는 ReserveInfo 찾아서 내용변경 
+                    	if(rsrvInfo.getUserId().equals(id)) 
+                    		rsrvInfo = rsi;
+                    }
+                }
+            }
+            gson.toJson(riArr, fw);
+            fw.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    // 예매 내역 삭제하는 함수 
+    public static void removeReserve(RunningInfo ri, ReserveInfo rsi, String id){
+        getJson();
+        try(FileWriter fw = new FileWriter(path)){
+            for(RunningInfo jsonRI : riArr){
+                if(ri.getMovieName().equals(jsonRI.getMovieName())
+                && ri.getTheater().equals(jsonRI.getTheater())
+                && ri.getTime().equals(jsonRI.getTime())
+                && ri.getDate().equals(jsonRI.getDate())){
+
+                	ArrayList<ReserveInfo> jsonReserve = jsonRI.getReserve();
+                    for(ReserveInfo rsrvInfo : jsonReserve) {
+                    	// 해당 id 갖는 ReserveInfo 찾아서 삭제 
+                    	if(rsrvInfo.getUserId().equals(id)) {
+                    		int rmIndex = jsonReserve.indexOf(rsrvInfo);
+                    		jsonReserve.remove(rmIndex);
+                    		break;
+                    	}
+                    		
+                    }
+                }
+            }
+            gson.toJson(riArr, fw);
+            fw.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
