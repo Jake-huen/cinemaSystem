@@ -143,7 +143,7 @@ public class MovieInfoDataManage {
 				e.printStackTrace();
 			}finally {
 				try {
-					writer.close();
+					writer.close();//
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
