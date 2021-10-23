@@ -40,7 +40,7 @@ public class Print {
 	// 좌석 String -> Pair로 변환하는 함수 
 	public static Pair seatStrToPair(String seat) {
 		int row = seat.indexOf(0) -'A';
-		int col = Integer.parseInt(seat.substring(1));
+		int col = Integer.parseInt(seat.substring(1))-1;
 		return new Pair(row,col);
 	}
 	

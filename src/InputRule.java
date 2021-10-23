@@ -375,8 +375,7 @@ public class InputRule {//입력규칙 정의 (static으로)
         else return -1; //others --> -1
     }
 	//7.9 예매 좌석 입력 규칙 - 오버로딩 (상영관 행 열 반영)
-	public static String SeatRule(int row, int col) { 
-        String seat = sc.nextLine();
+	public static String SeatRule(String seat,int row, int col) { 
         seat = seat.replace(" ", "");
         seat = seat.trim();
         seat = seat.toLowerCase();

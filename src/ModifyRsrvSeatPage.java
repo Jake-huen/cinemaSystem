@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ModifyRsrvSeatPage{
 	
@@ -6,7 +7,8 @@ public class ModifyRsrvSeatPage{
 	private int row;
 	private int col; 
 	private int userSeatNum;
-	private int curSelectednum=0;
+	private int curSelectednum=1;
+	public Scanner scan;
 	
 	public ModifyRsrvSeatPage(TheaterInfo theater, RunningInfo runInfo, ReserveInfo userRsrvInfo) {
 		
@@ -14,31 +16,68 @@ public class ModifyRsrvSeatPage{
 		int row = theater.getRow();
 		int col = theater.getCol();
 		
-		theaterMap = new int[row][col]; // 0 : 빈 좌석, 1: 예매된 좌석 , 2: 현재 사용자 예매 좌석 
+		theaterMap = new int[row][col]; // 0 : 빈 좌석, 1: 예매된 좌석 , 2: 기존 사용자 예매 좌석 3: 현재 사용자 예매 좌석  
 		initTheaterMap(theater, runInfo, userRsrvInfo);
 		
 		userSeatNum=userRsrvInfo.getSeat().length;
+		
+		scan= new Scanner(System.in);
 		
 	}
 
 	public void showPage() {
 		// 좌석표 출력
-		System.out.println("===== 예매 좌석 수정 =====");
 		printSeat(false);
+		
 		System.out.println();
 		
-		while(true) {
+		while(curSelectednum > userSeatNum) {
 			String curSeatInfo = "["+ curSelectednum +"/"+userSeatNum+"]";
 			System.out.print("좌석을 선택해 주세요."+curSeatInfo+" (뒤로가기:0) >>>");
 			
+			// 좌석 입력받기 
+			String seat =scan.nextLine();
 			
+			// 0 입력한 경우 
+			if(seat.trim().equals("0")) {
+				if(curSelectednum == 1)
+					return;
+				else {
+					curSelectednum--;
+					continue;
+				}
+			}
 			
+			// 좌석 입력규칙 검사 
+			seat = InputRule.SeatRule(seat, row, col);
 			
+			// 좌석 양식과 다른 입력 or 범위 벗어난 입력인 경우 
+			if(seat.isEmpty()) {
+				System.out.println("해당 좌석이 존재하지 않습니다.");
+				continue;
+			}
+			
+			// 이미 선택된 좌석인 경우 ( 다른 사람이 선택한 좌석 or 본인이 현재 선택한 좌석 ) 
+			Pair seatPair = Print.seatStrToPair(seat);
+			int curRow= seatPair.getRow();
+			int curCol= seatPair.getCol();
+			if(theaterMap[curRow][curCol] == 1 ||theaterMap[curRow][curCol] == 3) {
+				System.out.println("이미 선택된 좌석입니다.");
+				continue;
+			}
+			
+			// 정상 좌석인 경우 
+			curSelectednum++;
+			theaterMap[curRow][curCol] = 3;
 			
 		}
 		
+		// 수정된 좌석표 출력 
+		printSeat(true);
+		System.out.println();
+		System.out.println("좌석 수정이 완료되었습니다.");
 		
-		
+		// json 에서 데이터 수정 
 		
 	}
 	
@@ -71,6 +110,8 @@ public class ModifyRsrvSeatPage{
 	
 	// 현재 예매 좌석 제외하고 출력하기 - 마지막 인자 : 현재 예매 좌석 출력할건지 말건지 결정 
 	public void printSeat(boolean includeCurSeat) {		
+		System.out.println("===== 예매 좌석 수정 =====");
+		
 		// 출력 
 		System.out.println("□: 선택 가능 ▩: 예매 완료 ■: 현재 예매좌석");
 		// 첫번째 행
