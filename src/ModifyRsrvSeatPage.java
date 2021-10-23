@@ -92,13 +92,9 @@ public class ModifyRsrvSeatPage{
 		System.out.println();
 		System.out.println("좌석 수정이 완료되었습니다.");
 		
-		// json 에서 데이터 수정 - 미구현 
-		/* 
-		 * <수정해야할 데이터>
-		 * - runningInfo 
-		 * 
-		 * */
+		// json 에서 데이터 수정
 		userRsrvInfo.setSeat(ModifyRsrvInfo());
+		RunningInfoManage.modifyReserve(runInfo, userRsrvInfo, user.getId());
 		
 	}
 	

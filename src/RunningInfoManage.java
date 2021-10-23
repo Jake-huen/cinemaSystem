@@ -13,7 +13,7 @@ public class RunningInfoManage {
         return riArr;
     }
     public static void setRiArr(ArrayList<RunningInfo> riArr) {
-    	RunningInfoManage.riArr = riArr;
+        test.riArr = riArr;
     }
 
     public static void getJson() {
@@ -76,5 +76,30 @@ public class RunningInfoManage {
             }
         }
         return rt;
+    }
+    
+    public static void modifyReserve(RunningInfo ri, ReserveInfo rsi, String id){
+        getJson();
+        try(FileWriter fw = new FileWriter(path)){
+            for(RunningInfo jsonRI : riArr){
+                if(ri.getMovieName().equals(jsonRI.getMovieName())
+                && ri.getTheater().equals(jsonRI.getTheater())
+                && ri.getTime().equals(jsonRI.getTime())
+                && ri.getDate().equals(jsonRI.getDate())){
+
+                	ArrayList<ReserveInfo> jsonReserve = jsonRI.getReserve();
+                    for(ReserveInfo rsrvInfo : jsonReserve) {
+                    	// 해당 id 갖는 ReserveInfo 찾아서 내용변경 
+                    	if(rsrvInfo.getUserId().equals(id)) 
+                    		rsrvInfo = rsi;
+                    }
+                }
+            }
+            gson.toJson(riArr, fw);
+            fw.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
