@@ -18,9 +18,9 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 			System.out.println("0. 뒤로가기");
 			for(int i=0;i<theaters.length;i++)
 				System.out.println((i+1)+". "+theaters[i]);
-			System.out.println("===================");
-			System.out.print("영화를 등록할 상영관을 선택해주세요>>>");
 			while(true) {
+				System.out.println("===================");
+				System.out.print("영화를 등록할 상영관을 선택해주세요>>>");
 				int menuNum=InputRule.MenuRule(theatermenu);
 				if(menuNum==0) {
 					return;
@@ -47,9 +47,13 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 	public static void runningInfoDetailPage(int theaterIndex,String inputdate) { //8.2.3.1 상영관
 		ArrayList<String[]> ri=RunningInfoManage.readDateRi(inputdate,theaterIndex);
 		// String[] temp2 = null;
+		String tt = TheaterDataManage.readIndexTheaterName(theaterIndex);
+		tt = tt.substring(1,tt.length()-1);
 		System.out.println(inputdate.substring(0, 4)+"년"+inputdate.substring(4, 6)+"월"
 				+inputdate.substring(6, 8)+"일,"+
-				TheaterDataManage.readIndexTheaterName(theaterIndex)+" 상영정보");
+				tt+" 상영정보");
+		// 상영정보 출력
+		
 		System.out.println("==========================");
 		String[] seTime=new String[ri.size()*2];
 		for(int i=0;i<ri.size();i++) {
