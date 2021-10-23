@@ -108,6 +108,6 @@ public class SearchMovie {
             seat[i++] = tmpSeat;
         }
         ReserveInfo rsi = new ReserveInfo(ID, seat);
-        test.updateReserve(riList.get(index), rsi);
+        RunningInfoManage.updateReserve(riList.get(index), rsi);
     }
 }
