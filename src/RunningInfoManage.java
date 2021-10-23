@@ -60,30 +60,7 @@ public class RunningInfoManage {
             e.printStackTrace();
         }
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
     
-=======
-=======
->>>>>>> 64ec7eec6823350eac16eca16d5a1fd0c5201dd6
-    public static void setJson2(String date, String time, String movie, String theater, ArrayList<ReserveInfo> rsiArr) {
-        getJson();
-        try{
-        	FileWriter fw = new FileWriter(".\\resource\\info.json");
-            RunningInfo ri = new RunningInfo(date,time,movie,theater,rsiArr);
-            riArr.add(ri);
-
-            gson.toJson(riArr, fw);
-            fw.flush();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-<<<<<<< HEAD
->>>>>>> 64ec7eec6823350eac16eca16d5a1fd0c5201dd6
-=======
->>>>>>> 64ec7eec6823350eac16eca16d5a1fd0c5201dd6
     public static void updateReserve(RunningInfo ri, ReserveInfo rsi){
         getJson();
         try{
