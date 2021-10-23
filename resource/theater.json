@@ -14,6 +14,16 @@
       "theater": "bo관",
       "row": 4,
       "col": 6
+    },
+    {
+      "theater": "관관관",
+      "row": 10,
+      "col": 10
+    },
+    {
+      "theater": "펄관",
+      "row": 3,
+      "col": 6
     }
   ]
 }
