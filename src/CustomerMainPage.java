@@ -10,10 +10,10 @@ public class CustomerMainPage {
 	
 	private CustomerRsrvInfoPage cusRsrvPage;
 	
-	public CustomerMainPage(UserInfo user, String date, String time) {
+	public CustomerMainPage(UserInfo user) {
 		this.user = user;
-		this.date = date;
-		this.time = time;
+		this.date = user.getDate();
+		this.time = user.getTime();
 		cusRsrvPage = new CustomerRsrvInfoPage(this.user, this.date, this.time);
 		todayMovie = new TodayMovie();
 	}
