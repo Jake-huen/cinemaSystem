@@ -186,5 +186,26 @@ public class TheaterDataManage {
 		}
 		return null;
 	}
+	public static int readTheaterNameReturnSeat(String theaterName, int count) {
+		int index = 0;
+		int flag = 0;
+		String[] theaterNames =  getTheaterName();
+		for(int i =0; i<theaterNames.length; i++) {
+			if(theaterNames[i].equals(theaterName)) {
+				if(count==flag) {
+					index=i;
+					break;
+				}
+				else {
+					flag++;
+				}
+			}
+		}
+		JsonObject jsonobject = getJson();
+		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters"); 
+		int row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
+		int col=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("col").toString());
+		return row*col;
+	}
 }
 	
