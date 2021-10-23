@@ -54,7 +54,7 @@ public class RsrvModCancelPage {
 		int leftSeats = getLeftSeats();
 		
 		while(true) {
-			System.out.println("===== 예매 인원 수정 =====");
+			System.out.println("\n\n===== 예매 인원 수정 =====");
 			printRsrvInfo(); // 예매 정보 출력 
 			System.out.print("예매 인원(뒤로가기 : 0) >>> ");
 			modPplNum = InputRule.rsrvPplInput(); // 수정 인원 입력받기 
@@ -68,13 +68,15 @@ public class RsrvModCancelPage {
 				System.out.println("남은 좌석이 입력한 인원보다 적습니다.\n");
 				continue;
 			}else {
+				// 예매 좌석 수정 함수 실행
+				modifyRservSeatPage = new ModifyRsrvSeatPage(user,userRsrvInfo,modPplNum);
+				int back = modifyRservSeatPage.showPage();
+				if(back ==-1) // -1 이면 좌석 수정 함수에서 뒤로가기 누른 것 
+					continue;
 				break;
 			}
 		}
 		
-		// 예매 좌석 수정 함수 실행
-		modifyRservSeatPage = new ModifyRsrvSeatPage(user,userRsrvInfo,modPplNum);
-		modifyRservSeatPage.showPage();
 	}
 	
 	// 해당 상영 영화의 남은 좌석수 반환 

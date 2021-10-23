@@ -23,7 +23,7 @@ public class CustomerRsrvInfoPage {
 			// 예매 정보 (상영정보 + 예매좌석) 가져오기
 			getCurRunRsrvInfo();
 			
-			System.out.println("===== 예매 정보 =====");
+			System.out.println("\n\n===== 예매 정보 =====");
 	
 			// 메뉴 출력 
 			Print.menu(makeMenuNameforPrint(), true);
