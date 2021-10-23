@@ -99,7 +99,6 @@ public class RunningInfoManage {
         getJson();
         String theaterName=(TheaterDataManage.readIndexTheaterName(theaterindex)).replaceAll("\"","");
         ArrayList<String[]> rt=new ArrayList<String[]>(0);
-        
         for(int i=0; i<riArr.size();i++) {
         	String[] tmp=new String[2];//tmp[0]은 시간정보, [1]은 영화이름
         	String getTheater=riArr.get(i).getTheater().replace("\"", "");
@@ -107,9 +106,6 @@ public class RunningInfoManage {
             	tmp[0]=riArr.get(i).getTime();
                 tmp[1]=riArr.get(i).getMovieName();
                 rt.add(tmp);
-                for(int j=0;j<rt.size();j++) {
-                	System.out.println(rt.get(j)[0]+","+rt.get(j)[1]);
-                }
             }
         }
         return rt;
