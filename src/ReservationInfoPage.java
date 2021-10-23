@@ -29,15 +29,15 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 		
 		//입력규칙 확인
 		if(InputRule.DateRule2(array[0])==null) { //이렇게 하면 DateRule수정필요
-			System.out.println("잘못된 입력입니다.\n");
+			System.out.println("잘못된 입력입니다.");
 			return;
 		}
 		if(InputRule.MTRule(array[1])==null) {
-			System.out.println("잘못된 입력입니다.\n");
+			System.out.println("잘못된 입력입니다.");
 			return;
 		}
 		if(InputRule.ScreenRule2(array[2])==null) {
-			System.out.println("잘못된 입력입니다.\n");
+			System.out.println("잘못된 입력입니다.");
 			return;
 		}
 
@@ -72,7 +72,7 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 //		
 //		System.out.println("09:50 오징어게임 45/90");
 //		System.out.println("15:30 문어게임 12/90");
-		tmp=scan.next();
+		tmp=scan.nextLine();
 	}
 }
 
