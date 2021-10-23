@@ -40,7 +40,7 @@ public class RunningInfoManage {
         getJson();
         try{
         	FileWriter fw = new FileWriter(".\\resource\\info.json");
-            RunningInfo ri = new RunningInfo(date,time,movie,theater,rsiArr);
+            RunningInfo ri = new RunningInfo(date,time,movie,theater.replaceAll("\"", ""),rsiArr);
             riArr.add(ri);
 
             gson.toJson(riArr, fw);
