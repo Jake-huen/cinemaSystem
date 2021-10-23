@@ -77,7 +77,7 @@ public class MovieManagePage {//8.2.1영화관리페이지
 			title[i-1]=title[i-1].substring(1,title[i-1].length()-1);
 			runtime[i-1]=runtime[i-1].substring(1,runtime[i-1].length()-1);
 			movieInfo[i]=title[i-1]+" / "+runtime[i-1];
-			moviemenu[i]=title[i-1];
+			moviemenu[i]=title[i-1].replaceAll("\"", "");
 		}
 		System.out.println("======영화목록======");
 		Print.menu(movieInfo, true);
@@ -85,7 +85,11 @@ public class MovieManagePage {//8.2.1영화관리페이지
 		System.out.print("수정 및 삭제할 영화를 선택하세요>>>");
 		int menuNum=InputRule.MenuRule(moviemenu);
 		if(menuNum==0) return;//8.2.1로
-
+		while(menuNum==-1) {
+			System.out.println("올바르지 않은 입력입니다.");
+			System.out.print("수정 및 삭제할 영화를 선택하세요>>>");
+			menuNum=InputRule.MenuRule(moviemenu);
+		}
 		//정상입력시
 		movieFixPage(menuNum-1);
 	}
