@@ -6,6 +6,7 @@
 	
 	"user":[
 		{"id" : "ididid3", "pw" : "pwpwpw111", "code" : ["1234", "222"]},
-		{"id" : "ididid4", "pw" : "pwpwpw222", "code" : ["2222","444"]}
+		{"id" : "ididid4", "pw" : "pwpwpw222", "code" : ["2222","444"]},
+		{"id" : "ccc111", "pw" : "cccc1111", "code" : ["202110151021A","202110141021A"]}
 	]
 }

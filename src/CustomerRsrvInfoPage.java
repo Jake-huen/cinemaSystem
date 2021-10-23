@@ -59,7 +59,7 @@ public class CustomerRsrvInfoPage {
 			if(i==0)
 				menuName[0]="돌아가기";
 			else 
-				menuName[i]=userRsrvInfos.get(i).toString();
+				menuName[i]=userRsrvInfos.get(i-1).toString();
 		}
 		
 		return menuName;
