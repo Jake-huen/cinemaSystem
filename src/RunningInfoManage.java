@@ -84,14 +84,18 @@ public class RunningInfoManage {
     public static ArrayList<String[]> readDateRi(String date,int theaterindex) {//특정날짜에 상영하는 상영정보 뽑기
         getJson();
         String theaterName=(TheaterDataManage.readIndexTheaterName(theaterindex)).replaceAll("\"","");
-        ArrayList<String[]> rt=new ArrayList<String[]>();
-        String[] tmp=new String[2];//tmp[0]은 시간정보, [1]은 영화이름
+        ArrayList<String[]> rt=new ArrayList<String[]>(0);
+        
         for(int i=0; i<riArr.size();i++) {
+        	String[] tmp=new String[2];//tmp[0]은 시간정보, [1]은 영화이름
         	String getTheater=riArr.get(i).getTheater().replace("\"", "");
             if(riArr.get(i).getDate().equals(date)&&getTheater.equals(theaterName)) {
             	tmp[0]=riArr.get(i).getTime();
                 tmp[1]=riArr.get(i).getMovieName();
                 rt.add(tmp);
+                for(int j=0;j<rt.size();j++) {
+                	System.out.println(rt.get(j)[0]+","+rt.get(j)[1]);
+                }
             }
         }
         return rt;
