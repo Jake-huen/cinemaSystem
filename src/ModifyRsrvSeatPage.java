@@ -8,7 +8,7 @@ public class ModifyRsrvSeatPage{
 	private int[][]  theaterMap;
 	private ArrayList<Pair> selectedSeats;
 	private RunningInfo runInfo;
-	private ReserveInfo userRsrvInfo;
+	private ReserveInfo rsrvInfo;
 	private int row;
 	private int col; 
 	private int userSeatNum;
@@ -16,27 +16,41 @@ public class ModifyRsrvSeatPage{
 	
 	private UserInfo user;
 	
-	public ModifyRsrvSeatPage(UserInfo user,int userSeatNum,TheaterInfo theater, RunningInfo runInfo, ReserveInfo userRsrvInfo) {
+	// 생성자 - 예매 인원 수 변경하고 좌석 변경하는 경우 
+	public ModifyRsrvSeatPage(UserInfo user, UserRsrvInfo userRsrvInfo,int userSeatNum) {
+		this(user,userRsrvInfo);
+		this.userSeatNum = userSeatNum; // 새로 입력한 좌석 개수 사용 
+		
+	}
+	
+	// 생성자 - 좌석 변경만 하는 경우 
+	public ModifyRsrvSeatPage(UserInfo user,UserRsrvInfo userRsrvInfo) {
 		scan= new Scanner(System.in);
+		
+		// 상영관 정보 받아오기  
+		TheaterInfo theater = TheaterDataManage.findTheater(runInfo.getTheater());
 		
 		// 상영관 행, 열 받아오기
 		int row = theater.getRow();
 		int col = theater.getCol();
 		
-		// 배열 및 좌석 개수 초기화 
+		// 상영관 배열 및 좌석배열 초기화 
 		theaterMap = new int[row][col]; // 0 : 빈 좌석, 1: 예매된 좌석 , 2: 기존 사용자 예매 좌석 3: 현재 사용자 예매 좌석  
 		initTheaterMap(theater);
 		
 		selectedSeats = new ArrayList<Pair>();
 		
-		userSeatNum=userRsrvInfo.getSeat().length; /// 주의 : 인원 바뀐 경우 반영되어야 함!!!!! 
+		// 상영정보 예매정보 초기화 
+		runInfo = userRsrvInfo.getRunInfo();
+		rsrvInfo = userRsrvInfo.getRsrvInfo();
 		
-		// user 초기화 
+		// user 정보 초기화 
 		this.user = user;
-		this.userSeatNum = userSeatNum;
+		userSeatNum=userRsrvInfo.getRsrvInfo().getSeat().length; // 사용자의 원래 예매 좌석 개수 그대로 활용 
 		
 	}
 
+	// 예매 좌석 변경 페이지 
 	public void showPage() {
 		// 좌석표 출력
 		printSeat(false);
@@ -93,11 +107,12 @@ public class ModifyRsrvSeatPage{
 		System.out.println("좌석 수정이 완료되었습니다.");
 		
 		// json 에서 데이터 수정
-		userRsrvInfo.setSeat(ModifyRsrvInfo());
-		RunningInfoManage.modifyReserve(runInfo, userRsrvInfo, user.getId());
+		rsrvInfo.setSeat(ModifyRsrvInfo());
+		RunningInfoManage.modifyReserve(runInfo, rsrvInfo, user.getId());
 		
 	}
 	
+	// 변경된 좌석 배열 반환 
 	private String[] ModifyRsrvInfo() {
 		String[] seatStrs= new String[userSeatNum];
 		for(int i = 0; i<userSeatNum ;i++) {
@@ -119,8 +134,8 @@ public class ModifyRsrvSeatPage{
 				totalRsrvSeats.add(Print.seatStrToPair(seatStr));
 		}
 		
-		// 현재 예매된 좌석 받아오기
-		for(String curSeatStr:userRsrvInfo.getSeat())
+		// 기존 예매된 좌석 받아오기
+		for(String curSeatStr:rsrvInfo.getSeat())
 			userRsrvSeats.add(Print.seatStrToPair(curSeatStr));
 		
 		// 좌석 종류에 따라 theaterMap에 숫자 넣기 (초기화)  

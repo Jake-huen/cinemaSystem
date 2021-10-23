@@ -2,7 +2,7 @@
 public class RsrvModCancelPage {
 	private UserInfo user;
 	private UserRsrvInfo userRsrvInfo;
-	
+	private ModifyRsrvSeatPage modifyRservSeatPage;
 	
 	private String[] menuName= {"돌아가기","예매 인원 수정","예매 좌석 수정","예매 취소"};
 	
@@ -33,7 +33,8 @@ public class RsrvModCancelPage {
 				modRsrvPplNum();
 				break;
 			case 2:// 예매 좌석 수정
-				// 예매 좌석 수정 객체 - 미구현 
+				modifyRservSeatPage = new ModifyRsrvSeatPage(user,userRsrvInfo);
+				modifyRservSeatPage.showPage();
 				break;
 			case 3: // 예매 취소 
 				cancelRsrv();
@@ -45,7 +46,7 @@ public class RsrvModCancelPage {
 		}
 	}
 	
-	// 예매 인원 수정 함수 
+	// 예매 인원 수정 함수  -- 인원수 제한 추가필요
 	private void modRsrvPplNum() {
 		int modPplNum;
 		
@@ -65,26 +66,10 @@ public class RsrvModCancelPage {
 		}
 		
 		// 예매 좌석 객체에 인원수 전달 && 예매 좌석 선택 함수 실행 - 미구현 
+		modifyRservSeatPage = new ModifyRsrvSeatPage(user,userRsrvInfo,modPplNum);
+		modifyRservSeatPage.showPage();
 	}
 	
-	// 좌석 관련 구현 방식 : 좌석관련 클래스 따로 구현하기 
-	/* 1. 상영관 정보 받아오기
-	 * 1.1 상영관 이름은 userRsrvInfo 에서 가져올 수 있음.
-	 * 1.2 파일에 있는 상영관 정보 읽어오기. -> 상영관 관련 json class에서 추가해야할듯.
-	 * 1.2.1 파일 읽어오다가 input한 string이랑 같은 theater 이름이면 theater 객체 반환하도록 
-	 * 
-	 * 2. 상영관 출력하기 
-	 * - 상영관 행,열(TheaterInfo객체), 현재 예매 현황(RunnningInfo 객체), 현재 고객이 예매한 좌석(ReserveInfo) 필요 
-	 * 2.1 TheaterInfo, userRsrvInfo 를 인자로 받으면 좌석 출력해주는 함수 구현
-	 * -> 좌석 예매 page 클래스 안에 구현하기 
-	 * 
-	 * 3. 예매 좌석 수정하는 함수 구현하기
-	 * 3.1 2에서 구현한 함수 이용해서 좌석 출력 
-	 * 3.2 이미 선택된 좌석은 선택 불가하도록 
-	 * 3.3 
-	 * 
-	 * 
-	 * */
 	
 	// 예매 취소 함수 
 	private void cancelRsrv() {

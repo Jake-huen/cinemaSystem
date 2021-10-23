@@ -15,8 +15,6 @@ public class CustomerRsrvInfoPage {
 		this.user = user;
 		this.date = date;
 		this.time = time;
-		
-
 	}
 	
 	public void menu() {
