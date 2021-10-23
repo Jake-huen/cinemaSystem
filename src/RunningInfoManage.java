@@ -13,7 +13,7 @@ public class RunningInfoManage {
         return riArr;
     }
     public static void setRiArr(ArrayList<RunningInfo> riArr) {
-        test.riArr = riArr;
+        RunningInfoManage.riArr = riArr;
     }
 
     public static void getJson() {

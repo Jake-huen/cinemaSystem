@@ -5,6 +5,7 @@ public class CustomerMainPage {
 	private String date;
 	private String time;
 	private String [] menuName = {"", "오늘 영화 예매하기","영화 검색","예매정보 확인 및 수정 삭제","종료하기"};
+	private TodayMovie todayMovie;
 
 	
 	private CustomerRsrvInfoPage cusRsrvPage;
@@ -14,6 +15,7 @@ public class CustomerMainPage {
 		this.date = date;
 		this.time = time;
 		cusRsrvPage = new CustomerRsrvInfoPage(this.user, this.date, this.time);
+		todayMovie = new TodayMovie();
 	}
 	
 	public void menu() {
@@ -36,10 +38,10 @@ public class CustomerMainPage {
 			
 			switch(menuNum) {
 				case 1: // 오늘 영화 예매하기
-					// 오늘 영화 예매 객체 추가 - 미구현
+					TodayMovie.PrintToday(user.getId(), date);// 오늘 영화 예매 객체 추가
 					break;
 				case 2:// 영화 검색 
-					// 영화 검색 객체 or 함수 추가 
+					SearchMovie.SearchMain(user.getId());// 영화 검색 객체 or 함수 추가 
 					break;
 				case 3:// 예매 정보 확인 및 수정 삭제
 					cusRsrvPage.menu();
