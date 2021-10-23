@@ -175,14 +175,11 @@ public class TheaterDataManage {
 		for( int i = 0;i<theaterInfos.size();i++) {
 			String theater=((JsonObject) theaterInfos.get(i)).get("theater").toString();
 			// 따옴표 제거 
-			theater = theater.substring(1,theater.length()-1);
+			theater =  Print.removeQuotes(theater);
 			
 			if(theater.equals(theaterName)) {
-				String rowStr = ((JsonObject) theaterInfos.get(i)).get("row").toString();
-				String colStr = ((JsonObject) theaterInfos.get(i)).get("col").toString();
-				
-				int row=Integer.parseInt(Print.removeQuotes(rowStr));
-				int col=Integer.parseInt(Print.removeQuotes(colStr));
+				int row=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("row").toString());
+				int col=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("col").toString());
 				
 				return new TheaterInfo(theater,row,col);
 			}
