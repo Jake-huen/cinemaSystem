@@ -20,12 +20,13 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 			temp = temp.trim();
 			array[1] = temp;
 			array[2] = array[num-1];
+
 		}
 		//array[0] = 날짜, array[1] = 영화제목,array[2] = 상영관
-		if(array.length!=3) {
-			System.out.println("잘못된 입력입니다.\n");
-			return;
-		}
+		
+
+		//array[0] = 날짜, array[1] = 영화제목,array[2] = 상영관
+		
 		//입력규칙 확인
 		if(InputRule.DateRule2(array[0])==null) { //이렇게 하면 DateRule수정필요
 			System.out.println("잘못된 입력입니다.\n");
@@ -65,7 +66,7 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 			//theaterName으로 좌석수가져오기
 			int totalseats = TheaterDataManage.readTheaterNameReturnSeat(theaterName, i);
 			
-			result+=startTime+" "+movieName+" "+reservedSeatsNum+"/"+totalseats+"\n";
+			result+=startTime.substring(0,2)+":"+startTime.substring(2,4)+" "+movieName+" "+reservedSeatsNum+"/"+totalseats+"\n";
 		}
 		System.out.println(result);
 //		
