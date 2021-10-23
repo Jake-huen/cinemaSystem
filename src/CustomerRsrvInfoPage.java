@@ -47,10 +47,10 @@ public class CustomerRsrvInfoPage {
 		}
 	}
 	
-	// 메뉴 이름 '출력'하기 위한 메뉴이름 배열 만들기 - 미구현 & 미완성 
+	// 메뉴 이름 '출력'하기 위한 메뉴이름 배열 만들기
 	private String[] makeMenuNameforPrint() {
 		
-		// 데이터에서 예매 정보 개수 가져오기 - 미구현 (현재 날짜랑 시간을 인자로 받아야함)
+		// 데이터에서 예매 정보 개수 가져오기
 		rsrvNum = userRsrvInfos.size() + 1; // 상영정보 개수 + 돌아가기 메뉴 
 		String[] menuName = new String[rsrvNum];
 		
