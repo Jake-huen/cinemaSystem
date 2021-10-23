@@ -158,8 +158,10 @@ public class ModifyRsrvSeatPage{
 		for(int c=0;c<=col;c++) {
 			if(c==0)
 				System.out.print("  ");
-			else 
-				System.out.print( c +" ");
+			else if(c <10)
+				System.out.print(c +"  ");
+			else
+				System.out.print(c+" ");
 				
 			if(c == col)
 				System.out.println();
@@ -184,7 +186,7 @@ public class ModifyRsrvSeatPage{
 					break;
 				}
 				
-				System.out.print(symbol +" ");
+				System.out.print(symbol +"  ");
 			}
 			System.out.println();
 		}
