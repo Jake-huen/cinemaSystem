@@ -69,7 +69,7 @@ public class RunningInfo {//상영정보
 	@Override
 	public String toString() {
 		String runInfoStr = Print.makeDateFormet(date) +" | ";
-		runInfoStr += Print.makeTimeFormet(time)+" | ";
+		runInfoStr += time +" | ";
 		runInfoStr += theater+" | ";
 		runInfoStr += movie +"\n";
 		return runInfoStr;
