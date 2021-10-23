@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 // 자주 사용되는 출력 관련 메소드 
 public class Print {
 	
@@ -32,6 +34,19 @@ public class Print {
 		String min = time.substring(HOUR_IDX);
 		
 		return hour+":"+min;
+	}
+	
+
+	// 좌석 String -> Pair로 변환하는 함수 
+	public static Pair seatStrToPair(String seat) {
+		int row = seat.indexOf(0) -'A';
+		int col = Integer.parseInt(seat.substring(1));
+		return new Pair(row,col);
+	}
+	
+	// String 앞뒤 따옴표 지우기 
+	public static String removeQuotes(String str) {
+		return str.substring(1, str.length()-1);
 	}
 
 }
