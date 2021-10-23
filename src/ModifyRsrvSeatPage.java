@@ -49,12 +49,17 @@ public class ModifyRsrvSeatPage{
 	}
 
 	// 예매 좌석 변경 페이지 
-	public void showPage() {
+	public int showPage() {
 		// 좌석표 출력
 		printSeat(false);
 		
 		System.out.println();
 		
+		// 뒤로가기 기능위해 과거 선택 좌석 저장 변수 
+		int pastRow= -1;
+		int pastCol= -1;
+		
+		// 좌석 선택 
 		while(curSelectednum <= userSeatNum ) {
 			String curSeatInfo = "["+ curSelectednum +"/"+userSeatNum+"]";
 			System.out.print("좌석을 선택해 주세요."+curSeatInfo+" (뒤로가기:0) >>>");
@@ -65,9 +70,11 @@ public class ModifyRsrvSeatPage{
 			// 0 입력한 경우 
 			if(seat.equals("0")) {
 				if(curSelectednum == 1)
-					return;
+					return -1;
 				else {
 					curSelectednum--;
+					theaterMap[pastRow][pastCol] = 0;
+					selectedSeats.remove(selectedSeats.size()-1);
 					continue;
 				}
 			}
@@ -85,7 +92,6 @@ public class ModifyRsrvSeatPage{
 			Pair seatPair = Print.seatStrToPair(seat);
 			int curRow= seatPair.getRow();
 			int curCol= seatPair.getCol();
-			System.out.println("cur Row : "+curRow +"cur Col : "+curCol);
 			
 			// 이미 선택된 좌석인 경우 ( 다른 사람이 선택한 좌석 or 본인이 현재 선택한 좌석 ) 
 			if(theaterMap[curRow][curCol] == 1 ||theaterMap[curRow][curCol] == 3) {
@@ -98,6 +104,10 @@ public class ModifyRsrvSeatPage{
 			theaterMap[curRow][curCol] = 3;
 			selectedSeats.add(seatPair);
 			
+			// 뒤로가기 기능위해 과거 인덱스 저장 
+			pastRow = curRow;
+			pastCol = curCol;
+			
 		}
 		
 		// 수정된 좌석표 출력 
@@ -109,6 +119,7 @@ public class ModifyRsrvSeatPage{
 		rsrvInfo.setSeat(modifyRsrvInfo());
 		RunningInfoManage.modifyReserve(runInfo, rsrvInfo, user.getId());
 		
+		return 0;
 	}
 	
 	// 변경된 좌석 배열 반환 - 파일에 반영 안됌  
@@ -150,7 +161,7 @@ public class ModifyRsrvSeatPage{
 	
 	// 현재 예매 좌석 제외하고 출력하기 - 마지막 인자 : 현재 예매 좌석 출력할건지 말건지 결정 
 	public void printSeat(boolean includeCurSeat) {		
-		System.out.println("===== 예매 좌석 수정 =====");
+		System.out.println("\n\n===== 예매 좌석 수정 =====");
 		
 		// 출력 
 		System.out.println("□: 선택 가능 ▩: 예매 완료 ■: 현재 예매좌석");
