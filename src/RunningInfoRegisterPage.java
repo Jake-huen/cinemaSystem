@@ -90,12 +90,12 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 					if(startTime==null) {
 						System.out.println("올바르지 않은 입력입니다.");
 					}
-					else if(!Check(runtime,startTime,rt)) {
-						System.out.println("상영시간이 중복됩니다.");	
-					}
+					//else if(!Check(runtime,startTime,rt)) {
+					//	System.out.println("상영시간이 중복됩니다.");	
+					//}
 					else {
 						// startTime
-						RunningInfoManage.setJson2(inputdate, startTime,title[menuNum-1] , 
+						RunningInfoManage.setJson2(inputdate, startTime.replaceAll(":", ""),title[menuNum-1] , 
 								TheaterDataManage.readIndexTheaterName(theaterIndex), null);
 						System.out.println("정상추가 되었습니다");
 						return;
