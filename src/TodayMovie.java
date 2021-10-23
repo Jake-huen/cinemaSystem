@@ -18,7 +18,7 @@ public class TodayMovie {
         ImportToday(date);
         System.out.println("===== 오늘 영화 예매하기 " +date+" ======");
         for(RunningInfo ri : riList){
-            System.out.println(ri.getTime()+" | "+ri.getTheater()+"관 | "+ri.getMovieName());
+            System.out.println(ri.getTime()+" | "+ri.getTheater()+" | "+ri.getMovieName());
         }
 //        System.out.println("08:30 | 차리서관 | 오징어 게임");
 //        System.out.println("14:25 | 별관 | 문어 게임");

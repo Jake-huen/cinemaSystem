@@ -4,7 +4,7 @@
     "movie": "오징어 게임",
     "date": "20211015",
     "time": "10:21",
-    "theater": "A",
+    "theater": "차리서관",
     "reserve": [
       {
         "userId": "ganadara123",
@@ -36,7 +36,7 @@
     "movie": "오징어 게임",
     "date": "20211014",
     "time": "10:21",
-    "theater": "A",
+    "theater": "테스트관",
     "reserve": [
       {
         "userId": "ganadara123",
@@ -55,5 +55,12 @@
         ]
       }
     ]
+  },
+  {
+    "code": "2021102310:30\"bo관\"",
+    "movie": "\"가나다라\"",
+    "date": "20211023",
+    "time": "10:30",
+    "theater": "\"bo관\""
   }
 ]
