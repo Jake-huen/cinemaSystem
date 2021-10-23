@@ -111,7 +111,7 @@ public class ModifyRsrvSeatPage{
 		
 	}
 	
-	// 변경된 좌석 배열 반환 
+	// 변경된 좌석 배열 반환 - 파일에 반영 안됌  
 	private String[] modifyRsrvInfo() {
 		String[] seatStrs= new String[userSeatNum];
 		for(int i = 0; i<userSeatNum ;i++) {

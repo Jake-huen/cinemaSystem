@@ -18,10 +18,11 @@ public class CustomerRsrvInfoPage {
 	}
 	
 	public void menu() {
-		// 예매 정보 (상영정보 + 예매좌석) 가져오기
-		getCurRunRsrvInfo();
 		
 		while(true) {
+			// 예매 정보 (상영정보 + 예매좌석) 가져오기
+			getCurRunRsrvInfo();
+			
 			System.out.println("===== 예매 정보 =====");
 	
 			// 메뉴 출력 

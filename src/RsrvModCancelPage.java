@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class RsrvModCancelPage {
 	private UserInfo user;
@@ -122,13 +124,7 @@ public class RsrvModCancelPage {
 		}
 		
 	}
-	/* 예매 정보 삭제시 필요한 내용
-	 * 
-	 * 1. 삭제해야 하는 데이터
-	 * 1.1 UserInfo의 code 데이터 
-	 * 1.2 RunningInfo의 ReserveInfo 데이터 
-	 * 
-	 * */
+
 	
 	// 예매 정보 출력 함수 
 	private void printRsrvInfo() {

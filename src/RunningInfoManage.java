@@ -101,10 +101,12 @@ public class RunningInfoManage {
                 && ri.getDate().equals(jsonRI.getDate())){
 
                 	ArrayList<ReserveInfo> jsonReserve = jsonRI.getReserve();
-                    for(ReserveInfo rsrvInfo : jsonReserve) {
+                	int rsrvArrLen = jsonReserve.size();
+                    for(int i=0;i<rsrvArrLen;i++) {
                     	// 해당 id 갖는 ReserveInfo 찾아서 내용변경 
-                    	if(rsrvInfo.getUserId().equals(id)) 
-                    		rsrvInfo = rsi;
+                    	if(jsonReserve.get(i).getUserId().equals(id)) {
+                    		jsonReserve.set(i, rsi);
+                    	}
                     }
                 }
             }
