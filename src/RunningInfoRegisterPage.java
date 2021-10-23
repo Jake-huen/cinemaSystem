@@ -36,8 +36,6 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 							System.out.println("올바르지 않은 입력입니다.");
 						}
 						else {
-							 System.out.println(menuNum);
-							 System.out.println(date);
 							runningInfoDetailPage(menuNum-1,date);
 							return;
 						}
@@ -92,7 +90,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 		movieInfo[0]="뒤로가기"; moviemenu[0]="뒤로가기";
 		for(int i=1;i<title.length+1;i++) {
 			// movieInfo[i]=movieInfo[i].substring(1,movieInfo[i].length()-1);
-			movieInfo[i]=title[i-1]+" / "+runtime[i-1];
+			movieInfo[i]=title[i-1].replaceAll("\"", "")+" / "+runtime[i-1].replaceAll("\"", "");
 			moviemenu[i]=title[i-1];
 		}
 		System.out.println("======영화목록======");
