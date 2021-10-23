@@ -95,7 +95,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 					//}
 					else {
 						// startTime
-						RunningInfoManage.setJson2(inputdate, startTime.replaceAll(":", ""),title[menuNum-1] , 
+						RunningInfoManage.setJson(inputdate, startTime.replaceAll(":", ""),title[menuNum-1].replaceAll("\"", "") , 
 								TheaterDataManage.readIndexTheaterName(theaterIndex), null);
 						System.out.println("정상추가 되었습니다");
 						return;
