@@ -54,7 +54,7 @@ public class MovieInfoDataManage {
 		}
 		return rt;
 	}
-
+	
 	public static void setJsonMovie(String new_title,String new_runtime) { //json 파일 set
 		JsonObject jsonobject= getJson(); //Json파일 전체 받아옴
 		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
@@ -87,6 +87,17 @@ public class MovieInfoDataManage {
 			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
 			//System.out.println(movieinfo.get("runtime"));
 		return rt;
+	}
+	public static String getmovieRuntime(int index) { //특정 영화 runtime만 받아오기
+		JsonObject jsonobject = getJson();
+		JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
+		String rt=((JsonObject) movieInfos.get(index)).get("title").toString();
+		String runtime_temp = ((JsonObject) movieInfos.get(index)).get("runtime").toString();
+		runtime_temp= runtime_temp.substring(1,runtime_temp.length()-2);
+		// System.out.println(rt);
+			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
+			//System.out.println(movieinfo.get("runtime"));
+		return runtime_temp;
 	}
 	public static void fixMovie(int index,String newT,String newR) {//index받아와서 해당 영화 수정
 		try {
@@ -156,6 +167,6 @@ public class MovieInfoDataManage {
 		System.out.println("삭제완료");
 	}
 //	public static void main(String args[]) {
-//		getTitle();
+//		System.out.println(getmovieRuntime(1));
 //	}
 }
