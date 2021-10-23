@@ -14,29 +14,6 @@
       "theater": "bo관",
       "row": 4,
       "col": 6
-    },
-    {
-      "theater": "관관관",
-      "row": 10,
-      "col": 10
-    }
-  ]
-{
-  "theaters": [
-    {
-      "theater": "차리서관",
-      "row": 10,
-      "col": 30
-    },
-    {
-      "theater": "수정관",
-      "row": 10,
-      "col": 21
-    },
-    {
-      "theater": "bo관",
-      "row": 4,
-      "col": 6
     }
   ]
 }
