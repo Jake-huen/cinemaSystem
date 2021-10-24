@@ -53,7 +53,7 @@ public class SearchMovie {
                     ArrayList<RunningInfo> riArr = RunningInfoManage.getRiArr();
                     int count = 0;
                     for(int i = 0; i < riArr.size(); i++) {
-                        if(riArr.get(i).getDate().equals(date))  {
+                        if(riArr.get(i).getDate().equals(date) && Print.isAfterDate(riArr.get(i).getDate(),riArr.get(i).getTime(),user.getDate(),user.getTime()))  {
                             count++;
                             riList.add(riArr.get(i));
                         }
@@ -101,7 +101,7 @@ public class SearchMovie {
                 ArrayList<RunningInfo> riArr = RunningInfoManage.getRiArr();
                 int count = 0;
                 for(int i = 0; i < riArr.size(); i++) {
-                    if(riArr.get(i).getMovieName().contains(movieTitle))  {
+                    if(riArr.get(i).getMovieName().contains(movieTitle) && Print.isAfterDate(riArr.get(i).getDate(),riArr.get(i).getTime(),user.getDate(),user.getTime()))  {
                         count++;
                         riList.add(riArr.get(i));
                     }
