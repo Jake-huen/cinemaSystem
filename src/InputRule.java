@@ -493,6 +493,9 @@ public class InputRule {//입력규칙 정의 (static으로)
 		pplStr = sc.nextLine();
 		pplStr=pplStr.trim(); // 앞뒤 공백제거 
 
+		// 공백 입력한 경우 
+		if(pplStr ==null)
+			return -1;
 		// 0 입력한 경우 
 		if(pplStr.equals("0"))
 			return 0;  
