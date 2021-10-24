@@ -2,6 +2,7 @@
 public class Main {
 	static UserInfo userinfo;
 	public static void main(String args[]) {
+		//SignupPage.signupPage();
 		userinfo = InitialPage.initialPage();
 		if(userinfo.getIsAdmin())
 		{
