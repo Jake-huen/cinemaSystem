@@ -28,17 +28,30 @@ public class TodayMovie {
 
     public static void InputToday(UserInfo user) {
         while(true) {
-            System.out.println("예매할 영화를 입력해주세요. (시간␣상영관␣오징어게임)");
-            System.out.print(">>>");
-            String input = scan.nextLine();
-            String[] inputArr = input.split(" ");
-            String tr = (InputRule.TimeRule(inputArr[0])).replace(":","");
-            String sr = InputRule.ScreenRule(inputArr[1]);
-            String mr = "";
-            for(int i = 2; i < inputArr.length; i++){
-                mr += inputArr[i] + " ";
+        	String tr = null; String sr = null; String mr = null;
+            while (true){
+                System.out.println("예매할 영화를 입력해주세요. (시간␣상영관␣오징어게임)");
+                System.out.print(">>>");
+                String input = scan.nextLine();
+                String[] inputArr = input.split(" ");
+                if(inputArr.length < 3){
+                    System.out.println("올바르지 않은 입력입니다.");
+                }
+                else {
+                    tr = InputRule.TimeRule(inputArr[0]);
+                    sr = InputRule.ScreenRule(inputArr[1]);
+                    mr = "";
+                    for(int i = 2; i < inputArr.length; i++){
+                        mr += inputArr[i] + " ";
+                    }
+                    mr = mr.trim();
+                    if(tr == null || sr == null || mr == null){
+                        System.out.println("올바르지 않은 입력입니다.");
+                    }
+                    else break;
+                }
             }
-            mr = mr.trim();
+            tr = tr.replace(":","");
 
             if(Objects.nonNull(tr) && Objects.nonNull(sr) && Objects.nonNull(mr)) {
                 int index;
