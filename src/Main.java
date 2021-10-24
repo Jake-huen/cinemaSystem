@@ -5,7 +5,7 @@ public class Main {
 		userinfo = InitialPage.initialPage();
 		if(userinfo.getIsAdmin())
 		{
-			ManagerMainPage.managerMainPage();
+			ManagerMainPage.managerMainPage(userinfo);
 		}
 		else
 		{
