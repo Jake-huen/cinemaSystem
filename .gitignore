@@ -4,4 +4,4 @@
 .settings/
 /bin/
 /bin/
-.json
+*.json
