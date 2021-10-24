@@ -202,7 +202,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 		else if(screen.charAt(screen.length()-1)!='관'){
 			return null;
 		}
-		else if(screen.equals('관')) {
+		else if(screen.equals("관")) {
 			return null;
 		}
 		// 입력으로 '관' 만 입력하는 경우 —>(기획서 반영?)
