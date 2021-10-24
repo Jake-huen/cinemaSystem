@@ -34,7 +34,7 @@ public class SeatSelect {
             if(seatInput.length() == 2) y = (seatInput.charAt(1) - '0') - 1;
             else y = (seatInput.charAt(1)-'0') * 10 + (seatInput.charAt(2) - '0') - 1;
 
-            if(x <= theaterX && y <= theaterY){
+            if(x < theaterX && y < theaterY){
                 if(seatArr[x][y]==1) result = -1;
             }else{
                 result = -2;
