@@ -39,7 +39,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 
 	public static String PWRule()		//7.2로그인 입력규칙 - PW
 	{   
-		Pattern pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9]).{8,}$");
+		Pattern pattern = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$");
 		String pw;
 		pw = sc.nextLine();
 		Matcher matcher = pattern.matcher(pw);
