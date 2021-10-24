@@ -150,7 +150,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 	public static String ScreenRule() {//7.5 상영관입력규칙
 		String screen;
 		screen=sc.nextLine();
-		String check_screen = screen.trim();
+		String check_screen = screen.replaceAll(" ","");
 		if(!screen.equals(check_screen)) {
 			return null;
 		}
@@ -171,7 +171,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 
 
 	public static String ScreenRule(String screen) {//7.5 상영관입력규칙
-		String check_screen = screen.trim();
+		String check_screen = screen.replaceAll(" ","");
 		if(!screen.equals(check_screen)) {
 			return null;
 		}
