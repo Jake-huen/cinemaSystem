@@ -114,7 +114,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 				while(true) {
 					System.out.print("상영시작시간을 설정하세요>>>");//상영시간 중복시 오류처리 해야됨
 					String startTime=InputRule.TimeRule();
-					String rt = MovieInfoDataManage.getmovieRuntime(menuNum);
+					String rt = MovieInfoDataManage.getmovieRuntime(menuNum-1);
 					// System.out.println(rt);
 					// String[] runtime2=MovieInfoDataManage.getRuntime();
 					if(startTime==null) {
