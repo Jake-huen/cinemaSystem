@@ -4,63 +4,63 @@ import java.util.regex.Pattern;
 
 public class InputRule {//입력규칙 정의 (static으로)
 	static Scanner sc = new Scanner(System.in);
-	
+
 	public static int MenuRule(String[] menu_name)		//7.1 메뉴입력규칙
-	   {									
-	      String menu = sc.nextLine();
-	      menu = menu.trim();
-	      for(int i=0; i<menu_name.length; i++)
-	      {									
-	    	  if(menu_name[i] == "" && String.valueOf(i).equals(menu))		//메뉴이름을 입력받으면 안될때, 메뉴이름을 String배열에 ""로 저장
-	    	  {
-	    		  return i;
-	    	  }
-	    	  
-	    	  if(menu_name[i].equals(menu) || String.valueOf(i).equals(menu))
-	    	  {
-	    		  return i;
-	    	  }
-	      }											//메뉴이름을 String 배열에 index에 맞춰 넣어주세요
-	      return -1;
-	   }
-	
-	   public static String IDRule()		//7.2로그인 입력규칙 - ID
-	   {
-	      Pattern pattern = Pattern.compile("^[A-Za-z[0-9]]{2,10}$");
-	      String id;
-	      id = sc.nextLine();
-	      Matcher matcher = pattern.matcher(id);
-	      if(!matcher.find())
-	      {
-	         return null;
-	      }
-	      return id;
-	   }
-	   
-	   public static String PWRule()		//7.2로그인 입력규칙 - PW
-	   {   
-	      Pattern pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9]).{8,}$");
-	      String pw;
-	      pw = sc.nextLine();
-	      Matcher matcher = pattern.matcher(pw);
-	      if(!matcher.find())
-	      {
-	         return null;
-	      }
-	      return pw;
-	   }	
-	
-	public static String MTRule(String movie) { //7.3영화제목입력규칙 parameter
-			movie=movie.trim();
-			if(movie.equals("0")) {
-				return null;
+	{									
+		String menu = sc.nextLine();
+		menu = menu.trim();
+		for(int i=0; i<menu_name.length; i++)
+		{									
+			if(menu_name[i] == "" && String.valueOf(i).equals(menu))		//메뉴이름을 입력받으면 안될때, 메뉴이름을 String배열에 ""로 저장
+			{
+				return i;
 			}
-			else if(movie.length()<1 || movie.length()>30) {
-				return null;
+
+			if(menu_name[i].equals(menu) || String.valueOf(i).equals(menu))
+			{
+				return i;
 			}
-			return movie;
+		}											//메뉴이름을 String 배열에 index에 맞춰 넣어주세요
+		return -1;
 	}
-	
+
+	public static String IDRule()		//7.2로그인 입력규칙 - ID
+	{
+		Pattern pattern = Pattern.compile("^[A-Za-z[0-9]]{2,10}$");
+		String id;
+		id = sc.nextLine();
+		Matcher matcher = pattern.matcher(id);
+		if(!matcher.find())
+		{
+			return null;
+		}
+		return id;
+	}
+
+	public static String PWRule()		//7.2로그인 입력규칙 - PW
+	{   
+		Pattern pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9]).{8,}$");
+		String pw;
+		pw = sc.nextLine();
+		Matcher matcher = pattern.matcher(pw);
+		if(!matcher.find())
+		{
+			return null;
+		}
+		return pw;
+	}	
+
+	public static String MTRule(String movie) { //7.3영화제목입력규칙 parameter
+		movie=movie.trim();
+		if(movie.equals("0")) {
+			return null;
+		}
+		else if(movie.length()<1 || movie.length()>30) {
+			return null;
+		}
+		return movie;
+	}
+
 	public static String RunTimeRule(){ //7.4시간입력규칙
 		char tmp;
 		int r_answer;
@@ -150,7 +150,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 	public static String ScreenRule() {//7.5 상영관입력규칙
 		String screen;
 		screen=sc.nextLine();
-		String check_screen = screen.trim();
+		String check_screen = screen.replaceAll(" ","");
 		if(!screen.equals(check_screen)) {
 			return null;
 		}
@@ -171,7 +171,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 
 
 	public static String ScreenRule(String screen) {//7.5 상영관입력규칙
-		String check_screen = screen.trim();
+		String check_screen = screen.replaceAll(" ","");
 		if(!screen.equals(check_screen)) {
 			return null;
 		}
@@ -192,7 +192,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 
 
 	public static String ScreenRule2(String screen) {//7.5 상영관입력규칙
-		String check_screen = screen.trim();
+		String check_screen = screen.replaceAll(" ","");
 		if(!screen.equals(check_screen)) {
 			return null;
 		}
@@ -267,7 +267,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 			return null; // 위의 조건에 만족하지 않는 경우 없음
 		}
 		//return checkdate; // YYYYMMDD형식
-		
+
 		//의미규칙 확인 유효한 날짜인지
 		String s_year = checkdate.substring(0, 4);
 		String s_month = checkdate.substring(4,6);
@@ -279,9 +279,9 @@ public class InputRule {//입력규칙 정의 (static으로)
 		int year = Integer.parseInt(s_year);
 		int month = Integer.parseInt(s_month);
 		int day = Integer.parseInt(s_day);
-//		System.out.println(s_year);
-//		System.out.println(s_month);
-//		System.out.println(s_day);
+		//		System.out.println(s_year);
+		//		System.out.println(s_month);
+		//		System.out.println(s_day);
 		boolean isLeapYear = false;
 		if((year / 4 == 0 && year / 100 != 0) || year / 400 == 0)
 			isLeapYear = true;
@@ -368,7 +368,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 			return null; // 위의 조건에 만족하지 않는 경우 없음
 		}
 		//return checkdate; // YYYYMMDD형식
-		
+
 		//의미규칙 확인 유효한 날짜인지
 		String s_year = checkdate.substring(0, 4);
 		String s_month = checkdate.substring(4,6);
@@ -380,9 +380,9 @@ public class InputRule {//입력규칙 정의 (static으로)
 		int year = Integer.parseInt(s_year);
 		int month = Integer.parseInt(s_month);
 		int day = Integer.parseInt(s_day);
-//		System.out.println(s_year);
-//		System.out.println(s_month);
-//		System.out.println(s_day);
+		//		System.out.println(s_year);
+		//		System.out.println(s_month);
+		//		System.out.println(s_day);
 		boolean isLeapYear = false;
 		if((year / 4 == 0 && year / 100 != 0) || year / 400 == 0)
 			isLeapYear = true;
@@ -418,7 +418,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 		String checktime = sc.nextLine();
 		return TimeRule(checktime);
 	}
-	
+
 	public static String TimeRule(String checktime) {// 7.7시각입력규칙 parameter
 		boolean isNumeric = true;
 		for(int i =0; i<checktime.length(); i++) {
@@ -465,94 +465,94 @@ public class InputRule {//입력규칙 정의 (static으로)
 		}else
 			return null;
 	}
-	
+
 	/* 정윤 - 인원수 정상 입력 : 인원수 반환 / 0 입력 : 0반환 / 잘못된 입력 -1 반환 */ 
 	public static int rsrvPplInput() { // 7.8 예매인원 입력 규칙 
 		String pplStr;
 		int pplNum;
-		
+
 		pplStr = sc.nextLine();
 		pplStr=pplStr.trim(); // 앞뒤 공백제거 
-		
+
 		// 0 입력한 경우 
 		if(pplStr.equals("0"))
 			return 0;  
-		
+
 		// 0을 제외한 입력 
 		int lastIdx = pplStr.length()-1;
 		if(pplStr.charAt(lastIdx)=='명' || pplStr.charAt(lastIdx)=='인') {
 			pplStr= pplStr.substring(0, lastIdx); // 명 or 인을 제외한 문자열로 재할당 
 		}
-		
+
 		pplStr=pplStr.trim(); // 앞뒤 공백제거 
-		 
+
 		try {
 			pplNum = Integer.parseInt(pplStr);
 		} catch (NumberFormatException e) {
 			return -1;
 		}
-		
+
 		return pplNum;
 	}
-	
+
 
 	public static String SeatRule() { //7.9 예매 좌석 입력 규칙
-        String seat = sc.nextLine();
-        seat = seat.replace(" ", "");
-        seat = seat.trim();
-        seat = seat.toLowerCase();
-        int ascii = seat.charAt(0);
-        if(ascii >= 97 && ascii <= 122) {
-            if(seat.length() > 3 || seat.length() == 1) {
-                return null;
-            }
-            else if(seat.length() == 3) {
-                int a = seat.charAt(1) - '0';
-                int b = seat.charAt(2) - '0';
-                int num = a * 10 + b;
-                if(num >= 1 && num <= 50) return seat;
-                else return null;
-            } else {
-                int num = seat.charAt(1) - '0';
-                if(num >= 1 && num <= 9) return seat;
-                else return null;
-            }
-        } else {
-            return null;
-        }
-    }
+		String seat = sc.nextLine();
+		seat = seat.replace(" ", "");
+		seat = seat.trim();
+		seat = seat.toLowerCase();
+		int ascii = seat.charAt(0);
+		if(ascii >= 97 && ascii <= 122) {
+			if(seat.length() > 3 || seat.length() == 1) {
+				return null;
+			}
+			else if(seat.length() == 3) {
+				int a = seat.charAt(1) - '0';
+				int b = seat.charAt(2) - '0';
+				int num = a * 10 + b;
+				if(num >= 1 && num <= 50) return seat;
+				else return null;
+			} else {
+				int num = seat.charAt(1) - '0';
+				if(num >= 1 && num <= 9) return seat;
+				else return null;
+			}
+		} else {
+			return null;
+		}
+	}
 	public static int YesOrNo() { // 7.10 yes / no 입력규칙
-        String yon = sc.nextLine();
-        yon = yon.toLowerCase();
-        if(yon.equals("yes") || yon.equals("y")) return 1; //yes or y --> 1
-        else if(yon.equals("no") || yon.equals("n")) return 0; //no or n --> 0
-        else return -1; //others --> -1
-    }
+		String yon = sc.nextLine();
+		yon = yon.toLowerCase();
+		if(yon.equals("yes") || yon.equals("y")) return 1; //yes or y --> 1
+		else if(yon.equals("no") || yon.equals("n")) return 0; //no or n --> 0
+		else return -1; //others --> -1
+	}
 	//7.9 예매 좌석 입력 규칙 - 오버로딩 (상영관 행 열 반영)
 	public static String SeatRule(String seat,int row, int col) { 
-        seat = seat.replace(" ", "");
-        seat = seat.trim();
-        seat = seat.toUpperCase();
-        int ascii = seat.charAt(0);
-        if(ascii >= 'A' && ascii <= row+'A') {
-            if(seat.length() > 3 || seat.length() == 1) {
-                return null;
-            }
-            else if(seat.length() == 3) {
-                int a = seat.charAt(1) - '0';
-                int b = seat.charAt(2) - '0';
-                int num = a * 10 + b;
-                if(num >= 1 && num <= col) return seat;
-                else return null;
-            } else {
-                int num = seat.charAt(1) - '0';
-                if(num >= 1 && num <= 9) return seat;
-                else return null;
-            }
-        } else {
-            return null;
-        }
-    }
-	
-	
+		seat = seat.replace(" ", "");
+		seat = seat.trim();
+		seat = seat.toUpperCase();
+		int ascii = seat.charAt(0);
+		if(ascii >= 'A' && ascii <= row+'A') {
+			if(seat.length() > 3 || seat.length() == 1) {
+				return null;
+			}
+			else if(seat.length() == 3) {
+				int a = seat.charAt(1) - '0';
+				int b = seat.charAt(2) - '0';
+				int num = a * 10 + b;
+				if(num >= 1 && num <= col) return seat;
+				else return null;
+			} else {
+				int num = seat.charAt(1) - '0';
+				if(num >= 1 && num <= 9) return seat;
+				else return null;
+			}
+		} else {
+			return null;
+		}
+	}
+
+
 }
