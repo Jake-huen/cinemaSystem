@@ -55,7 +55,8 @@ public class RsrvModCancelPage {
 		
 		while(true) {
 			System.out.println("\n\n===== 예매 인원 수정 =====");
-			printRsrvInfo(); // 예매 정보 출력 
+			printRsrvInfo(leftSeats); // 예매 정보 출력 
+			
 			System.out.print("예매 인원(뒤로가기 : 0) >>> ");
 			modPplNum = InputRule.rsrvPplInput(); // 수정 인원 입력받기 
 			
@@ -133,9 +134,22 @@ public class RsrvModCancelPage {
 		System.out.println("-------- 예매 정보 --------- ");
 		
 		// 예매 정보 출력
-		System.out.println(userRsrvInfo);
+		System.out.print(userRsrvInfo);
+		
 		
 		System.out.println("-------------------------- ");
 	}
+	
+	// 예매 정보 출력 함수  - 남은 좌석수 출력 
+		private void printRsrvInfo(int leftSeats) {
+			System.out.println("-------- 예매 정보 --------- ");
+			
+			// 예매 정보 출력
+			System.out.print(userRsrvInfo);
+			
+			System.out.println("남은 좌석 수 : "+ leftSeats +"석");
+			
+			System.out.println("-------------------------- ");
+		}
 	
 }
