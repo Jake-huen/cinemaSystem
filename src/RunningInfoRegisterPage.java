@@ -122,8 +122,9 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 					}
 					else {
 						// startTime
+						ArrayList<ReserveInfo> reserve = new ArrayList<ReserveInfo>();
 						RunningInfoManage.setJson(inputdate, startTime.replaceAll(":", ""),title[menuNum-1].replaceAll("\"", "") , 
-								TheaterDataManage.readIndexTheaterName(theaterIndex), null);
+								TheaterDataManage.readIndexTheaterName(theaterIndex), reserve);
 						System.out.println("정상추가 되었습니다");
 						return;
 					}
