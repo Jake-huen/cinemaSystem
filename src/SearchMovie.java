@@ -38,8 +38,17 @@ public class SearchMovie {
     public static void SearchByDate(UserInfo user) {
         System.out.println("===== 영화검색_날짜 검색 모드 ======");
         System.out.print("검색할 날짜를 입력해주세요(뒤로가기: 0)>>> ");
-        String date = InputRule.DateRule();
-        if(date==null) return;
+        String date = sc.nextLine();
+        if(date.equals("0")){
+            return;
+        }
+        else{
+            date = InputRule.DateRule2(date);
+            if(date == null){
+                System.out.println("올바르지 않은 입력입니다.");
+                return;
+            }
+        }
 
         ArrayList<RunningInfo> riList = new ArrayList<>();
         ArrayList<RunningInfo> riArr = RunningInfoManage.getRiArr();
