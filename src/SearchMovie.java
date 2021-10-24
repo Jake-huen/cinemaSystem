@@ -97,35 +97,37 @@ public class SearchMovie {
             else if(title.equals("0")) return;
             else {
                 movieTitle = InputRule.MTRule(title);
-                break;
+                ArrayList<RunningInfo> riList = new ArrayList<>();
+                ArrayList<RunningInfo> riArr = RunningInfoManage.getRiArr();
+                int count = 0;
+                for(int i = 0; i < riArr.size(); i++) {
+                    if(riArr.get(i).getMovieName().contains(movieTitle))  {
+                        count++;
+                        riList.add(riArr.get(i));
+                    }
+                }
+
+                if(riList.size() == 0){
+                    System.out.println("검색하신 제목을 가진 영화가 없습니다.");
+                    return;
+                }
+                int p = 1;
+                for(RunningInfo ri : riList){
+                    System.out.println(p+". "+Print.makeDateFormet(ri.getDate())+" | "+Print.makeTimeFormet(ri.getTime())+" | "+ri.getTheater()+" | "+ri.getMovieName());
+                    p++;
+                }
+                System.out.print("예매할 영화를 선택해주세요(뒤로가기 : 0) >>>");
+                int input = sc.nextInt();
+                if(input == 0) {
+                    sc.nextLine();
+                    continue;
+                }
+                else success(user, riList, input-1);
+                return;
             }
         }
-
-        ArrayList<RunningInfo> riList = new ArrayList<>();
-        ArrayList<RunningInfo> riArr = RunningInfoManage.getRiArr();
-        int count = 0;
-        for(int i = 0; i < riArr.size(); i++) {
-            if(riArr.get(i).getMovieName().contains(movieTitle))  {
-                count++;
-                riList.add(riArr.get(i));
-            }
-        }
-
-        if(riList.size() == 0){
-            System.out.println("검색하신 제목을 가진 영화가 없습니다.");
-            return;
-        }
-        int p = 1;
-        for(RunningInfo ri : riList){
-            System.out.println(p+". "+Print.makeDateFormet(ri.getDate())+" | "+Print.makeTimeFormet(ri.getTime())+" | "+ri.getTheater()+" | "+ri.getMovieName());
-            p++;
-        }
-        System.out.print("예매할 영화를 선택해주세요(뒤로가기 : 0) >>>");
-        int input = sc.nextInt();
-        if(input == 0) return;
-        else success(user, riList, input-1);
     }
-
+    
     public static void success(UserInfo user, ArrayList<RunningInfo> riList, int index) {
         Pair[] pairs = SeatSelect.SeatMain(riList.get(index));
         if(pairs == null) return;//좌석 선택 실패
