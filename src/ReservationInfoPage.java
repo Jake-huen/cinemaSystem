@@ -56,8 +56,9 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 					tmp=scan.nextLine();
 					if(tmp.equals("0"))
 						break;
-					else
+					else {
 						System.out.println("올바르지 않은 입력입니다.");
+					}
 				}
 				return;
 			}
@@ -76,6 +77,9 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 					tmp=scan.nextLine();
 					if(tmp.equals("0"))
 						break;
+					else {
+						System.out.println("올바르지 않은 입력입니다.");
+					}
 				}
 				return;
 			}
