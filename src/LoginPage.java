@@ -54,6 +54,7 @@ public class LoginPage {
          {
         	 System.out.println("====로그인 완료====");
              info = getDate(id,pw);
+             info.setIsAdmin(true);
              return info;
          }
          else 
@@ -86,6 +87,7 @@ public class LoginPage {
          {
         	 System.out.println("====로그인 완료====");
              info = getDate(id,pw);
+             info.setIsAdmin(false);
              return info;
          }
          else
