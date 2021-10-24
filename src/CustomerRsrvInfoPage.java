@@ -1,10 +1,5 @@
 
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class CustomerRsrvInfoPage {
@@ -111,7 +106,7 @@ public class CustomerRsrvInfoPage {
 		// 사용자가 예매한 상영정보 + 예매 정보 만 저장하기
 		for(String movieCode : movCodes) {
 			for(RunningInfo runInfo : riArr) {
-				if(runInfo.getCode().equals(movieCode)&& Print.isAfterDate(runInfo.getDate(),runInfo.getTime(),user.getDate(),user.getTime())) 
+				if(runInfo.getCode().equals(movieCode)&& Print.isAfterDate(runInfo.getDate(),runInfo.getTime(),date,time)) 
 					userRsrvInfos.add(new UserRsrvInfo(runInfo , getRsrvInfo(runInfo)));
 			}
 		}
