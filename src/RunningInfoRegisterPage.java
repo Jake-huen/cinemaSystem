@@ -17,9 +17,8 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 			}
 			System.out.println("======상영관 목록======");
 			System.out.println("0. 뒤로가기");
-			for(int i=0;i<theatersName.length;i++) {
+			for(int i=0;i<theaters.length;i++)
 				System.out.println((i+1)+". "+theatersName[i]);
-			}
 			while(true) {
 				System.out.println("===================");
 				System.out.print("영화를 등록할 상영관을 선택해주세요>>>");
@@ -35,6 +34,9 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 						System.out.print("등록할 날짜를 입력해주세요>>>");
 						String date=InputRule.DateRule();
 						if(date==null) { 
+							System.out.println("올바르지 않은 입력입니다.");
+						}
+						if(Integer.parseInt(date)<Integer.parseInt(userinfo.getDate())) {
 							System.out.println("올바르지 않은 입력입니다.");
 						}
 						else {
