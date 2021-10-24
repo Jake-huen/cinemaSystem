@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class SearchMovie {
     static Scanner sc = new Scanner(System.in);
 
-    public static void SearchMain(String ID) {
+    public static void SearchMain(UserInfo user) {
         System.out.println("===== 상영영화 검색 ======");
         System.out.println("0. 돌아가기");
         System.out.println("1. 날짜 검색 모드");
@@ -22,11 +22,11 @@ public class SearchMovie {
                         return;
                     case 1:
                         //날짜 검색 모드
-                        SearchByDate(ID);
+                        SearchByDate(user);
                         break;
                     case 2:
                         //영화 제목 검색 모드
-                        SearchByTitle(ID);
+                        SearchByTitle(user);
                         break;
                 }
             }
@@ -35,7 +35,7 @@ public class SearchMovie {
 
     }
 
-    public static void SearchByDate(String ID) {
+    public static void SearchByDate(UserInfo user) {
         System.out.println("===== 영화검색_날짜 검색 모드 ======");
         System.out.print("검색할 날짜를 입력해주세요(뒤로가기: 0)>>> ");
         String date = InputRule.DateRule();
@@ -63,10 +63,10 @@ public class SearchMovie {
         System.out.print("예매할 영화를 선택해주세요(뒤로가기 : 0) >>>");
         int input = sc.nextInt();
         if(input == 0) return;
-        else success(ID, riList, input-1);
+        else success(user, riList, input-1);
     }
 
-    public static void SearchByTitle(String ID) {
+    public static void SearchByTitle(UserInfo user) {
         System.out.println("===== 영화검색_영화 제목 검색 모드 ======");
         System.out.print("검색할 영화제목을 입력해주세요(뒤로가기: 0) >>> ");
         String title=sc.nextLine(); //영화제목입력받기
@@ -91,10 +91,10 @@ public class SearchMovie {
         System.out.print("예매할 영화를 선택해주세요(뒤로가기 : 0) >>>");
         int input = sc.nextInt();
         if(input == 0) return;
-        else success(ID, riList, input-1);
+        else success(user, riList, input-1);
     }
 
-    public static void success(String ID, ArrayList<RunningInfo> riList, int index) {
+    public static void success(UserInfo user, ArrayList<RunningInfo> riList, int index) {
         Pair[] pairs = SeatSelect.SeatMain(riList.get(index));
         if(pairs == null) return;//좌석 선택 실패
 
@@ -111,18 +111,20 @@ public class SearchMovie {
         ReserveInfo rsitmp = null;
         if(rsiArr != null){
             for(ReserveInfo rsi : rsiArr){
-                if(rsi.getUserId().equals(ID))
+                if(rsi.getUserId().equals(user.getId()))
                     rsitmp = rsi;
             }
         }
 
         if(rsitmp == null)
-            rsitmp = new ReserveInfo(ID, seat);
+            rsitmp = new ReserveInfo(user.getId(), seat);
         else{
             for(String s : seat){
                 rsitmp.getSeat().add(s);
             }
         }
         RunningInfoManage.updateReserve(riList.get(index), rsitmp);
+        String code = riList.get(index).getCode();
+        LoginDataManage.addCode(user.getId(),user.getPw(),code);
     }
 }

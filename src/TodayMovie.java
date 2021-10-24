@@ -14,7 +14,7 @@ public class TodayMovie {
             if(riArr.get(i).getDate().equals(date))  riList.add(riArr.get(i));
         }
     }
-    public static void PrintToday(String ID, String date) { //초기 화면
+    public static void PrintToday(UserInfo user, String date) { //초기 화면
         ImportToday(date);
         System.out.println("===== 오늘 영화 예매하기 " +Print.makeDateFormet(date)+" ======");
         for(RunningInfo ri : riList){
@@ -23,10 +23,10 @@ public class TodayMovie {
 //        System.out.println("08:30 | 차리서관 | 오징어 게임");
 //        System.out.println("14:25 | 별관 | 문어 게임");
 //        System.out.println("19:30 | 3관 | 오징어 게임\n");
-        InputToday(ID);
+        InputToday(user);
     }
 
-    public static void InputToday(String ID) {
+    public static void InputToday(UserInfo user) {
         while(true) {
             System.out.println("예매할 영화를 입력해주세요. (시간␣상영관␣오징어게임)");
             System.out.print(">>>");
@@ -48,8 +48,8 @@ public class TodayMovie {
                     if(ritmp.getTime().equals(tr)&&movieTheater.equals(sr)&&ritmp.getMovieName().equals(mr)){
                         break;
                     }
-                    
                 }
+
                 if(index < riList.size()) {
                     Pair[] pairs = SeatSelect.SeatMain(riList.get(index));
                     if(pairs == null) break; //좌석 선택 실패
@@ -66,18 +66,20 @@ public class TodayMovie {
                     ArrayList<ReserveInfo> rsiArr = riList.get(index).getReserve();
                     ReserveInfo rsitmp = null;
                     for(ReserveInfo rsi : rsiArr){
-                        if(rsi.getUserId().equals(ID))
+                        if(rsi.getUserId().equals(user.getId()))
                             rsitmp = rsi;
                     }
 
                     if(rsitmp == null)
-                        rsitmp = new ReserveInfo(ID, seat);
+                        rsitmp = new ReserveInfo(user.getId(), seat);
                     else{
                         for(String s : seat){
                             rsitmp.getSeat().add(s);
                         }
                     }
                     RunningInfoManage.updateReserve(riList.get(index), rsitmp);
+                    String code = riList.get(index).getCode();
+                    LoginDataManage.addCode(user.getId(),user.getPw(),code);
                     break;
                 }
                 else {

@@ -14,6 +14,7 @@ public class SeatSelect {
             else break;
         }
 
+
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         String theater = ri.getTheater();
         TheaterInfo ti = TheaterDataManage.findTheater(theater);
