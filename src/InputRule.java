@@ -8,6 +8,10 @@ public class InputRule {//입력규칙 정의 (static으로)
 	public static int MenuRule(String[] menu_name)		//7.1 메뉴입력규칙
 	{									
 		String menu = sc.nextLine();
+		if(menu == " ")
+		{
+			return -1;
+		}
 		menu = menu.trim();
 		for(int i=0; i<menu_name.length; i++)
 		{									
@@ -39,7 +43,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 
 	public static String PWRule()		//7.2로그인 입력규칙 - PW
 	{   
-		Pattern pattern = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$");
+		Pattern pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9]).{8,}$");
 		String pw;
 		pw = sc.nextLine();
 		Matcher matcher = pattern.matcher(pw);
@@ -420,20 +424,6 @@ public class InputRule {//입력규칙 정의 (static으로)
 	}
 
 	public static String TimeRule(String checktime) {// 7.7시각입력규칙 parameter
-		if(checktime.contains(" "))
-			return null;
-		int flag = 0;//숫자 : - 이세개만 허용
-		char[] checktimeChar = checktime.toCharArray();
-		for(int i = 0; i<checktimeChar.length; i++) {
-			if(checktimeChar[i]>=48 && checktimeChar[i]<=58 || checktimeChar[i]==55) {}
-			else
-				flag = 1;
-		}
-		if(flag==1) {
-			System.out.println("올바른 입력이 아닙니다.");
-			return null;
-		}
-		
 		boolean isNumeric = true;
 		for(int i =0; i<checktime.length(); i++) {
 			if(checktime.charAt(i)>='0'&&checktime.charAt(i)<='9') {}
