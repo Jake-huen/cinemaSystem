@@ -116,7 +116,15 @@ public class LoginPage {
 	    	  System.out.println("올바르지 않은 입력입니다.");
 	    	  continue;
 	      }
-      
+	      else
+	      {
+	    	  String[] splitTime = time.split(":");
+	    	  time = "";
+	    	  for(int i=0; i<splitTime.length; i++)
+	    	  {
+	    		  time += splitTime[i];
+	    	  }
+	      }
 	      System.out.println("====환영합니다====");
 	      
 	      UserInfo userinfo = new UserInfo(id, pw, date, time);
