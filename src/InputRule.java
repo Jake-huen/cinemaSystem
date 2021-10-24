@@ -547,6 +547,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 	public static int YesOrNo() { // 7.10 yes / no 입력규칙
 		String yon = sc.nextLine();
 		yon = yon.toLowerCase();
+		yon = yon.trim();
 		if(yon.equals("yes") || yon.equals("y")) return 1; //yes or y --> 1
 		else if(yon.equals("no") || yon.equals("n")) return 0; //no or n --> 0
 		else return -1; //others --> -1
