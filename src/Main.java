@@ -3,11 +3,11 @@ public class Main {
 	static UserInfo userinfo;
 	public static void main(String args[]) {
 		userinfo = InitialPage.initialPage();
-		if(LoginDataManage.is_Admin(userinfo.getId()))
+		if(userinfo.getIsAdmin())
 		{
 			ManagerMainPage.managerMainPage();
 		}
-		else if(LoginDataManage.is_User(userinfo.getId()))
+		else
 		{
 			CustomerMainPage customerMainPage = new CustomerMainPage(userinfo);
 			customerMainPage.menu();

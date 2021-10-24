@@ -5,6 +5,7 @@ public class UserInfo {
 	private String pw;
 	private String date;
 	private String time;
+	private boolean is_Admin;		//true면 admin, false면 user
 	
 	public UserInfo(String id, String pw, String date, String time)
 	{
@@ -12,14 +13,15 @@ public class UserInfo {
 		this.pw = pw;
 		this.date = date;
 		this.time = time;
-		
-	}
-	public String getId() {
-		return id;
 	}
 	
-	public String getPw() {
-		return pw;
+	public UserInfo(String id, String pw, String date, String time, boolean is_admin)
+	{
+		this.id = id;
+		this.pw = pw;
+		this.date = date;
+		this.time = time;
+		this.is_Admin = is_admin; 
 	}
 	
 	public void setDate(String date) {
@@ -37,12 +39,29 @@ public class UserInfo {
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
+	
+	public void setIsAdmin(boolean is_Admin)
+	{
+		this.is_Admin = is_Admin;
+	}
+	
 	public String getDate() {
 		return date;
 	}
 	
 	public String getTime() {
 		return time;
+	}
+	public String getId() {
+		return id;
+	}
+	
+	public String getPw() {
+		return pw;
+	}
+	
+	public boolean getIsAdmin() {
+		return is_Admin;
 	}
 	
 }
