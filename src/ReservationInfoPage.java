@@ -22,13 +22,13 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 				array[2] = array[num-1];
 				array[0] = InputRule.DateRule2(array[0]);
 				if(InputRule.DateRule2(array[0])==null) {
-					System.out.println("잘못된 입력입니다.");
+					System.out.println("올바르지 않은 입력입니다.");
 				}
 				else if(InputRule.MTRule(array[1])==null) {
-					System.out.println("잘못된 입력입니다.");
+					System.out.println("올바르지 않은 입력입니다.");
 				}
 				else if(InputRule.ScreenRule2(array[2])==null) {
-					System.out.println("잘못된 입력입니다.");
+					System.out.println("올바르지 않은 입력입니다.");
 				}
 				else {
 					reservationInfoDetailPage(array[0], array[1], array[2]);
