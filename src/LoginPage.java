@@ -5,7 +5,7 @@ public class LoginPage {
    static UserInfo info;
    public static UserInfo loginPage()
    {
-	  String[] menuname = {"뒤로가기", "관리자용로그인", "고객용로그인"};
+	  String[] menuname = {"뒤로가기", "관리자용 로그인", "고객용 로그인"};
       while(true) {
          System.out.println("======로그인======");
          System.out.println("0. 뒤로가기");
