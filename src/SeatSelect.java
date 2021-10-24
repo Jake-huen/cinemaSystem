@@ -70,21 +70,24 @@ public class SeatSelect {
         int col = ti.getCol();
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         int count = 0;
-        for(ReserveInfo rsi : rsiArr){
-            ArrayList<String> seatArr = rsi.getSeat();
-            for(String seat : seatArr)
-                count++;
-        }
-        Pair[] pair = new Pair[count];
-        int s = 0;
-        for(ReserveInfo rsi : rsiArr){
-            ArrayList<String> seatArr = rsi.getSeat();
-            for(String seat : seatArr){
-                int tmpx = seat.charAt(0) - 'A';
-                int tmpy = 0;
-                if(seat.length() == 2) tmpy = seat.charAt(1) - '0';
-                else tmpy = ((seat.charAt(1)- '0') * 10 ) + (seat.charAt(2) - '0');
-                pair[s++] = new Pair(tmpx, tmpy);
+        Pair[] pair = null;
+        if(rsiArr != null){
+            for(ReserveInfo rsi : rsiArr){
+                ArrayList<String> seatArr = rsi.getSeat();
+                for(String seat : seatArr)
+                    count++;
+            }
+            pair = new Pair[count];
+            int s = 0;
+            for(ReserveInfo rsi : rsiArr){
+                ArrayList<String> seatArr = rsi.getSeat();
+                for(String seat : seatArr){
+                    int tmpx = seat.charAt(0) - 'A';
+                    int tmpy = 0;
+                    if(seat.length() == 2) tmpy = seat.charAt(1) - '0';
+                    else tmpy = ((seat.charAt(1)- '0') * 10 ) + (seat.charAt(2) - '0');
+                    pair[s++] = new Pair(tmpx, tmpy);
+                }
             }
         }
 
@@ -123,24 +126,28 @@ public class SeatSelect {
         int col = ti.getCol();
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         int count = 0;
-        for(ReserveInfo rsi : rsiArr){
-            ArrayList<String> seatArr = rsi.getSeat();
-            for(String seat : seatArr)
-                count++;
-        }
+        Pair[] pair = null;
+        if(rsiArr != null){
+            for(ReserveInfo rsi : rsiArr){
+                ArrayList<String> seatArr = rsi.getSeat();
+                for(String seat : seatArr)
+                    count++;
+            }
 
-        Pair[] pair = new Pair[count];
-        int s = 0;
-        for(ReserveInfo rsi : rsiArr){
-            ArrayList<String> seatArr = rsi.getSeat();
-            for(String seat : seatArr){
-                int tmpx = seat.charAt(0) - 'A';
-                int tmpy = 0;
-                if(seat.length() == 2) tmpy = seat.charAt(1) - '0';
-                else tmpy = ((seat.charAt(1)- '0') * 10 ) + (seat.charAt(2) - '0');
-                pair[s++] = new Pair(tmpx, tmpy);
+            pair = new Pair[count];
+            int s = 0;
+            for(ReserveInfo rsi : rsiArr){
+                ArrayList<String> seatArr = rsi.getSeat();
+                for(String seat : seatArr){
+                    int tmpx = seat.charAt(0) - 'A';
+                    int tmpy = 0;
+                    if(seat.length() == 2) tmpy = seat.charAt(1) - '0';
+                    else tmpy = ((seat.charAt(1)- '0') * 10 ) + (seat.charAt(2) - '0');
+                    pair[s++] = new Pair(tmpx, tmpy);
+                }
             }
         }
+        
 
         int[][] seat = new int[row][col]; // 좌석 배열 초기화
 
