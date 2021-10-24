@@ -109,9 +109,11 @@ public class SearchMovie {
         }
         ArrayList<ReserveInfo> rsiArr = riList.get(index).getReserve();
         ReserveInfo rsitmp = null;
-        for(ReserveInfo rsi : rsiArr){
-            if(rsi.getUserId().equals(ID))
-                rsitmp = rsi;
+        if(rsiArr != null){
+            for(ReserveInfo rsi : rsiArr){
+                if(rsi.getUserId().equals(ID))
+                    rsitmp = rsi;
+            }
         }
 
         if(rsitmp == null)
