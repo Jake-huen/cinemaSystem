@@ -61,8 +61,10 @@ public class CustomerMainPage {
 	private void printTodayMovie() {
 		ArrayList<RunningInfo> todayRunning = RunningInfoManage.readDateRi(date);
 		
-		for(RunningInfo runInfo : todayRunning)
-			System.out.print(runInfo);
+		for(RunningInfo runInfo : todayRunning) {
+			if(Print.isAfterDate(runInfo.getDate(), runInfo.getTime(), date, time))
+				System.out.print(runInfo);
+		}
 	}
 	
 	
