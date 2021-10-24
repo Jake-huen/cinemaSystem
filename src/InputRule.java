@@ -513,6 +513,8 @@ public class InputRule {//입력규칙 정의 (static으로)
 		} catch (NumberFormatException e) {
 			return -1;
 		}
+		if(pplNum <= 0)
+			return -1;
 
 		return pplNum;
 	}
