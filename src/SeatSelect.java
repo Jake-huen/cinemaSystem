@@ -69,9 +69,12 @@ public class SeatSelect {
                 // 예약 성공
                 return rsSeat;
             }
-            else {
+            else if(yorn == 0) {
                 // 예약 실패
                 continue;
+            }
+            else {
+                System.out.println("올바르지 않은 입력입니다.");
             }
         }
     }
