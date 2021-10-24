@@ -109,10 +109,9 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 			}
 			else {
 				while(true) {
-					System.out.print("상영시작시간을 설정하세요>>>");//상영시간 중복시 오류처리 해야됨
+					System.out.print("상영시작시간을 설정하세요>>>");
 					String startTime=InputRule.TimeRule();
-					String rt = MovieInfoDataManage.getmovieRuntime(menuNum);
-					// System.out.println(rt);
+					String rt = MovieInfoDataManage.getmovieRuntime(menuNum-1);
 					// String[] runtime2=MovieInfoDataManage.getRuntime();
 					if(startTime==null) {
 						System.out.println("올바르지 않은 입력입니다.");
