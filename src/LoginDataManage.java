@@ -1,6 +1,7 @@
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -22,12 +23,13 @@ public class LoginDataManage {
 	static List<Map<String, Object>> userData;		//사용자 정보는 code값을 추가로 가지고 있고 이는 String배열이므로, value의 값이 동일하지 않음. 따라서 Object로 선언
 	static LoginInfo logininfo;
 	static Gson gson = new Gson();
+	static String pathLogin = "."+File.separator+"resource"+File.separator+"login.json";
 	
 	public static void getJson()
 	{																	//Json파일 받아오는 함수
 		JsonParser parser = new JsonParser();
 		try {
-			Reader reader = new FileReader(".\\resource\\login.json");	//resource에 login.json파일을 받아옴.
+			Reader reader = new FileReader(pathLogin);	//resource에 login.json파일을 받아옴.
 			logininfo = gson.fromJson(reader, LoginInfo.class);			//인자 "LoginInfo.class"  --> 읽어온 json파일을 LoginInfo라는 클래스형식으로 표현하겠다.
 			adminData = logininfo.getAdmin();							// logininfo의 함수들을 통해 객체를 구별. 
 			userData = logininfo.getUser();								

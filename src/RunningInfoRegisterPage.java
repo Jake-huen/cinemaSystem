@@ -5,7 +5,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 
 	static Scanner scan = new Scanner(System.in);
 
-	public static void runningInfoRegisterPage() {
+	public static void runningInfoRegisterPage(UserInfo userinfo) {
 		while(true) {
 			String[] theaters=TheaterDataManage.getTheater();
 			String[] theatersName=TheaterDataManage.getTheaterName();
@@ -33,6 +33,9 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 						System.out.print("등록할 날짜를 입력해주세요>>>");
 						String date=InputRule.DateRule();
 						if(date==null) { 
+							System.out.println("올바르지 않은 입력입니다.");
+						}
+						if(Integer.parseInt(date)<Integer.parseInt(userinfo.getDate())) {
 							System.out.println("올바르지 않은 입력입니다.");
 						}
 						else {
@@ -111,7 +114,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 				while(true) {
 					System.out.print("상영시작시간을 설정하세요>>>");//상영시간 중복시 오류처리 해야됨
 					String startTime=InputRule.TimeRule();
-					String rt = MovieInfoDataManage.getmovieRuntime(menuNum);
+					String rt = MovieInfoDataManage.getmovieRuntime(menuNum-1);
 					// System.out.println(rt);
 					// String[] runtime2=MovieInfoDataManage.getRuntime();
 					if(startTime==null) {

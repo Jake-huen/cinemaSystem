@@ -31,7 +31,11 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 				System.out.println("잘못된 입력입니다.");
 			}
 			else {
+				array[0]=InputRule.DateRule2(array[0]);
+				array[1]=InputRule.MTRule(array[1]);
+				array[2]=InputRule.ScreenRule2(array[2]);
 				reservationInfoDetailPage(array[0], array[1], array[2]);
+				return;
 			}
 		}
 		//array[0] = 날짜, array[1] = 영화제목,array[2] = 상영관
@@ -49,6 +53,11 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 			int count = RunningInfoManage.count(date, movieName, theaterName);
 			if(count==0) {
 				System.out.println("해당하는 영화없음");
+				while(true) {
+					tmp=scan.nextLine();
+					if(tmp.equals("0"))
+						break;
+				}
 				return;
 			}
 			else {
@@ -62,10 +71,14 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 					result+=startTime.substring(0,2)+":"+startTime.substring(2,4)+" "+movieName+" "+reservedSeatsNum+"/"+totalseats+"\n";
 				}
 				System.out.println(result);
-				tmp=scan.nextLine();
+				while(true) {
+					tmp=scan.nextLine();
+					if(tmp.equals("0"))
+						break;
+				}
 				return;
 			}
-		}
+		}//while end
 	}
 }
 

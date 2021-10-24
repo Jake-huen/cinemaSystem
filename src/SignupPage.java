@@ -6,13 +6,13 @@ public class SignupPage {
    static Scanner scan = new Scanner(System.in);
    public static boolean signupPage()
    {
-	  String[] menuname = {"뒤로가기", "관리자용회원가입", "고객용회원가입"};
+	  String[] menuname = {"뒤로가기", "관리자용 회원가입", "고객용 회원가입"};
       while(true) {
          System.out.println("======회원가입======");
          System.out.println("0. 뒤로가기");
          System.out.println("1. 관리자용 회원가입");
          System.out.println("2. 고객용 회원가입");
-         System.out.print(">>>");
+         System.out.print(">>> ");
          
          int menu = InputRule.MenuRule(menuname);
          
