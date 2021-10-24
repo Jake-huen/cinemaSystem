@@ -7,15 +7,15 @@ public class TodayMovie {
     private static ArrayList<RunningInfo> riList;
     static Scanner scan = new Scanner(System.in);
 
-    public static void ImportToday(String date) {
+    public static void ImportToday(UserInfo user) {
         riList = new ArrayList<>();
         riArr = RunningInfoManage.getRiArr();
         for(int i = 0; i < riArr.size(); i++) {
-            if(riArr.get(i).getDate().equals(date))  riList.add(riArr.get(i));
+            if(riArr.get(i).getDate().equals(user.getDate()) && Print.isAfterDate(riArr.get(i).getDate(),riArr.get(i).getTime(),user.getDate(),user.getTime()))  riList.add(riArr.get(i));
         }
     }
     public static void PrintToday(UserInfo user, String date) { //초기 화면
-        ImportToday(date);
+        ImportToday(user);
         System.out.println("===== 오늘 영화 예매하기 " +Print.makeDateFormet(date)+" ======");
         for(RunningInfo ri : riList){
             System.out.println(Print.makeTimeFormet(ri.getTime())+" | "+ri.getTheater()+" | "+ri.getMovieName());
