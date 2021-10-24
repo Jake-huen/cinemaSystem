@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class RsrvModCancelPage {
 	private UserInfo user;
@@ -15,7 +17,7 @@ public class RsrvModCancelPage {
 	
 	public void menu() {
 		while(true) {
-			System.out.println("===== 예매 수정 및 취소 =====");
+			System.out.println("\n\n===== 예매 수정 및 취소 =====");
 			
 			// 예매 정보 출력
 			printRsrvInfo(); 
@@ -52,8 +54,9 @@ public class RsrvModCancelPage {
 		int leftSeats = getLeftSeats();
 		
 		while(true) {
-			System.out.println("===== 예매 인원 수정 =====");
-			printRsrvInfo(); // 예매 정보 출력 
+			System.out.println("\n\n===== 예매 인원 수정 =====");
+			printRsrvInfo(leftSeats); // 예매 정보 출력 
+			
 			System.out.print("예매 인원(뒤로가기 : 0) >>> ");
 			modPplNum = InputRule.rsrvPplInput(); // 수정 인원 입력받기 
 			
@@ -66,13 +69,15 @@ public class RsrvModCancelPage {
 				System.out.println("남은 좌석이 입력한 인원보다 적습니다.\n");
 				continue;
 			}else {
+				// 예매 좌석 수정 함수 실행
+				modifyRservSeatPage = new ModifyRsrvSeatPage(user,userRsrvInfo,modPplNum);
+				int back = modifyRservSeatPage.showPage();
+				if(back ==-1) // -1 이면 좌석 수정 함수에서 뒤로가기 누른 것 
+					continue;
 				break;
 			}
 		}
 		
-		// 예매 좌석 수정 함수 실행
-		modifyRservSeatPage = new ModifyRsrvSeatPage(user,userRsrvInfo,modPplNum);
-		modifyRservSeatPage.showPage();
 	}
 	
 	// 해당 상영 영화의 남은 좌석수 반환 
@@ -83,19 +88,19 @@ public class RsrvModCancelPage {
 		int totalSeat = theater.getRow() * theater.getCol();
 		int curRsrvedSeat=0;
 		for(ReserveInfo rsrvInfo : runInfo.getReserve()) {
-			curRsrvedSeat += rsrvInfo.getSeat().length;
+			curRsrvedSeat += rsrvInfo.getSeat().size();
 		}
 		
 		
 		// 현재 사용자가 예매한 좌석 수는 제외 
-		curRsrvedSeat-= userRsrvInfo.getRsrvInfo().getSeat().length;
+		curRsrvedSeat-= userRsrvInfo.getRsrvInfo().getSeat().size();
 		return totalSeat - curRsrvedSeat;
 	}
 	
 	// 예매 취소 함수 
 	private void cancelRsrv() {
 		while(true) {
-			System.out.println("===== 예매 취소 =====");
+			System.out.println("\n\n===== 예매 취소 =====");
 			printRsrvInfo(); // 예매 정보 출력 
 			System.out.print("예매를 취소하시겠습니까? (Y/N) >>> ");
 			
@@ -115,29 +120,36 @@ public class RsrvModCancelPage {
 				System.out.println("예매가 취소되었습니다.");
 				return;
 			}
-			else if(answer == -1) {
+			else if(answer == 0) {
 				return;
 			}else 
 				System.out.println("올바르지 않은 입력입니다.\n");
 		}
 		
 	}
-	/* 예매 정보 삭제시 필요한 내용
-	 * 
-	 * 1. 삭제해야 하는 데이터
-	 * 1.1 UserInfo의 code 데이터 
-	 * 1.2 RunningInfo의 ReserveInfo 데이터 
-	 * 
-	 * */
+
 	
 	// 예매 정보 출력 함수 
 	private void printRsrvInfo() {
 		System.out.println("-------- 예매 정보 --------- ");
 		
 		// 예매 정보 출력
-		System.out.println(userRsrvInfo);
+		System.out.print(userRsrvInfo);
+		
 		
 		System.out.println("-------------------------- ");
 	}
+	
+	// 예매 정보 출력 함수  - 남은 좌석수 출력 
+		private void printRsrvInfo(int leftSeats) {
+			System.out.println("-------- 예매 정보 --------- ");
+			
+			// 예매 정보 출력
+			System.out.print(userRsrvInfo);
+			
+			System.out.println("남은 좌석 수 : "+ leftSeats +"석");
+			
+			System.out.println("-------------------------- ");
+		}
 	
 }
