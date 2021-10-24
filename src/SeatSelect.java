@@ -95,6 +95,10 @@ public class SeatSelect {
                     pair[s++] = new Pair(tmpx, tmpy);
                 }
             }
+            if(s >= row * col){
+                System.out.println("영화가 매진되었습니다.");
+                return null;
+            }
         }
 
         int[][] seat = new int[row][col]; // 좌석 배열 초기화
