@@ -43,22 +43,19 @@ public class InputRule {//입력규칙 정의 (static으로)
 
 	public static String PWRule()		//7.2로그인 입력규칙 - PW
 	{   
-		Pattern pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9]).{8,}$");
+		Pattern pattern1 = Pattern.compile("^[A-Za-z[0-9]]{8,}$");
+		Pattern pattern2 = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9]).{8,}$");
 		String pw;
 		pw = sc.nextLine();
-		Matcher matcher = pattern.matcher(pw);
-		if(!matcher.find())
+		Matcher matcher1 = pattern1.matcher(pw);
+ 		Matcher matcher2 = pattern2.matcher(pw);
+		if(matcher1.find() && matcher2.find())
 		{
-			return null;
+			return pw;
 		}
 		else 
-		{
-			if(pw.indexOf(" ") == -1)
-				return pw;
-			else
-				return null;
-		}
-	}	
+			return null;
+	}		
 
 	public static String MTRule(String movie) { //7.3영화제목입력규칙 parameter
 		movie=movie.trim();
