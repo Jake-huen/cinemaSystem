@@ -13,26 +13,30 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 			tmp=scan.nextLine();
 			String[] array = tmp.split(" ");
 			int num = array.length;
-			if(num>3) {
+			if(num>=3) {
 				String temp = "";
 				for(int i=1; i<num-1; i++)
 					temp +=array[i]+" ";
 				temp = temp.trim();
 				array[1] = temp;
 				array[2] = array[num-1];
-			}
-			if(InputRule.DateRule2(array[0])==null) {
-				System.out.println("잘못된 입력입니다.");
-			}
-			else if(InputRule.MTRule(array[1])==null) {
-				System.out.println("잘못된 입력입니다.");
-			}
-			else if(InputRule.ScreenRule2(array[2])==null) {
-				System.out.println("잘못된 입력입니다.");
-			}
-			else {
-				reservationInfoDetailPage(array[0], array[1], array[2]);
-				return;
+				array[0] = InputRule.DateRule2(array[0]);
+				System.out.println(array[0]);
+				if(InputRule.DateRule2(array[0])==null) {
+					System.out.println("잘못된 입력입니다.");
+				}
+				else if(InputRule.MTRule(array[1])==null) {
+					System.out.println("잘못된 입력입니다.");
+				}
+				else if(InputRule.ScreenRule2(array[2])==null) {
+					System.out.println("잘못된 입력입니다.");
+				}
+				else {
+					reservationInfoDetailPage(array[0], array[1], array[2]);
+					return;
+				}
+			}else {
+				System.out.println("올바르지 않은 입력입니다.");
 			}
 		}
 		//array[0] = 날짜, array[1] = 영화제목,array[2] = 상영관
