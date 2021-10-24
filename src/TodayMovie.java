@@ -83,7 +83,7 @@ public class TodayMovie {
                     break;
                 }
                 else {
-                    System.out.println("입력하신 정보와 일치하는 영화가 없습니다.");
+                    System.out.println("올바르지 않은 입력입니다.");
                 }
             }
             else {
