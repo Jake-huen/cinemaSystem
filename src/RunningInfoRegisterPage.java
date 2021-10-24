@@ -39,9 +39,10 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 						}
 						else {
 							runningInfoDetailPage(menuNum-1,date);
-							return;
+							break;
 						}
 					}
+					break;
 				}
 			}
 		}

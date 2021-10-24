@@ -254,5 +254,13 @@
     "time": "0600",
     "theater": "펄관",
     "reserve": []
+  },
+  {
+    "code": "202103151200bo관",
+    "movie": "DP",
+    "date": "20210315",
+    "time": "1200",
+    "theater": "bo관",
+    "reserve": []
   }
 ]
