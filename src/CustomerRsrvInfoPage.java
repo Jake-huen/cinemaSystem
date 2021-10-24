@@ -2,6 +2,7 @@
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -110,30 +111,13 @@ public class CustomerRsrvInfoPage {
 		// 사용자가 예매한 상영정보 + 예매 정보 만 저장하기
 		for(String movieCode : movCodes) {
 			for(RunningInfo runInfo : riArr) {
-				if(runInfo.getCode().equals(movieCode)&& isAfterDate(runInfo.getDate(),user.getDate())) 
+				if(runInfo.getCode().equals(movieCode)&& Print.isAfterDate(runInfo.getDate(),runInfo.getTime(),user.getDate(),user.getTime())) 
 					userRsrvInfos.add(new UserRsrvInfo(runInfo , getRsrvInfo(runInfo)));
 			}
 		}
 	}
 	
-	// 예매 날짜가 현재 날짜보다 뒤인지 판단하는 함수 
-	private boolean isAfterDate(String rsrvDateStr,String todayStr) {
-		try {
-            SimpleDateFormat dateFormat = new 
-                SimpleDateFormat ("yyyyMMdd");
-            Date rsrvDate = dateFormat.parse(rsrvDateStr);
-            Date today = dateFormat.parse(todayStr);
-           
-            if(today.before(rsrvDate))
-                return true;
-            else
-            	return false;
-        } catch (ParseException ex) {
-        	ex.printStackTrace();
-        	return false;
-        }
-		
-	}
+
 
 }
 
