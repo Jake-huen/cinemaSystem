@@ -4,7 +4,7 @@ public class ManagerMainPage {
 
 	static Scanner scan = new Scanner(System.in);
 
-	public static void managerMainPage() {
+	public static void managerMainPage(UserInfo userinfo) {
 		while(true) {
 			System.out.println("1. 영화관리");
 			System.out.println("2. 상영관관리");
@@ -37,7 +37,7 @@ public class ManagerMainPage {
 				TheaterManagePage.theaterManagePage();
 				break;
 			case 3:
-				RunningInfoRegisterPage.runningInfoRegisterPage();
+				RunningInfoRegisterPage.runningInfoRegisterPage(userinfo);
 				break;
 			case 4:
 				ReservationInfoPage.reservationInfoPage();
