@@ -62,7 +62,7 @@ public class CustomerMainPage {
 		ArrayList<RunningInfo> todayRunning = RunningInfoManage.readDateRi(date);
 		
 		for(RunningInfo runInfo : todayRunning)
-			System.out.println(runInfo);
+			System.out.print(runInfo);
 	}
 	
 	
