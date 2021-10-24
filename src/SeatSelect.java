@@ -106,7 +106,6 @@ public class SeatSelect {
         for(int i = 0; i < count; i++) { // 예약된 좌석 >> 1
             int _row = pair[i].getRow();
             int _col = pair[i].getCol() - 1;
-            System.out.println(_row +" "+_col);
             seat[_row][_col] = 1;
         }
 
