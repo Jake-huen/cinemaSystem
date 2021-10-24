@@ -8,7 +8,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 	public static int MenuRule(String[] menu_name)		//7.1 메뉴입력규칙
 	{									
 		String menu = sc.nextLine();
-		if(menu == " ")
+		if(menu.equals(" "))
 		{
 			return -1;
 		}
