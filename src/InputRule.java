@@ -51,7 +51,13 @@ public class InputRule {//입력규칙 정의 (static으로)
 		{
 			return null;
 		}
-		return pw;
+		else 
+		{
+			if(pw.indexOf(" ") == -1)
+				return pw;
+			else
+				return null;
+		}
 	}	
 
 	public static String MTRule(String movie) { //7.3영화제목입력규칙 parameter
@@ -424,6 +430,18 @@ public class InputRule {//입력규칙 정의 (static으로)
 	}
 
 	public static String TimeRule(String checktime) {// 7.7시각입력규칙 parameter
+		if(checktime.contains(" "))
+			return null;
+		int flag = 0;//숫자 : - 이세개만 허용
+		char[] checktimeChar = checktime.toCharArray();
+		for(int i = 0; i<checktimeChar.length; i++) {
+			if(checktimeChar[i]>=48 && checktimeChar[i]<=58 || checktimeChar[i]==55) {}
+			else
+				flag = 1;
+		}
+		if(flag==1) {
+			return null;
+		}
 		boolean isNumeric = true;
 		for(int i =0; i<checktime.length(); i++) {
 			if(checktime.charAt(i)>='0'&&checktime.charAt(i)<='9') {}
