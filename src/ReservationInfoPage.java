@@ -31,6 +31,9 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 				System.out.println("잘못된 입력입니다.");
 			}
 			else {
+				array[0]=InputRule.DateRule2(array[0]);
+				array[1]=InputRule.MTRule(array[1]);
+				array[2]=InputRule.ScreenRule2(array[2]);
 				reservationInfoDetailPage(array[0], array[1], array[2]);
 				return;
 			}
