@@ -12,12 +12,13 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 			String[] theatermenu=new String[theatersName.length+1];
 			theatermenu[0]="뒤로가기";
 			for(int i=1;i<theaters.length+1;i++) {
+				theatersName[i-1] = theatersName[i-1].substring(1,theatersName[i-1].length()-1);
 				theatermenu[i]=theatersName[i-1];
 			}
 			System.out.println("======상영관 목록======");
 			System.out.println("0. 뒤로가기");
 			for(int i=0;i<theaters.length;i++)
-				System.out.println((i+1)+". "+theaters[i]);
+				System.out.println((i+1)+". "+theatersName[i]);
 			while(true) {
 				System.out.println("===================");
 				System.out.print("영화를 등록할 상영관을 선택해주세요>>>");
@@ -40,9 +41,10 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 						}
 						else {
 							runningInfoDetailPage(menuNum-1,date);
-							return;
+							break;
 						}
 					}
+					break;
 				}
 			}
 		}

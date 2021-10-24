@@ -13,7 +13,7 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 			tmp=scan.nextLine();
 			String[] array = tmp.split(" ");
 			int num = array.length;
-			if(num>3) {
+			if(num>=3) {
 				String temp = "";
 				for(int i=1; i<num-1; i++)
 					temp +=array[i]+" ";
