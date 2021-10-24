@@ -20,9 +20,10 @@ public class ReservationInfoPage {//8.2.4 예매정보확인페이지
 				temp = temp.trim();
 				array[1] = temp;
 				array[2] = array[num-1];
-				array[0] = InputRule.DateRule2(array[0]);
 				if(InputRule.DateRule2(array[0])==null) {
 					System.out.println("올바르지 않은 입력입니다.");
+				}else if(InputRule.DateRule2(array[0])!=null) {
+					array[0] = InputRule.DateRule2(array[0]);
 				}
 				else if(InputRule.MTRule(array[1])==null) {
 					System.out.println("올바르지 않은 입력입니다.");
