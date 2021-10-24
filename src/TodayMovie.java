@@ -48,6 +48,7 @@ public class TodayMovie {
                     if(ritmp.getTime().equals(tr)&&movieTheater.equals(sr)&&ritmp.getMovieName().equals(mr)){
                         break;
                     }
+                    
                 }
                 if(index < riList.size()) {
                     Pair[] pairs = SeatSelect.SeatMain(riList.get(index));
@@ -78,6 +79,9 @@ public class TodayMovie {
                     }
                     RunningInfoManage.updateReserve(riList.get(index), rsitmp);
                     break;
+                }
+                else {
+                    System.out.println("입력하신 정보와 일치하는 영화가 없습니다.");
                 }
             }
             else {
