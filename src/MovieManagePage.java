@@ -21,7 +21,7 @@ public class MovieManagePage {//8.2.1영화관리페이지
 			System.out.println("2. 영화 정보 수정 및 삭제");
 			System.out.print(">>>");
 
-			String[] tmp={"뒤로가기","영화정보등록","영화정보수정및삭제"};
+			String[] tmp={"뒤로가기","영화 정보 등록","영화 정보 수정 및 삭제"};
 			int menuNum=InputRule.MenuRule(tmp);
 			switch(menuNum) {
 			case 0:
