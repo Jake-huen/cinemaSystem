@@ -562,25 +562,32 @@ public class InputRule {//입력규칙 정의 (static으로)
 		seat = seat.replace(" ", "");
 		seat = seat.trim();
 		seat = seat.toUpperCase();
-		int ascii = seat.charAt(0);
-		if(ascii >= 'A' && ascii <= row+'A') {
-			if(seat.length() > 3 || seat.length() == 1) {
-				return null;
-			}
-			else if(seat.length() == 3) {
-				int a = seat.charAt(1) - '0';
-				int b = seat.charAt(2) - '0';
-				int num = a * 10 + b;
-				if(num >= 1 && num <= col) return seat;
-				else return null;
-			} else {
-				int num = seat.charAt(1) - '0';
-				if(num >= 1 && num <= 9) return seat;
-				else return null;
-			}
-		} else {
+		
+		if(seat == null || seat.length()<=1)
+			return null;
+		
+		// 좌석의 행 
+		int seatRow = seat.charAt(0);
+		
+		// 상영관 행 범위 벗어나는 경우 
+		if(seatRow <'A' || seatRow> row + 'A')
+			return null;
+		
+		// 좌석의 열부분 
+		int seatCol;
+		String seatColStr = seat.substring(1);
+		try {
+			seatCol = Integer.parseInt(seatColStr);
+		}catch(NumberFormatException e) {
+			// 정수로 변환 안되면 null 반환 
 			return null;
 		}
+		
+		// 상영관 행 범위 벗어나는 경우 
+		if(seatCol <1 ||seatCol>col)
+			return null;
+		
+		return seat;
 	}
 
 
