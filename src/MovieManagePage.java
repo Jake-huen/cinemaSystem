@@ -64,7 +64,7 @@ public class MovieManagePage {//8.2.1영화관리페이지
 			return;
 		}
 		runtime = runtime+"분";
-		MovieInfoDataManage.setJsonMovie(title,runtime); //데이터베이스에 등록
+		MovieInfoDataManage.setJsonMovie(check_title,runtime); //데이터베이스에 등록
 
 		System.out.println("=====등록완료=====");
 	}
