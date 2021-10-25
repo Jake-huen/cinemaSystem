@@ -38,7 +38,7 @@ public class CustomerMainPage {
 			
 			switch(menuNum) {
 				case 1: // 오늘 영화 예매하기
-					TodayMovie.PrintToday(user.getId(), date);// 오늘 영화 예매 객체 추가
+					TodayMovie.PrintToday(user, date);// 오늘 영화 예매 객체 추가
 					break;
 				case 2:// 영화 검색 
 					SearchMovie.SearchMain(user.getId());// 영화 검색 객체 or 함수 추가 

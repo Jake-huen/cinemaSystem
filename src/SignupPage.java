@@ -12,7 +12,7 @@ public class SignupPage {
          System.out.println("0. 뒤로가기");
          System.out.println("1. 관리자용 회원가입");
          System.out.println("2. 고객용 회원가입");
-         System.out.print(">>>");
+         System.out.print(">>> ");
          
          int menu = InputRule.MenuRule(menuname);
          

@@ -23,6 +23,8 @@ public class InitialPage {
                   {
                 	  return info;
                   }
+                  else
+                	  continue;
                }
                else
             	   continue;

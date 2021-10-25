@@ -6,8 +6,14 @@ public class SeatSelect {
         System.out.println("===== 영화예매 ======\r\n"
                 + "----------- 선택한 영화 정보 -----------");
         System.out.println(Print.makeDateFormet(ri.getDate())+" | "+Print.makeTimeFormet(ri.getTime())+" | "+ ri.getTheater()+" | "+ri.getMovieName());
-        System.out.print("예매 인원 >>>");
-        int ppl = InputRule.rsrvPplInput();
+        int ppl = 0;
+        while(true){
+            System.out.print("예매 인원 >>>");
+            ppl = InputRule.rsrvPplInput();
+            if(ppl == 0) System.out.println("올바르지 않은 입력입니다.");
+            else break;
+        }
+
 
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         String theater = ri.getTheater();

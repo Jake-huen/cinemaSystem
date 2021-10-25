@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class ReservationInfoPage {//8.2.4 예매정보확인페이지
-	
+
 	static Scanner scan = new Scanner(System.in);
 	
 	public static void reservationInfoPage() {

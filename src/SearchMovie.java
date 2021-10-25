@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class SearchMovie {
     static Scanner sc = new Scanner(System.in);
 
-    public static void SearchMain(String ID) {
+    public static void SearchMain(UserInfo user) {
         System.out.println("===== 상영영화 검색 ======");
         System.out.println("0. 돌아가기");
         System.out.println("1. 날짜 검색 모드");
