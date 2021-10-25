@@ -27,7 +27,7 @@ public class SeatSelect {
 
         while (true){
             for(int i = 0; i < ppl; i++) {
-                System.out.print("좌석을 선택해 주세요["+i+"/"+ppl+"]>>>");
+                System.out.print("좌석을 선택해 주세요["+(i+1)+"/"+ppl+"]>>>");
                 seatInput = InputRule.SeatRule();
                 if(seatInput == null) {
                     System.out.println("해당 좌석이 존재하지 않습니다.");
@@ -77,6 +77,7 @@ public class SeatSelect {
                 System.out.println("올바르지 않은 입력입니다.");
             }
         }
+
     }
 
     public static int[][] seatPrint(RunningInfo ri) {
@@ -123,7 +124,10 @@ public class SeatSelect {
         System.out.print("  ");
 
         for(int i = 1; i <= col; i++) {
-            System.out.print(i+" ");
+            if(i <10)
+                System.out.print(i +"  ");
+            else
+                System.out.print(i+" ");
         }
         System.out.println();
 
@@ -131,7 +135,7 @@ public class SeatSelect {
             char alpRow = (char)(i + 65);
             System.out.print(alpRow + " ");
             for(int j = 0; j < col; j++) {
-                System.out.print(seat[i][j] == 1 ? "▩ " : "□ ");
+                System.out.print(seat[i][j] == 1 ? "▩  " : "□  ");
             }
             System.out.println();
         }
@@ -185,8 +189,11 @@ public class SeatSelect {
         System.out.println("□: 선택 가능 ▩: 예매 완료 ■: 선택한 좌석");
         System.out.print("  ");
 
-        for(int i = 0; i < col; i++) {
-            System.out.print(i+" ");
+        for(int i = 1; i <= col; i++) {
+            if(i <10)
+                System.out.print(i +"  ");
+            else
+                System.out.print(i+" ");
         }
         System.out.println();
 
@@ -195,13 +202,13 @@ public class SeatSelect {
             System.out.print(alpRow + " ");
             for(int j = 0; j < col; j++) {
                 if(seat[i][j] == 0) {
-                    System.out.print("□ ");
+                    System.out.print("□  ");
                 }
                 else if(seat[i][j] == 1) {
-                    System.out.print("▩ ");
+                    System.out.print("▩  ");
                 }
                 else {
-                    System.out.print("■ ");
+                    System.out.print("■  ");
                 }
             }
             System.out.println();
