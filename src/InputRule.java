@@ -432,7 +432,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 		int flag = 0;//숫자 : - 이세개만 허용
 		char[] checktimeChar = checktime.toCharArray();
 		for(int i = 0; i<checktimeChar.length; i++) {
-			if(checktimeChar[i]>=48 && checktimeChar[i]<=58 || checktimeChar[i]==55) {}
+			if(checktimeChar[i]>=48 && checktimeChar[i]<=58 || checktimeChar[i]==45) {}
 			else
 				flag = 1;
 		}
