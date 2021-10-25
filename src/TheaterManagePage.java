@@ -134,6 +134,9 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 							break;
 						}
 					}
+					if(TheaterDataManage.readIndexTheater(index).replaceAll("\"","").split("/")[0].equals(theater)) {
+						check=0;
+					}
 					if(theater==null) {
 						System.out.println("올바르지 않은 입력입니다.");
 					}
