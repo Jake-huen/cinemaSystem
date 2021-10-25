@@ -25,47 +25,57 @@ public class SeatSelect {
         String seatInput = null;
         Pair[] rsSeat = new Pair[ppl];
 
-        for(int i = 0; i < ppl; i++) {
-            System.out.print("좌석을 선택해 주세요["+i+"/"+ppl+"]>>>");
-            seatInput = InputRule.SeatRule();
-            int x = seatInput.charAt(0) - 'a';
-            int y = 0;
-            int result = 0;
-            if(seatInput.length() == 2) y = (seatInput.charAt(1) - '0') - 1;
-            else y = (seatInput.charAt(1)-'0') * 10 + (seatInput.charAt(2) - '0') - 1;
+        while (true){
+            for(int i = 0; i < ppl; i++) {
+                System.out.print("좌석을 선택해 주세요["+i+"/"+ppl+"]>>>");
+                seatInput = InputRule.SeatRule();
+                if(seatInput == null) {
+                    System.out.println("해당 좌석이 존재하지 않습니다.");
+                    i--;
+                }
+                else {
+                    int x = seatInput.charAt(0) - 'a';
+                    int y = 0;
+                    int result = 0;
+                    if(seatInput.length() == 2) y = (seatInput.charAt(1) - '0') - 1;
+                    else y = (seatInput.charAt(1)-'0') * 10 + (seatInput.charAt(2) - '0') - 1;
 
-            if(x <= theaterX && y <= theaterY){
-                if(seatArr[x][y]==1) result = -1;
-            }else{
-                result = -2;
+                    if(x < theaterX && y < theaterY){
+                        if(seatArr[x][y]==1) result = -1;
+                    }else{
+                        result = -2;
+                    }
+                    if(result == 0){
+                        rsSeat[i] = new Pair(x, y);
+                    }else if(result == -1){
+                        System.out.println("이미 선택된 좌석입니다.");
+                        i--;
+                    }
+                    else{
+                        System.out.println("해당 좌석이 존재하지 않습니다.");
+                        i--;
+                    }
+                }
             }
-
-            if(result == 0){
-                rsSeat[i] = new Pair(x, y);
-            }else if(result == -1){
-                System.out.println("이미 선택된 좌석입니다.");
-                i--;
+            seatReservedPrint(ri,rsSeat);
+            System.out.print("선택하신 좌석 ");
+            for(Pair rsP : rsSeat){
+                char tmpx = (char) (rsP.getRow() + 'A');
+                System.out.print(tmpx+""+ (rsP.getCol()+1)+" ");
             }
-            else{
-                System.out.println("해당 좌석이 존재하지 않습니다.");
-                i--;
+            System.out.print("이 맞습니까?(y/n) >>>");
+            int yorn = InputRule.YesOrNo();
+            if(yorn == 1) {
+                // 예약 성공
+                return rsSeat;
             }
-        }
-        seatReservedPrint(ri,rsSeat);
-        System.out.print("선택하신 좌석 ");
-        for(Pair rsP : rsSeat){
-            char tmpx = (char) (rsP.getRow() + 'A');
-            System.out.print(tmpx+""+ (rsP.getCol()+1)+" ");
-        }
-        System.out.print("이 맞습니까?(y/n) >>>");
-        int yorn = InputRule.YesOrNo();
-        if(yorn == 1) {
-            // 예약 성공
-            return rsSeat;
-        }
-        else {
-            // 예약 실패
-            return null;
+            else if(yorn == 0) {
+                // 예약 실패
+                continue;
+            }
+            else {
+                System.out.println("올바르지 않은 입력입니다.");
+            }
         }
     }
 
@@ -95,6 +105,10 @@ public class SeatSelect {
                     pair[s++] = new Pair(tmpx, tmpy);
                 }
             }
+            if(s >= row * col){
+                System.out.println("영화가 매진되었습니다.");
+                return null;
+            }
         }
 
         int[][] seat = new int[row][col]; // 좌석 배열 초기화
@@ -102,7 +116,6 @@ public class SeatSelect {
         for(int i = 0; i < count; i++) { // 예약된 좌석 >> 1
             int _row = pair[i].getRow();
             int _col = pair[i].getCol() - 1;
-            System.out.println(_row +" "+_col);
             seat[_row][_col] = 1;
         }
 

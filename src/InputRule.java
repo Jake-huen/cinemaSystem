@@ -8,6 +8,10 @@ public class InputRule {//입력규칙 정의 (static으로)
 	public static int MenuRule(String[] menu_name)		//7.1 메뉴입력규칙
 	{									
 		String menu = sc.nextLine();
+		if(menu.equals(" "))
+		{
+			return -1;
+		}
 		menu = menu.trim();
 		for(int i=0; i<menu_name.length; i++)
 		{									
@@ -39,16 +43,19 @@ public class InputRule {//입력규칙 정의 (static으로)
 
 	public static String PWRule()		//7.2로그인 입력규칙 - PW
 	{   
-		Pattern pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9]).{8,}$");
+		Pattern pattern1 = Pattern.compile("^[A-Za-z[0-9]]{8,}$");
+		Pattern pattern2 = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9]).{8,}$");
 		String pw;
 		pw = sc.nextLine();
-		Matcher matcher = pattern.matcher(pw);
-		if(!matcher.find())
+		Matcher matcher1 = pattern1.matcher(pw);
+ 		Matcher matcher2 = pattern2.matcher(pw);
+		if(matcher1.find() && matcher2.find())
 		{
-			return null;
+			return pw;
 		}
-		return pw;
-	}	
+		else 
+			return null;
+	}		
 
 	public static String MTRule(String movie) { //7.3영화제목입력규칙 parameter
 		movie=movie.trim();
@@ -202,7 +209,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 		else if(screen.charAt(screen.length()-1)!='관'){
 			return null;
 		}
-		else if(screen.equals("관")) {
+		else if(screen.equals('관')) {
 			return null;
 		}
 		// 입력으로 '관' 만 입력하는 경우 —>(기획서 반영?)
@@ -420,6 +427,18 @@ public class InputRule {//입력규칙 정의 (static으로)
 	}
 
 	public static String TimeRule(String checktime) {// 7.7시각입력규칙 parameter
+		if(checktime.contains(" "))
+			return null;
+		int flag = 0;//숫자 : - 이세개만 허용
+		char[] checktimeChar = checktime.toCharArray();
+		for(int i = 0; i<checktimeChar.length; i++) {
+			if(checktimeChar[i]>=48 && checktimeChar[i]<=58 || checktimeChar[i]==55) {}
+			else
+				flag = 1;
+		}
+		if(flag==1) {
+			return null;
+		}
 		boolean isNumeric = true;
 		for(int i =0; i<checktime.length(); i++) {
 			if(checktime.charAt(i)>='0'&&checktime.charAt(i)<='9') {}
@@ -474,6 +493,9 @@ public class InputRule {//입력규칙 정의 (static으로)
 		pplStr = sc.nextLine();
 		pplStr=pplStr.trim(); // 앞뒤 공백제거 
 
+		// 공백 입력한 경우 
+		if(pplStr.isEmpty())
+			return -1;
 		// 0 입력한 경우 
 		if(pplStr.equals("0"))
 			return 0;  
@@ -491,6 +513,8 @@ public class InputRule {//입력규칙 정의 (static으로)
 		} catch (NumberFormatException e) {
 			return -1;
 		}
+		if(pplNum <= 0)
+			return -1;
 
 		return pplNum;
 	}
@@ -498,6 +522,10 @@ public class InputRule {//입력규칙 정의 (static으로)
 
 	public static String SeatRule() { //7.9 예매 좌석 입력 규칙
 		String seat = sc.nextLine();
+		if(seat.contains(" ")){
+			String[] seatArr = seat.split(" ");
+			if(seatArr[0].length() >= 2 || seatArr.length >= 3) return null;
+		}
 		seat = seat.replace(" ", "");
 		seat = seat.trim();
 		seat = seat.toLowerCase();
@@ -524,6 +552,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 	public static int YesOrNo() { // 7.10 yes / no 입력규칙
 		String yon = sc.nextLine();
 		yon = yon.toLowerCase();
+		yon = yon.trim();
 		if(yon.equals("yes") || yon.equals("y")) return 1; //yes or y --> 1
 		else if(yon.equals("no") || yon.equals("n")) return 0; //no or n --> 0
 		else return -1; //others --> -1

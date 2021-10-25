@@ -1,4 +1,7 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 // 자주 사용되는 출력 관련 메소드 
 public class Print {
@@ -57,6 +60,25 @@ public class Print {
 	// String 앞뒤 따옴표 지우기 
 	public static String removeQuotes(String str) {
 		return str.substring(1, str.length()-1);
+	}
+	
+	// '입력 날짜 + 시간'이 '현재 날짜+시간'보다 이후인지 판단하는 함수 
+	public static boolean isAfterDate(String rsrvDateStr,String rsrvTimeStr, String todayStr, String todayTimeStr) {
+		try {
+            SimpleDateFormat dateFormat = new 
+                SimpleDateFormat ("yyyyMMddHHmm");
+            Date rsrvDate = dateFormat.parse(rsrvDateStr+rsrvTimeStr);
+            Date today = dateFormat.parse(todayStr+todayTimeStr);
+           
+            if(rsrvDate.after(today) || rsrvDate.equals(today))
+                return true;
+            else
+            	return false;
+        } catch (ParseException ex) {
+        	ex.printStackTrace();
+        	return false;
+        }
+		
 	}
 
 }
