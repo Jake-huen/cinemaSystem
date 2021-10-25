@@ -111,17 +111,24 @@ public class MovieManagePage {//8.2.1영화관리페이지
 			System.out.print("영화제목>>");
 			title=scan.nextLine();
 			String check_title=InputRule.MTRule(title);
-			if(check_title==null) {
+			while(check_title==null) {
 				System.out.println("올바르지 않은 입력입니다.");
-				return;
+				System.out.print("영화제목>>");
+				title=scan.nextLine();
+				check_title=InputRule.MTRule(title);
 			}
-
-			System.out.print("상영시간>>");
-			if((runtime=InputRule.RunTimeRule())==null) {
-				return;
+			while(true) {
+				System.out.print("상영시간>>");
+				runtime= InputRule.RunTimeRule();
+				if(runtime==null) {
+					System.out.println("올바르지 않은 입력입니다.");
+				}
+				else {
+					runtime = runtime +"분";
+					MovieInfoDataManage.fixMovie(num, title, runtime);
+					return;
+				}
 			}
-			runtime = runtime +"분";
-			MovieInfoDataManage.fixMovie(num, title, runtime);
 		}else if(menuNum==2) {//영화 삭제
 			MovieInfoDataManage.deleteMovie(num);
 		}
