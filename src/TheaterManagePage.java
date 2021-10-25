@@ -154,11 +154,11 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 							col=Integer.parseInt(tmp[1]);
 						}catch(Exception e) {
 							System.out.println("올바르지 않은 입력입니다.");
-							continue;
 						}
 						
 						if(row<1||row>26||col<1||col>50) {
 							System.out.println("올바르지 않은 입력입니다.");
+							continue;
 						}
 						else {
 							TheaterDataManage.fixTheater(index, theater, row, col);
