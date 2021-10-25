@@ -220,6 +220,10 @@ public class InputRule {//입력규칙 정의 (static으로)
 
 	public static String DateRule() {// 7.6 날짜입력규칙 _ return 값은 YYYYMMDD형식
 		String checkdate = sc.nextLine();
+		String blankcheck = checkdate.replaceAll(" ","");
+		if(!checkdate.equals(blankcheck)) {
+			return null;
+		}
 		boolean isNumeric = true;
 		for(int i =0; i<checkdate.length(); i++) {
 			if(checkdate.charAt(i)>='0'&&checkdate.charAt(i)<='9') {}
@@ -570,7 +574,11 @@ public class InputRule {//입력규칙 정의 (static으로)
 		int seatRow = seat.charAt(0);
 		
 		// 상영관 행 범위 벗어나는 경우 
+<<<<<<< HEAD
 		if(seatRow <'A' || seatRow>= row + 'A')
+=======
+		if(seatRow <'A' || seatRow> row + 'A')
+>>>>>>> branch 'master' of https://github.com/kkho9654/cinemaSystem.git
 			return null;
 		
 		// 좌석의 열부분 
