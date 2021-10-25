@@ -2,15 +2,15 @@
   "movies": [
     {
       "title": "오징어 게임",
-      "runtime": "90분"
+      "runtime": "200분"
     },
     {
       "title": "DP",
       "runtime": "120분"
     },
     {
-      "title": "마이 네임",
-      "runtime": "120분"
+      "title": "문어 게임",
+      "runtime": "90분"
     },
     {
       "title": "가나다라",
@@ -21,11 +21,15 @@
       "runtime": "90분"
     },
     {
-      "title": "dd",
-      "runtime": "90분"
+      "title": "문어 게임",
+      "runtime": "60분"
     },
     {
-      "title": "문어 게임",
+      "title": "안녕",
+      "runtime": "200분"
+    },
+    {
+      "title": "잘가",
       "runtime": "60분"
     }
   ]
