@@ -220,6 +220,10 @@ public class InputRule {//입력규칙 정의 (static으로)
 
 	public static String DateRule() {// 7.6 날짜입력규칙 _ return 값은 YYYYMMDD형식
 		String checkdate = sc.nextLine();
+		String blankcheck = checkdate.replaceAll(" ","");
+		if(!checkdate.equals(blankcheck)) {
+			return null;
+		}
 		boolean isNumeric = true;
 		for(int i =0; i<checkdate.length(); i++) {
 			if(checkdate.charAt(i)>='0'&&checkdate.charAt(i)<='9') {}

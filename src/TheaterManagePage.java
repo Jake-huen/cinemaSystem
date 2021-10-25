@@ -125,6 +125,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 					System.out.println("======상영관 수정======"); 
 					System.out.print("상영관 이름>>>");
 					theater=InputRule.ScreenRule();
+					
 					int check=0;
 					String theaters[] = TheaterDataManage.getTheaterName();
 					for(int i=0;i<theaters.length;i++) {
@@ -132,6 +133,9 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 							check=1;
 							break;
 						}
+					}
+					if(TheaterDataManage.readIndexTheater(index).replaceAll("\"","").split("/")[0].equals(theater)) {
+						check=0;
 					}
 					if(theater==null) {
 						System.out.println("올바르지 않은 입력입니다.");
