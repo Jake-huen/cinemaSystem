@@ -106,7 +106,7 @@ public class CustomerRsrvInfoPage {
 		// 사용자가 예매한 상영정보 + 예매 정보 만 저장하기
 		for(String movieCode : movCodes) {
 			for(RunningInfo runInfo : riArr) {
-				if(runInfo.getCode().equals(movieCode)) 
+				if(runInfo.getCode().equals(movieCode)&& Print.isAfterDate(runInfo.getDate(),runInfo.getTime(),date,time)) 
 					userRsrvInfos.add(new UserRsrvInfo(runInfo , getRsrvInfo(runInfo)));
 			}
 		}

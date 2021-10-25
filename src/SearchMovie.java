@@ -22,7 +22,7 @@ public class SearchMovie {
                         return;
                     case 1:
                         //날짜 검색 모드
-                        SearchByDate(ID);
+                        SearchByDate(user);
                         break;
                     case 2:
                         //영화 제목 검색 모드

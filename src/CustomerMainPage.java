@@ -41,7 +41,7 @@ public class CustomerMainPage {
 					TodayMovie.PrintToday(user, date);// 오늘 영화 예매 객체 추가
 					break;
 				case 2:// 영화 검색 
-					SearchMovie.SearchMain(user.getId());// 영화 검색 객체 or 함수 추가 
+					SearchMovie.SearchMain(user);// 영화 검색 객체 or 함수 추가
 					break;
 				case 3:// 예매 정보 확인 및 수정 삭제
 					cusRsrvPage.menu();

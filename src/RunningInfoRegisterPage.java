@@ -36,6 +36,9 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 						if(date==null) { 
 							System.out.println("올바르지 않은 입력입니다.");
 						}
+						if(Integer.parseInt(date)<Integer.parseInt(userinfo.getDate())) {
+							System.out.println("올바르지 않은 입력입니다.");
+						}
 						else {
 							runningInfoDetailPage(menuNum-1,date);
 							return;

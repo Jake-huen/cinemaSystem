@@ -125,6 +125,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 					System.out.println("======상영관 수정======"); 
 					System.out.print("상영관 이름>>>");
 					theater=InputRule.ScreenRule();
+					
 					int check=0;
 					String theaters[] = TheaterDataManage.getTheaterName();
 					for(int i=0;i<theaters.length;i++) {

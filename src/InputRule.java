@@ -6,57 +6,23 @@ public class InputRule {//입력규칙 정의 (static으로)
 	static Scanner sc = new Scanner(System.in);
 
 	public static int MenuRule(String[] menu_name)		//7.1 메뉴입력규칙
-	   {									
-	      String menu = sc.nextLine();
-	      menu = menu.trim();
-	      for(int i=0; i<menu_name.length; i++)
-	      {									
-	    	  if(menu_name[i] == "" && String.valueOf(i).equals(menu))		//메뉴이름을 입력받으면 안될때, 메뉴이름을 String배열에 ""로 저장
-	    	  {
-	    		  return i;
-	    	  }
-	    	  
-	    	  if(menu_name[i].equals(menu) || String.valueOf(i).equals(menu))
-	    	  {
-	    		  return i;
-	    	  }
-	      }											//메뉴이름을 String 배열에 index에 맞춰 넣어주세요
-	      return -1;
-	   }
-	
-	   public static String IDRule()		//7.2로그인 입력규칙 - ID
-	   {
-	      Pattern pattern = Pattern.compile("^[A-Za-z[0-9]]{2,10}$");
-	      String id;
-	      id = sc.nextLine();
-	      Matcher matcher = pattern.matcher(id);
-	      if(!matcher.find())
-	      {
-	         return null;
-	      }
-	      return id;
-	   }
-	   
-	   public static String PWRule()		//7.2로그인 입력규칙 - PW
-	   {   
-	      Pattern pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9]).{8,}$");
-	      String pw;
-	      pw = sc.nextLine();
-	      Matcher matcher = pattern.matcher(pw);
-	      if(!matcher.find())
-	      {
-	         return null;
-	      }
-	      return pw;
-	   }	
-	
-	public static String MTRule(String movie) { //7.3영화제목입력규칙 parameter
-			movie=movie.trim();
-			if(movie.equals("0")) {
-				return null;
+	{									
+		String menu = sc.nextLine();
+		if(menu.equals(" "))
+		{
+			return -1;
+		}
+		menu = menu.trim();
+		for(int i=0; i<menu_name.length; i++)
+		{									
+			if(menu_name[i] == "" && String.valueOf(i).equals(menu))		//메뉴이름을 입력받으면 안될때, 메뉴이름을 String배열에 ""로 저장
+			{
+				return i;
 			}
-			else if(movie.length()<1 || movie.length()>30) {
-				return null;
+
+			if(menu_name[i].equals(menu) || String.valueOf(i).equals(menu))
+			{
+				return i;
 			}
 			return movie;
 	}

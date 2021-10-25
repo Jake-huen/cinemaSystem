@@ -25,14 +25,20 @@ public class SeatSelect {
         String seatInput = null;
         Pair[] rsSeat = new Pair[ppl];
 
-        for(int i = 0; i < ppl; i++) {
-            System.out.print("좌석을 선택해 주세요["+i+"/"+ppl+"]>>>");
-            seatInput = InputRule.SeatRule();
-            int x = seatInput.charAt(0) - 'a';
-            int y = 0;
-            int result = 0;
-            if(seatInput.length() == 2) y = (seatInput.charAt(1) - '0') - 1;
-            else y = (seatInput.charAt(1)-'0') * 10 + (seatInput.charAt(2) - '0') - 1;
+        while (true){
+            for(int i = 0; i < ppl; i++) {
+                System.out.print("좌석을 선택해 주세요["+(i+1)+"/"+ppl+"]>>>");
+                seatInput = InputRule.SeatRule();
+                if(seatInput == null) {
+                    System.out.println("해당 좌석이 존재하지 않습니다.");
+                    i--;
+                }
+                else {
+                    int x = seatInput.charAt(0) - 'a';
+                    int y = 0;
+                    int result = 0;
+                    if(seatInput.length() == 2) y = (seatInput.charAt(1) - '0') - 1;
+                    else y = (seatInput.charAt(1)-'0') * 10 + (seatInput.charAt(2) - '0') - 1;
 
             if(x <= theaterX && y <= theaterY){
                 if(seatArr[x][y]==1) result = -1;

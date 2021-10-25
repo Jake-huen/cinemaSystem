@@ -61,5 +61,24 @@ public class Print {
 	public static String removeQuotes(String str) {
 		return str.substring(1, str.length()-1);
 	}
+	
+	// '입력 날짜 + 시간'이 '현재 날짜+시간'보다 이후인지 판단하는 함수 
+	public static boolean isAfterDate(String rsrvDateStr,String rsrvTimeStr, String todayStr, String todayTimeStr) {
+		try {
+            SimpleDateFormat dateFormat = new 
+                SimpleDateFormat ("yyyyMMddHHmm");
+            Date rsrvDate = dateFormat.parse(rsrvDateStr+rsrvTimeStr);
+            Date today = dateFormat.parse(todayStr+todayTimeStr);
+           
+            if(rsrvDate.after(today) || rsrvDate.equals(today))
+                return true;
+            else
+            	return false;
+        } catch (ParseException ex) {
+        	ex.printStackTrace();
+        	return false;
+        }
+		
+	}
 
 }
