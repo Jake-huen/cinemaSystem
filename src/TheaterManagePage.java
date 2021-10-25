@@ -58,7 +58,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 						String[] tmp=rc.split("-|/");
 						row=Integer.parseInt(tmp[0]);
 						col=Integer.parseInt(tmp[1]);
-					}catch(ArrayIndexOutOfBoundsException e) {
+					}catch(Exception e) {
 						System.out.println("올바르지 않은 입력입니다.");
 						continue;
 					}
@@ -148,7 +148,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 							String[] tmp=rc.split("-|/");
 							row=Integer.parseInt(tmp[0]);
 							col=Integer.parseInt(tmp[1]);
-						}catch(ArrayIndexOutOfBoundsException e) {
+						}catch(Exception e) {
 							System.out.println("올바르지 않은 입력입니다.");
 							continue;
 						}
