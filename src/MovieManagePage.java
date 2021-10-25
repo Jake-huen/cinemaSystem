@@ -38,41 +38,35 @@ public class MovieManagePage {//8.2.1영화관리페이지
 		}
 	}
 	public static void movieRegisterPage() {//8.2.1.1 영화정보등록
-		while(true) {
-			String title="",runtime="";
-			
-			System.out.print("영화제목>>");
-			int double_check=0;
-			title=scan.nextLine();
-			String check_title = InputRule.MTRule(title);
-			String[] current_titles = MovieInfoDataManage.getTitle();
-			for(int i=0;i<current_titles.length;i++) {
-				current_titles[i]=current_titles[i].substring(1,current_titles[i].length()-1);
-				if(current_titles[i].equals(check_title)) {
-					double_check=1;
-				}
-			}
-			if(check_title==null) { //중복 입력인 경우 오류처리 필요
-				System.out.println("올바르지 않은 입력입니다.");
-			}
-			else if(double_check==1) {
+		String title="",runtime="";
+
+		System.out.print("영화제목>>");
+		title=scan.nextLine();
+		String check_title = InputRule.MTRule(title);
+		if(check_title==null) { //중복 입력인 경우 오류처리 필요
+			System.out.println("올바르지 않은 입력입니다.");
+			return;
+		}
+		String[] current_titles = MovieInfoDataManage.getTitle();
+		for(int i=0;i<current_titles.length;i++) {
+			current_titles[i]=current_titles[i].substring(1,current_titles[i].length()-1);
+			// System.out.println(current_titles[i]);
+			// System.out.println(check_title);
+			if(current_titles[i].equals(check_title)) {
 				System.out.println("동일한 영화가 존재합니다.");
-			}
-			else {
-				while(true) {
-					System.out.print("상영시간>>");
-					if((runtime=InputRule.RunTimeRule())==null) {
-						System.out.println("올바르지 않은 입력입니다.");
-					}
-					else {
-						runtime = runtime+"분";
-						MovieInfoDataManage.setJsonMovie(check_title,runtime);
-						System.out.println("=====등록완료=====");
-						return;
-					}
-				}
+				return;
 			}
 		}
+
+		System.out.print("상영시간>>");
+		if((runtime=InputRule.RunTimeRule())==null) {
+			System.out.println("올바르지 않은 입력입니다.");
+			return;
+		}
+		runtime = runtime+"분";
+		MovieInfoDataManage.setJsonMovie(check_title,runtime); //데이터베이스에 등록
+
+		System.out.println("=====등록완료=====");
 	}
 	public static void movieCheckPage() {//8.2.1.2 영화정보확인
 		String[] title=MovieInfoDataManage.getTitle(); //영화제목 받아오기
@@ -111,39 +105,26 @@ public class MovieManagePage {//8.2.1영화관리페이지
 		if(menuNum==0) return;
 		else if(menuNum==1) {//영화 수정
 			System.out.println("======영화수정======"); //or 영화삭제
+
 			String title="",runtime="";
-			while(true) {
-				String[] temp=MovieInfoDataManage.getTitle();
-				System.out.print("영화제목>>");
-				int double_check=0;
-				title=scan.nextLine();
-				String check_title=InputRule.MTRule(title);
-				for(int i=0;i<temp.length;i++) {
-					temp[i-1]=temp[i-1].substring(1,temp[i-1].length()-1);
-					if(check_title.equals(temp[i-1])) {
-						double_check=1;
-					}
-				}
-				if(check_title==null) {
-					System.out.println("올바르지 않은 입력입니다.");
-				}
-				else if(double_check==1) {
-					System.out.println("동일한 영화가 존재합니다.");
-				}
-				else {
-					System.out.print("상영시간>>");
-					while((runtime=InputRule.RunTimeRule())==null) {
-						System.out.println("올바르지 않은 입력입니다.");
-						System.out.print("상영시간>>");
-						runtime=InputRule.RunTimeRule();
-					}
-					runtime = runtime +"분";
-					MovieInfoDataManage.fixMovie(num, title, runtime);
-					return;
-				}
+			System.out.print("영화제목>>");
+			title=scan.nextLine();
+			String check_title=InputRule.MTRule(title);
+			if(check_title==null) {
+				System.out.println("올바르지 않은 입력입니다.");
+				return;
 			}
+
+			System.out.print("상영시간>>");
+			if((runtime=InputRule.RunTimeRule())==null) {
+				return;
+			}
+			runtime = runtime +"분";
+			MovieInfoDataManage.fixMovie(num, title, runtime);
 		}else if(menuNum==2) {//영화 삭제
 			MovieInfoDataManage.deleteMovie(num);
 		}
+
+
 	}
 }
