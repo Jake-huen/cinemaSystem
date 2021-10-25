@@ -570,7 +570,7 @@ public class InputRule {//입력규칙 정의 (static으로)
 		int seatRow = seat.charAt(0);
 		
 		// 상영관 행 범위 벗어나는 경우 
-		if(seatRow <'A' || seatRow> row + 'A')
+		if(seatRow <'A' || seatRow>= row + 'A')
 			return null;
 		
 		// 좌석의 열부분 
