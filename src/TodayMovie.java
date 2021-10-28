@@ -78,9 +78,15 @@ public class TodayMovie {
 
                     ArrayList<ReserveInfo> rsiArr = riList.get(index).getReserve();
                     ReserveInfo rsitmp = null;
-                    for(ReserveInfo rsi : rsiArr){
-                        if(rsi.getUserId().equals(user.getId()))
-                            rsitmp = rsi;
+
+
+                    if(rsiArr != null){
+                        for(ReserveInfo rsi : rsiArr){
+                            if(rsi.getUserId().equals(user.getId())){
+                                rsitmp = rsi;
+                                break;
+                            }
+                        }
                     }
 
                     if(rsitmp == null)
@@ -89,6 +95,7 @@ public class TodayMovie {
                         for(String s : seat){
                             rsitmp.getSeat().add(s);
                         }
+                        RunningInfoManage.removeReserve(riList.get(index),rsitmp,user.getId());
                     }
                     RunningInfoManage.updateReserve(riList.get(index), rsitmp);
                     String code = riList.get(index).getCode();

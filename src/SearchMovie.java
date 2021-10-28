@@ -146,8 +146,10 @@ public class SearchMovie {
         ReserveInfo rsitmp = null;
         if(rsiArr != null){
             for(ReserveInfo rsi : rsiArr){
-                if(rsi.getUserId().equals(user.getId()))
+                if(rsi.getUserId().equals(user.getId())){
                     rsitmp = rsi;
+                    break;
+                }
             }
         }
 
@@ -157,6 +159,7 @@ public class SearchMovie {
             for(String s : seat){
                 rsitmp.getSeat().add(s);
             }
+            RunningInfoManage.removeReserve(riList.get(index),rsitmp,user.getId());
         }
         RunningInfoManage.updateReserve(riList.get(index), rsitmp);
         String code = riList.get(index).getCode();
