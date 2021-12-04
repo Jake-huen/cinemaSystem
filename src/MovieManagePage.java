@@ -124,8 +124,14 @@ public class MovieManagePage {//8.2.1영화관리페이지
 					System.out.println("올바르지 않은 입력입니다.");
 				}
 				else {
-					runtime = runtime +"분";
-					MovieInfoDataManage.fixMovie(num, title, runtime);
+					int intRuntime = Integer.parseInt(runtime);
+					if(RunningInfoManage.timeOverlapCheck(title,intRuntime)){
+						runtime = runtime +"분";
+						MovieInfoDataManage.fixMovie(num, title, runtime);
+					}
+					else{
+						System.out.println("상영시간이 중복됩니다.");
+					}
 					return;
 				}
 			}

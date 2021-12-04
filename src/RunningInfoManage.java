@@ -1,6 +1,10 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class RunningInfoManage {
@@ -208,6 +212,41 @@ public class RunningInfoManage {
 				}
 			}
 		}return -1;//일치하는 부분 없음
-		
 	}
+    public static boolean timeOverlapCheck(String movieName, int _time) { // 시간 중복시 false 반환
+        getJson();
+        String theater;
+        String time;
+        String date;
+        for(int i =0; i<riArr.size(); i++) {
+            theater = riArr.get(i).getTheater();
+            if(riArr.get(i).getMovieName().equals(movieName)) {
+                time = riArr.get(i).getTime();  // 변경 대상 영화 시작 시간 및 날짜
+                date = riArr.get(i).getDate();
+                LocalDate lcDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyyMMdd"));
+                LocalTime lcTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm"));
+
+                for(int j =0; j<riArr.size(); j++){
+                    if(riArr.get(j).getTheater().equals(theater)){  // 영화관 이름이 같은 경우만 탐색
+                        System.out.println(riArr.get(j).getCode());
+                        LocalDate targetDate = LocalDate.parse(riArr.get(j).getDate(), DateTimeFormatter.ofPattern("yyyyMMdd"));
+                        LocalTime targetTime = LocalTime.parse(riArr.get(j).getTime(), DateTimeFormatter.ofPattern("HHmm"));
+                        LocalDateTime before = LocalDateTime.of(lcDate, lcTime);
+                        LocalDateTime trg = LocalDateTime.of(targetDate,targetTime);
+                        if(trg.isAfter(before)){
+                            LocalDateTime chg = before.plusMinutes(_time);
+
+                            if(chg.isAfter(trg))
+                                return false;
+                        }
+                    }
+                }
+
+            }
+        }
+        return true;
+
+    }
+
 }
+
