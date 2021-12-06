@@ -21,9 +21,9 @@
       "col": 10
     },
     {
-      "theater": "펄관",
-      "row": 3,
-      "col": 6
+      "theater": "싱관",
+      "row": 10,
+      "col": 10
     },
     {
       "theater": "별관",
@@ -39,6 +39,11 @@
       "theater": "사십오석관",
       "row": 5,
       "col": 9
+    },
+    {
+      "theater": "김관",
+      "row": 20,
+      "col": 4
     }
   ]
 }

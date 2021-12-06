@@ -106,7 +106,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 	public static void theaterFixPage(int index) {//8.2.2.2.1 상영관정보수정및삭제
 		while(true) {
 			String theater="",rc="";
-			System.out.println("======영화 수정 및 삭제======");
+			System.out.println("======상영관 수정 및 삭제======");
 			System.out.println(TheaterDataManage.readIndexTheater(index).replaceAll("\"",""));
 			System.out.println("0. 뒤로가기");
 			System.out.println("1. 수정");

@@ -6,10 +6,7 @@ public class SearchMovie {
     static Scanner sc = new Scanner(System.in);
 
     public static void SearchMain(UserInfo user) {
-        System.out.println("===== 상영영화 검색 ======");
-        System.out.println("0. 돌아가기");
-        System.out.println("1. 날짜 검색 모드");
-        System.out.println("2. 영화 제목 검색 모드");
+
         while(true) {
             System.out.print("메뉴를 선택해주세요 >>>");
             String[] menu = {"돌아가기", "날짜 검색 모드","영화 제목 검색 모드"};

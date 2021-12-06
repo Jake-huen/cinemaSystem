@@ -78,9 +78,15 @@ public class TodayMovie {
 
                     ArrayList<ReserveInfo> rsiArr = riList.get(index).getReserve();
                     ReserveInfo rsitmp = null;
-                    for(ReserveInfo rsi : rsiArr){
-                        if(rsi.getUserId().equals(user.getId()))
-                            rsitmp = rsi;
+
+
+                    if(rsiArr != null){
+                        for(ReserveInfo rsi : rsiArr){
+                            if(rsi.getUserId().equals(user.getId())){
+                                rsitmp = rsi;
+                                break;
+                            }
+                        }
                     }
 
                     if(rsitmp == null)
