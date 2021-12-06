@@ -8,6 +8,10 @@ public class SearchMovie {
     public static void SearchMain(UserInfo user) {
 
         while(true) {
+            System.out.println("===== 상영영화 검색 ======");
+            System.out.println("0. 돌아가기");
+            System.out.println("1. 날짜 검색 모드");
+            System.out.println("2. 영화 제목 검색 모드");
             System.out.print("메뉴를 선택해주세요 >>>");
             String[] menu = {"돌아가기", "날짜 검색 모드","영화 제목 검색 모드"};
             int inputMenu = InputRule.MenuRule(menu);
@@ -142,8 +146,10 @@ public class SearchMovie {
         ReserveInfo rsitmp = null;
         if(rsiArr != null){
             for(ReserveInfo rsi : rsiArr){
-                if(rsi.getUserId().equals(user.getId()))
+                if(rsi.getUserId().equals(user.getId())){
                     rsitmp = rsi;
+                    break;
+                }
             }
         }
 
@@ -153,6 +159,7 @@ public class SearchMovie {
             for(String s : seat){
                 rsitmp.getSeat().add(s);
             }
+            RunningInfoManage.removeReserve(riList.get(index),rsitmp,user.getId());
         }
         RunningInfoManage.updateReserve(riList.get(index), rsitmp);
         String code = riList.get(index).getCode();

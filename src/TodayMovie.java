@@ -95,6 +95,7 @@ public class TodayMovie {
                         for(String s : seat){
                             rsitmp.getSeat().add(s);
                         }
+                        RunningInfoManage.removeReserve(riList.get(index),rsitmp,user.getId());
                     }
                     RunningInfoManage.updateReserve(riList.get(index), rsitmp);
                     String code = riList.get(index).getCode();
