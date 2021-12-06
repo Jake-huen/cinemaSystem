@@ -247,6 +247,19 @@ public class RunningInfoManage {
         return true;
 
     }
-
+    public static boolean check_reserveInfo_for_delete(String theaterName) {
+    	getJson();
+    	 for(int i =0; i<riArr.size(); i++) {
+    		 if(riArr.get(i).getTheater().equals(theaterName)) {
+    			 if(riArr.get(i).getReserve()==null||riArr.get(i).getReserve().isEmpty()) {
+        			 continue;
+        		 }
+    			 else {
+    				 return false; //수정 불가능
+    			 }
+    		 }
+    	 }
+    	 return true; //수정 가능
+    }
 }
 

@@ -106,7 +106,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 	public static void theaterFixPage(int index) {//8.2.2.2.1 상영관정보수정및삭제
 		while(true) {
 			String theater="",rc="";
-			System.out.println("======영화 수정 및 삭제======");
+			System.out.println("======상영관 수정 및 삭제======");
 			System.out.println(TheaterDataManage.readIndexTheater(index).replaceAll("\"",""));
 			System.out.println("0. 뒤로가기");
 			System.out.println("1. 수정");
@@ -117,7 +117,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			if(menuNum==-1) {
 				System.out.println("올바르지 않은 입력입니다.");
 			}
-			if(menuNum==0) {// 여기 오류나는데 잘 모르겠음 왜인지..
+			if(menuNum==0) {
 				break;
 			}
 			else if(menuNum==1){
@@ -169,8 +169,15 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 				}
 			}
 			else if(menuNum==2) {
-				TheaterDataManage.deleteTheater(index);
-				return;
+				theater=InputRule.ScreenRule();
+				if(RunningInfoManage.check_reserveInfo_for_delete(theater)) {
+					TheaterDataManage.deleteTheater(index);
+					return;
+				}
+				else {
+					System.out.println("예매한 내역이 있으므로 삭제할 수 없습니다.");
+					return;
+				}
 			}
 		}
 	}
