@@ -7,11 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LoginDataManage {
 	static String id;
@@ -206,5 +202,18 @@ public class LoginDataManage {
 		else
 			System.out.println("해당하는 id가 없거나, 비밀번호가 올바르지 않습니다.");
 		return;
+	}
+
+	public static List<Map<String, Object>> findByCode(String _code) {
+		getJson();
+		List<Map<String, Object>> findResults = userData.stream().filter(u -> {
+			List<String> codes = (List<String>) u.get("code");
+			for (int i = 0; i < codes.size(); i++) {
+				if(codes.get(i).equals(_code))
+					return true;
+			}
+			return false;
+		}).toList();
+		return findResults;
 	}
 }

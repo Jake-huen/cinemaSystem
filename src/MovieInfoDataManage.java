@@ -4,6 +4,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -164,10 +167,27 @@ public class MovieInfoDataManage {
 			JsonArray movieInfos = (JsonArray)jsonobject.get("movies");
 			movieInfos.remove(index);
 
+			String mNames[] = getTitle();
+			String mName = mNames[index];
+
+			RunningInfo[] movies = RunningInfoManage.findByMovieName(mName);
+			if(movies!=null){
+				for(RunningInfo m : movies){
+					List<Map<String, Object>> userList = LoginDataManage.findByCode(m.getCode());
+					if(userList != null){
+						for(Map<String, Object> u : userList){	// login.json에서 코드 삭제
+							LoginDataManage.removeCode((String) u.get("id"),(String) u.get("pw"),m.getCode());
+						}
+					}
+					RunningInfoManage.removeRi(m);	// info.json에서 영화 삭제
+				}
+			}
+
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(element);
 			FileWriter writer=null;
 			try {
+
 				writer = new FileWriter(pathMovie);
 				writer.write(json);
 			} catch (IOException e) {

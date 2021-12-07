@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class RunningInfoManage {
 	public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -19,6 +20,26 @@ public class RunningInfoManage {
 //    public static void setRiArr(ArrayList<RunningInfo> riArr) {
 //        test.riArr = riArr;
 //    }
+
+    public static RunningInfo[] findByMovieName(String mName) {
+        getJson();
+        RunningInfo[] a = (RunningInfo[]) riArr.stream().filter(m -> m.getMovieName().equals(mName)).toArray();
+        return a;
+    }
+
+    public static void removeRi(RunningInfo ri){
+        getJson();
+        try{
+            FileWriter fw = new FileWriter(pathInfo);
+            riArr.remove(ri);
+
+            gson.toJson(riArr, fw);
+            fw.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void setRiArr(ArrayList<RunningInfo> riArr) {
         RunningInfoManage.riArr = riArr;
@@ -286,17 +307,17 @@ public class RunningInfoManage {
     }
     //좌석수수정을 위한 상영등록정보 확인
     public static boolean check_reserveInfo_for_fix(String theaterName, int row, int col) {
-    	getJson();
-    	//true면 수정불가
-    	for(int i=0; i<riArr.size(); i++)
-    	{
-    		if(riArr.get(i).getTheater().equals(theaterName)) { //info.json에서 해당 상영관 정보를 찾음
-    			if(riArr.get(i).check(row, col)) {	//상영관 크기를 줄이려고 할때 손실될 좌석이 있는지 확인 
-    				return true;//수정불가
-    			}
-    		}
-    	}    	
-    	return false;
+        getJson();
+        //true면 수정불가
+        for(int i=0; i<riArr.size(); i++)
+        {
+            if(riArr.get(i).getTheater().equals(theaterName)) { //info.json에서 해당 상영관 정보를 찾음
+                if(riArr.get(i).check(row, col)) {	//상영관 크기를 줄이려고 할때 손실될 좌석이 있는지 확인
+                    return true;//수정불가
+                }
+            }
+        }
+        return false;
     }
 }
 
