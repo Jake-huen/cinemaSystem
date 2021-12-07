@@ -114,7 +114,7 @@ public class LoginDataManage {
 		new_admin.add(admin);
 		logininfo.setAdmin(new_admin);
 		try {
-			FileWriter fw = new FileWriter(".\\resource\\login.json");
+			FileWriter fw = new FileWriter(pathLogin);
 			gson.toJson(logininfo, fw);
 			fw.flush();
 			fw.close();
@@ -151,7 +151,7 @@ public class LoginDataManage {
 		new_user.add(user);
 		logininfo.setUser(new_user);
 		try {
-			FileWriter fw = new FileWriter(".\\resource\\login.json");
+			FileWriter fw = new FileWriter(pathLogin);
 			gson.toJson(logininfo, fw);
 			fw.flush();
 			fw.close();

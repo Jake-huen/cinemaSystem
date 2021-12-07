@@ -131,7 +131,7 @@ public class MovieInfoDataManage {
 			JsonObject movieinfo =(JsonObject)movieInfos.get(index);
 			movieinfo.addProperty("title", newT);
 			movieinfo.addProperty("runtime", newR);
-
+			RunningInfoManage.fixMovieName(readIndexMovie(index),newT);
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(element);
 			FileWriter writer=null;

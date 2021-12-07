@@ -261,5 +261,28 @@ public class RunningInfoManage {
     	 }
     	 return true; //수정 가능
     }
+    //영화제목 수정시 예매내역의 모든 영화 이름도 수정 옛날이름:oldT 바꿀 영화이름:newT
+    public static void fixMovieName(String old,String newT) {
+    	getJson();
+    	String oldT=old.split("/")[0].trim();
+    	RunningInfo ri;
+  		for(int i =0; i<riArr.size(); i++) {
+  			if(riArr.get(i).getMovieName().equals(oldT)) {
+  				ri=riArr.get(i);
+  				ri.setMovieName(newT);
+  				riArr.set(i, ri);
+  			}
+  		}
+  		setRiArr(riArr);
+  		try{
+        	FileWriter fw = new FileWriter(pathInfo);
+            gson.toJson(riArr, fw);
+            fw.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+  		System.out.println("good");
+    }
 }
 
