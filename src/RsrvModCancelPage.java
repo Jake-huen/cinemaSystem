@@ -83,7 +83,7 @@ public class RsrvModCancelPage {
 	// 해당 상영 영화의 남은 좌석수 반환 
 	private int getLeftSeats() {
 		RunningInfo runInfo = userRsrvInfo.getRunInfo();
-		TheaterInfo theater = TheaterDataManage.findTheater(runInfo.getTheater());
+		LogData theater = TheaterDataManage.findTheater(runInfo.getTheater(),runInfo.getDate(), runInfo.getTime());
 		
 		int totalSeat = theater.getRow() * theater.getCol();
 		int curRsrvedSeat=0;

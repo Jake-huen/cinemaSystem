@@ -30,15 +30,15 @@ public class ModifyRsrvSeatPage{
 		rsrvInfo = userRsrvInfo.getRsrvInfo();
 		
 		// 상영관 정보 받아오기  
-		TheaterInfo theater = TheaterDataManage.findTheater(runInfo.getTheater());
+		LogData theaterLog = TheaterDataManage.findTheater(runInfo.getTheater(),runInfo.getDate(),runInfo.getTime());
 		
 		// 상영관 행, 열 받아오기
-		row = theater.getRow();
-		col = theater.getCol();
+		row = theaterLog.getRow();
+		col = theaterLog.getCol();
 		
 		// 상영관 배열 및 좌석배열 초기화 
 		theaterMap = new int[row][col]; // 0 : 빈 좌석, 1: 예매된 좌석 , 2: 기존 사용자 예매 좌석 3: 현재 사용자 예매 좌석  
-		initTheaterMap(theater);
+		initTheaterMap();
 		
 		selectedSeats = new ArrayList<Pair>();
 		
@@ -133,7 +133,7 @@ public class ModifyRsrvSeatPage{
 	}
 	
 	// theaterMap 초기화 함수 
-	private void initTheaterMap(TheaterInfo theater) {
+	private void initTheaterMap() {
 		ArrayList<Pair> totalRsrvSeats = new ArrayList<Pair>(); // 전체 예매된 좌석 담는 배열
 		ArrayList<Pair> userRsrvSeats = new ArrayList<Pair>(); // 사용자가 현재 예매한 좌석 담는 배열 
 		

@@ -219,25 +219,25 @@ public class TheaterDataManage {
 	
 	
 	//상영관 명 입력하면 TheaterInfo객체 반환하는 함수 
-	public static TheaterInfo findTheater(String theaterName) {
-		JsonObject jsonobject = getJson();
-		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
-		
-		for( int i = 0;i<theaterInfos.size();i++) {
-			String theater=((JsonObject) theaterInfos.get(i)).get("theater").toString();
-			// 따옴표 제거 
-			theater =  Print.removeQuotes(theater);
-			
-			if(theater.equals(theaterName)) {
-				int row=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("row").toString());
-				int col=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("col").toString());
-				
-				return new TheaterInfo(theater,row,col);
-			}
-			
-		}
-		return null;
-	}
+//	public static TheaterInfo findTheater(String theaterName) {
+//		JsonObject jsonobject = getJson();
+//		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
+//		
+//		for( int i = 0;i<theaterInfos.size();i++) {
+//			String theater=((JsonObject) theaterInfos.get(i)).get("theater").toString();
+//			// 따옴표 제거 
+//			theater =  Print.removeQuotes(theater);
+//			
+//			if(theater.equals(theaterName)) {
+//				int row=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("row").toString());
+//				int col=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("col").toString());
+//				
+//				return new TheaterInfo(theater,row,col);
+//			}
+//			
+//		}
+//		return null;
+//	}
 	
 	// 상영관 명 + 상영시간 입력하면 TheaterInfo객체 반환하는 함수
 	public static LogData findTheater(String theaterName,String dateStr, String timeStr) {
@@ -265,6 +265,8 @@ public class TheaterDataManage {
 		// unreachable code 
 		return null;
 	}
+	
+	
 	public static int readTheaterNameReturnSeat(String theaterName, int count) {
 		int index = 0;
 		int flag = 0;

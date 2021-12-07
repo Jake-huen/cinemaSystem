@@ -17,9 +17,9 @@ public class SeatSelect {
 
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         String theater = ri.getTheater();
-        TheaterInfo ti = TheaterDataManage.findTheater(theater);
-        int theaterX = ti.getRow();
-        int theaterY = ti.getCol();
+        LogData logData = TheaterDataManage.findTheater(theater,ri.getDate(),ri.getTime());
+        int theaterX = logData.getRow();
+        int theaterY = logData.getCol();
 
         int[][] seatArr = seatPrint(ri);
         String seatInput = null;
@@ -81,9 +81,9 @@ public class SeatSelect {
 
     public static int[][] seatPrint(RunningInfo ri) {
         String theater = ri.getTheater();
-        TheaterInfo ti = TheaterDataManage.findTheater(theater);
-        int row = ti.getRow();
-        int col = ti.getCol();
+        LogData logData = TheaterDataManage.findTheater(theater,ri.getDate(),ri.getTime());
+        int row = logData.getRow();
+        int col = logData.getCol();
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         int count = 0;
         Pair[] pair = null;
@@ -143,9 +143,9 @@ public class SeatSelect {
 
     public static void seatReservedPrint(RunningInfo ri, Pair[] rsPair) {
         String theater = ri.getTheater();
-        TheaterInfo ti = TheaterDataManage.findTheater(theater);
-        int row = ti.getRow();
-        int col = ti.getCol();
+        LogData logData = TheaterDataManage.findTheater(theater,ri.getDate(),ri.getTime());
+        int row = logData.getRow();
+        int col = logData.getCol();
         ArrayList<ReserveInfo> rsiArr = ri.getReserve();
         int count = 0;
         Pair[] pair = null;
