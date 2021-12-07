@@ -44,7 +44,14 @@ public class LogData {
 	public void setCol(int col) {
 		this.col = col;
 	}
+
+	@Override
+	public String toString() {
+		String str = date+" "+time +" "+row+" "+col;
+		return str;
+	}
 	
 	// test 
+	
 	
 }

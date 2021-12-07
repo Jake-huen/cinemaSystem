@@ -49,7 +49,7 @@ public class TheaterDataManage {
 		return rt;
 	}
 	
-	public static ArrayList<TheaterInfo> getTheaterObj() { //영화 제목들만 받아오기 -->for문으로 영화제목판별
+	public static ArrayList<TheaterInfo> getTheaterObjArr() { //영화 제목들만 받아오기 -->for문으로 영화제목판별
 		JsonObject jsonobject = getJson();
 		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
 		if(theaterInfos.size()==0) return null;
@@ -58,9 +58,9 @@ public class TheaterDataManage {
 		
 		for(int i=0;i<theaterInfos.size();i++) { //영화전체 크기만큼 가져오기
 			String name=((JsonObject) theaterInfos.get(i)).get("theater").toString();
-			JsonArray jsonLog = (JsonArray)jsonobject.get("log");
+			JsonArray jsonLog = (JsonArray) ((JsonObject)theaterInfos.get(i)).get("log");
 			
-			ArrayList<LogData> logArr = new ArrayList<LogData>();
+			ArrayList<LogData> log = new ArrayList<LogData>();
 			
 			for(int j =0; j<jsonLog.size();j++) {
 				
@@ -69,12 +69,16 @@ public class TheaterDataManage {
 				int row=Integer.parseInt(((JsonObject) jsonLog.get(i)).get("row").toString());
 				int col=Integer.parseInt(((JsonObject) jsonLog.get(i)).get("col").toString());
 				
-				LogData log = new LogData(date,time,row,col);
-				logArr.add(log);
+				LogData logData = new LogData(date,time,row,col);
+				log.add(logData);
 			}
 			
-			TheaterInfo theaterInfo = new TheaterInfo(name,logArr);
+			TheaterInfo theaterInfo = new TheaterInfo(name,log);
 			theaterInfoArr.add(theaterInfo);
+		}
+		// test
+		for(TheaterInfo t: theaterInfoArr) {
+			System.out.println(t);
 		}
 		return theaterInfoArr;
 	}
@@ -236,23 +240,29 @@ public class TheaterDataManage {
 	}
 	
 	// 상영관 명 + 상영시간 입력하면 TheaterInfo객체 반환하는 함수
-	public static TheaterInfo findTheater(String theaterName,String dateStr, String timeStr) {
-		JsonObject jsonobject = getJson();
-		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
-		
-		for( int i = 0;i<theaterInfos.size();i++) {
-			String theater=((JsonObject) theaterInfos.get(i)).get("theater").toString();
-			// 따옴표 제거 
-			theater =  Print.removeQuotes(theater);
+	public static LogData findTheater(String theaterName,String dateStr, String timeStr) {
+		ArrayList<TheaterInfo> theaterInfoArr = getTheaterObjArr();
+
+		for(TheaterInfo t: theaterInfoArr) {
 			
-			if(theater.equals(theaterName)) {
-				int row=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("row").toString());
-				int col=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("col").toString());
-				
-				return new TheaterInfo(theater,row,col);
+			if(t.getName().equals(theaterName)){
+				int idx =0;
+				boolean isAfter = false;
+				for(LogData l: t.getLog()) {
+					// 변경 날짜1< 변경 날짜 2 < 변경 날짜3 < 상영날짜 이면 변경날짜 3걸로 해야함. 
+					isAfter = Print.isAfterDate(l.getDate(), l.getTime(), dateStr, timeStr);
+					if(isAfter) {
+						return t.getLog().get(idx-1);
+					}else {
+						idx++;
+					}
+				}
+				// 마지막 log 날짜보다 뒤에 상영하는 경우 
+				return t.getLog().get(idx-1);
 			}
-			
 		}
+		
+		// unreachable code 
 		return null;
 	}
 	public static int readTheaterNameReturnSeat(String theaterName, int count) {

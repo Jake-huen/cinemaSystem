@@ -24,8 +24,19 @@ public class TheaterInfo {//상영관정보
 		this.log = log;	
 	}
 	
+	
 	// old one -------
 	
+	@Override
+	public String toString() {
+		String str ="<" + name+">\n";
+		for(LogData l : log) {
+			str+=l.toString()+"\n";
+		}
+		// TODO Auto-generated method stub
+		return str;
+	}
+
 	public TheaterInfo (String name, int row, int col) {
 		this.name= name;
 		this.row =row;
