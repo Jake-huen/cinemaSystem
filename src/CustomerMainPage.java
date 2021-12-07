@@ -4,7 +4,7 @@ public class CustomerMainPage {
 	private UserInfo user;
 	private String date;
 	private String time;
-	private String [] menuName = {"", "오늘 영화 예매하기","영화 검색","예매정보 확인 및 수정 삭제","종료하기"};
+	private String [] menuName = {"", "오늘 영화 예매하기","영화 검색","예매정보 확인 및 수정 삭제","로그아웃","종료하기"};
 	private TodayMovie todayMovie;
 
 	
@@ -46,7 +46,9 @@ public class CustomerMainPage {
 				case 3:// 예매 정보 확인 및 수정 삭제
 					cusRsrvPage.menu();
 					break;
-				case 4: // 종료 
+				case 4:
+					return;
+				case 5: // 종료 
 					System.exit(0);
 					break;
 					

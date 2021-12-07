@@ -10,15 +10,16 @@ public class ManagerMainPage {
 			System.out.println("2. 상영관관리");
 			System.out.println("3. 상영정보등록");
 			System.out.println("4. 예매정보확인");
-			System.out.println("5. 종료");
+			System.out.println("5. 로그아웃");
+			System.out.println("6. 종료");
 			System.out.print(">>>");
 			
 			int menuNum=-1;
-			String[] tmp={"영화관리","상영관관리","상영정보등록","예매정보확인","종료"};
+			String[] tmp={"영화관리","상영관관리","상영정보등록","예매정보확인","로그아웃","종료"};
 			String menuStr=scan.nextLine();
 			menuStr=menuStr.replaceAll(" ", "");
 
-			for(int i=0;i<5;i++) {
+			for(int i=0;i<6;i++) {
 				if((tmp[i].equals(menuStr))||(menuStr.equals((i+1)+""))) {
 					menuNum=i+1;
 				}
@@ -43,6 +44,9 @@ public class ManagerMainPage {
 				ReservationInfoPage.reservationInfoPage();
 				break;
 			case 5:
+				System.out.println("로그아웃 되었습니다");
+				return;
+			case 6:
 				System.out.println("프로그램을 종료합니다");
 				System.exit(0);
 				break;

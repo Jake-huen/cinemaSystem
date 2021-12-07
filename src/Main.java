@@ -12,18 +12,18 @@ public class Main {
 		} catch (Exception e) {
 		}
     
-		 
-		//SignupPage.signupPage();
-		userinfo = InitialPage.initialPage();
-		if(userinfo.getIsAdmin())
+		while(true)
 		{
-			ManagerMainPage.managerMainPage(userinfo);
+			userinfo = InitialPage.initialPage();
+			if(userinfo.getIsAdmin())
+			{
+				ManagerMainPage.managerMainPage(userinfo);
+			}
+			else
+			{
+				CustomerMainPage customerMainPage = new CustomerMainPage(userinfo);
+				customerMainPage.menu();
+			}
 		}
-		else
-		{
-			CustomerMainPage customerMainPage = new CustomerMainPage(userinfo);
-			customerMainPage.menu();
-		}
-		
 	}
 }
