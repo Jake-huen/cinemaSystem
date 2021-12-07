@@ -284,5 +284,19 @@ public class RunningInfoManage {
         }
   		System.out.println("good");
     }
+    //좌석수수정을 위한 상영등록정보 확인
+    public static boolean check_reserveInfo_for_fix(String theaterName, int row, int col) {
+    	getJson();
+    	//true면 수정불가
+    	for(int i=0; i<riArr.size(); i++)
+    	{
+    		if(riArr.get(i).getTheater().equals(theaterName)) { //info.json에서 해당 상영관 정보를 찾음
+    			if(riArr.get(i).check(row, col)) {	//상영관 크기를 줄이려고 할때 손실될 좌석이 있는지 확인 
+    				return true;//수정불가
+    			}
+    		}
+    	}    	
+    	return false;
+    }
 }
 

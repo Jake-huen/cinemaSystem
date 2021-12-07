@@ -74,6 +74,16 @@ public class RunningInfo {//상영정보
 		runInfoStr += movie +"\n";
 		return runInfoStr;
 	}
-
+	public boolean check(int row, int col) {
+		if(reserve==null) {
+			return false;
+		}else {
+			for(int i =0; i<reserve.size(); i++) {
+				if(reserve.get(i).row_check(row)||reserve.get(i).col_check(col))
+					return true;//수정불가
+			}
+		}
+		return false;
+	}
 
 }

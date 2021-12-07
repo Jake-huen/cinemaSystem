@@ -108,6 +108,19 @@ public class TheaterDataManage {
 
 			JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
 			JsonObject theaterinfo =(JsonObject)theaterInfos.get(index);
+			
+			String theaterName = ((JsonObject) theaterInfos.get(index)).get("theater").toString();
+			int _row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
+			int _col=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("col").toString());
+			theaterName =  Print.removeQuotes(theaterName);
+			//기존의 theaterinfo의 행과 열이 입력값보다 크면 info.json에서 확인 필요
+			if(_row>row || _col>col) {
+				//info.json에서 확인
+				if(RunningInfoManage.check_reserveInfo_for_fix(theaterName, row, col)) {
+					System.out.println("상영등록정보 중 소실되는 예매좌석이 생기므로 좌석을 수정할 수 없습니다.");
+					return;
+				}
+			}
 			theaterinfo.addProperty("theater", newT);
 			theaterinfo.addProperty("row", row);
 			theaterinfo.addProperty("col", col);
