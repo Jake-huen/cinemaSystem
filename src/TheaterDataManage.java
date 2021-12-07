@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,6 +48,37 @@ public class TheaterDataManage {
 		}
 		return rt;
 	}
+	
+	public static ArrayList<TheaterInfo> getTheaterObj() { //영화 제목들만 받아오기 -->for문으로 영화제목판별
+		JsonObject jsonobject = getJson();
+		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
+		if(theaterInfos.size()==0) return null;
+		
+		ArrayList<TheaterInfo> theaterInfoArr= new ArrayList<TheaterInfo>();
+		
+		for(int i=0;i<theaterInfos.size();i++) { //영화전체 크기만큼 가져오기
+			String name=((JsonObject) theaterInfos.get(i)).get("theater").toString();
+			JsonArray jsonLog = (JsonArray)jsonobject.get("log");
+			
+			ArrayList<LogData> logArr = new ArrayList<LogData>();
+			
+			for(int j =0; j<jsonLog.size();j++) {
+				
+				String date = ((JsonObject) jsonLog.get(i)).get("date").toString();
+				String time = ((JsonObject) jsonLog.get(i)).get("time").toString();
+				int row=Integer.parseInt(((JsonObject) jsonLog.get(i)).get("row").toString());
+				int col=Integer.parseInt(((JsonObject) jsonLog.get(i)).get("col").toString());
+				
+				LogData log = new LogData(date,time,row,col);
+				logArr.add(log);
+			}
+			
+			TheaterInfo theaterInfo = new TheaterInfo(name,logArr);
+			theaterInfoArr.add(theaterInfo);
+		}
+		return theaterInfoArr;
+	}
+	
 	public static String[] getTheaterName() {
 		JsonObject jsonobject = getJson();
 		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
@@ -184,6 +216,27 @@ public class TheaterDataManage {
 	
 	//상영관 명 입력하면 TheaterInfo객체 반환하는 함수 
 	public static TheaterInfo findTheater(String theaterName) {
+		JsonObject jsonobject = getJson();
+		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
+		
+		for( int i = 0;i<theaterInfos.size();i++) {
+			String theater=((JsonObject) theaterInfos.get(i)).get("theater").toString();
+			// 따옴표 제거 
+			theater =  Print.removeQuotes(theater);
+			
+			if(theater.equals(theaterName)) {
+				int row=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("row").toString());
+				int col=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("col").toString());
+				
+				return new TheaterInfo(theater,row,col);
+			}
+			
+		}
+		return null;
+	}
+	
+	// 상영관 명 + 상영시간 입력하면 TheaterInfo객체 반환하는 함수
+	public static TheaterInfo findTheater(String theaterName,String dateStr, String timeStr) {
 		JsonObject jsonobject = getJson();
 		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
 		
