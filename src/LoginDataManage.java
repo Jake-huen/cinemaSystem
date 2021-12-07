@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class LoginDataManage {
 	static String id;
@@ -209,11 +210,12 @@ public class LoginDataManage {
 		List<Map<String, Object>> findResults = userData.stream().filter(u -> {
 			List<String> codes = (List<String>) u.get("code");
 			for (int i = 0; i < codes.size(); i++) {
-				if(codes.get(i).equals(_code))
+				if(codes.get(i).equals(_code)) {
 					return true;
+				}
 			}
 			return false;
-		}).toList();
+		}).collect(Collectors.toList());
 		return findResults;
 	}
 }

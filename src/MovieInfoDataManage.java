@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -170,7 +169,8 @@ public class MovieInfoDataManage {
 			String mNames[] = getTitle();
 			String mName = mNames[index];
 
-			RunningInfo[] movies = RunningInfoManage.findByMovieName(mName);
+			List<RunningInfo> movies = RunningInfoManage.findByMovieName(Print.removeQuotes(mName));
+
 			if(movies!=null){
 				for(RunningInfo m : movies){
 					List<Map<String, Object>> userList = LoginDataManage.findByCode(m.getCode());
