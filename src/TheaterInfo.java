@@ -2,9 +2,7 @@ import java.util.ArrayList;
 
 public class TheaterInfo {//상영관정보
 	private String name;
-//	private int row;
-//	private int col;
-//	
+	
 	private ArrayList<LogData> log;
 	
 	public TheaterInfo (String name,ArrayList<LogData> log) {

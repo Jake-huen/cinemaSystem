@@ -222,57 +222,32 @@ public class TheaterDataManage {
 	}
 	
 	
-	//상영관 명 입력하면 TheaterInfo객체 반환하는 함수 
-//	public static TheaterInfo findTheater(String theaterName) {
-//		JsonObject jsonobject = getJson();
-//		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
-//		
-//		for( int i = 0;i<theaterInfos.size();i++) {
-//			String theater=((JsonObject) theaterInfos.get(i)).get("theater").toString();
-//			// 따옴표 제거 
-//			theater =  Print.removeQuotes(theater);
-//			
-//			if(theater.equals(theaterName)) {
-//				int row=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("row").toString());
-//				int col=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("col").toString());
-//				
-//				return new TheaterInfo(theater,row,col);
-//			}
-//			
-//		}
-//		return null;
-//	}
-	
 	// 상영관 명 + 상영시간 입력하면 TheaterInfo객체 반환하는 함수
 	public static LogData findTheater(String theaterName,String dateStr, String timeStr) {
 		ArrayList<TheaterInfo> theaterInfoArr = getTheaterObjArr();
 
 		for(TheaterInfo t: theaterInfoArr) {
-			//System.out.println(t);
-			if(t.getName().equals(theaterName)){
-				//System.out.println(t);
-				//System.out.println(t.getName());
+			// 이름 같은 상영관 찾기
+			if(t.getName().equals(theaterName)){ 
 				int idx =0;
 				boolean isAfter = false;
-				for(LogData l: t.getLog()) {
-					System.out.println(l);
-					// 변경 날짜1< 변경 날짜 2 < 변경 날짜3 < 상영날짜 이면 변경날짜 3걸로 해야함. 
+				
+				// 날짜 순으로 정렬
+				t.getLog().sort(null); 
+				
+				// 날짜 비교하여 적합한 LogData 반환
+				for(LogData l: t.getLog()) {	 
 					isAfter = Print.isAfterDate(l.getDate(), l.getTime(), dateStr, timeStr);
-					if(isAfter) {
-						System.out.println( t.getLog().get(idx-1));
+					if(isAfter) 
 						return t.getLog().get(idx-1);
-					}else {
-						idx++;
-					}
+					else idx++;
 				}
-				// 마지막 log 날짜보다 뒤에 상영하는 경우 
-				//System.out.println( t.getLog().get(idx-1));
+				
+				// 마지막 log 날짜보다 나중에 상영하는 경우 
 				return t.getLog().get(idx-1);
 			}
 		}
-		
-		// unreachable code 
-		return null;
+		return null; // unreachable code 
 	}
 	
 	

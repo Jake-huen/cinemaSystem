@@ -1,5 +1,6 @@
+import java.util.Comparator;
 
-public class LogData {
+public class LogData implements Comparable<LogData>{
 
 	private String date;
 	private String time;
@@ -50,8 +51,15 @@ public class LogData {
 		String str = date+" "+time +" "+row+" "+col;
 		return str;
 	}
-	
-	// test 
+
+	@Override
+	public int compareTo(LogData o) {
+		if(Print.isAfterDate(this.date, this.time, o.date, o.time))
+			return 1;
+		else
+			return -1;
+	}
+
 	
 	
 }
