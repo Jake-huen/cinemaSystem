@@ -35,7 +35,7 @@ public class ManagerMainPage {
 				MovieManagePage.movieManagePage();
 				break;
 			case 2:
-				TheaterManagePage.theaterManagePage();
+				TheaterManagePage.theaterManagePage(userinfo);
 				break;
 			case 3:
 				RunningInfoRegisterPage.runningInfoRegisterPage(userinfo);

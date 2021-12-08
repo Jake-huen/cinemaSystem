@@ -4,7 +4,8 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 
 	static Scanner scan = new Scanner(System.in);
 
-	public static void theaterManagePage() {
+	public static void theaterManagePage(UserInfo userinfo) {
+		TheaterDataManage.setTime(userinfo.getTime(), userinfo.getDate());
 		while(true) {
 			String[] theaters=TheaterDataManage.getTheater();
 			System.out.println("======상영관 목록======");
