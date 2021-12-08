@@ -149,10 +149,18 @@ public class TheaterDataManage {
 			JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
 			JsonObject theaterinfo =(JsonObject)theaterInfos.get(index);
 			
+			//상영관이 수정된 날짜 확인한 다음 그 날짜에 해당되는 상영관 좌석의 행과 열 가져오기
 			String theaterName = ((JsonObject) theaterInfos.get(index)).get("theater").toString();
-			int _row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
-			int _col=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("col").toString());
+			//int _row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
+			//int _col=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("col").toString());
 			theaterName =  Print.removeQuotes(theaterName);
+			//로그인할때 입력한 날짜와 시간 가져오기
+			//String dateToday = user
+			//String timeToday = user
+					
+			LogData logdataNow = findTheater(theaterName, "dateToday현재날짜(20211208)", "timeToday현재시각(1230)");
+			int _row = logdataNow.getRow();
+			int _col = logdataNow.getCol();
 			//기존의 theaterinfo의 행과 열이 입력값보다 크면 info.json에서 확인 필요
 			if(_row>row || _col>col) {
 				//info.json에서 확인
@@ -161,6 +169,7 @@ public class TheaterDataManage {
 					return;
 				}
 			}
+			//2차기획서에 맞게 현재날짜와 함께 행 열 저장하기
 			theaterinfo.addProperty("theater", newT);
 			theaterinfo.addProperty("row", row);
 			theaterinfo.addProperty("col", col);
