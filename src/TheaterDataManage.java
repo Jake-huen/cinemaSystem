@@ -23,13 +23,15 @@ public class TheaterDataManage {
 	static String pathTheater = "."+File.separator+"resource"+File.separator+"theater.json";
 	
 	static ArrayList<TheaterInfo> ti;
-	public static JsonObject getJson(){ // json 파일 get
+	public static JsonArray getJson(){ // json 파일 get
 		try {
 			Reader reader = new FileReader(pathTheater);
 			JsonParser jsonParser = new JsonParser();
 			JsonElement element = jsonParser.parse(reader);
-			JsonObject jsonobject = element.getAsJsonObject();
-			return jsonobject;
+			JsonArray jsonArray = element.getAsJsonArray();
+			
+			
+			return jsonArray;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -127,15 +129,15 @@ public class TheaterDataManage {
 	
 	// 상영관 정보 ArrayList로 받아오기 
 	public static ArrayList<TheaterInfo> getTheaterObjArr() { 
-		JsonObject jsonobject = getJson();
-		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
+		
+		JsonArray theaterInfos = getJson();
 		if(theaterInfos.size()==0) return null;
 		
 		ArrayList<TheaterInfo> theaterInfoArr= new ArrayList<TheaterInfo>();
 		
 		for(int i=0;i<theaterInfos.size();i++) { // 상영관 전체 크기만큼 가져오기
 			JsonObject a=(JsonObject) theaterInfos.get(i);
-			String name=a.get("theater").toString();
+			String name=a.get("name").toString();
 			name = Print.removeQuotes(name);
 
 			JsonArray jsonLog =(a.get("log")).getAsJsonArray();
@@ -222,6 +224,7 @@ public class TheaterDataManage {
 			gson.toJson(temp,writer);
 			writer.flush();
 			writer.close();
+			System.out.println("잘됌");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
