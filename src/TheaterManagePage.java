@@ -10,7 +10,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			String[] theaters=TheaterDataManage.getTheaterName();
 			System.out.println("======상영관 목록======");
 			for(int i=0;i<theaters.length;i++) {
-				System.out.println(theaters[i].substring(1,theaters[i].length()-1));//여기에 row*col 표시해줘야함
+				System.out.println(theaters[i]);//여기에 row*col 표시해줘야함 .substring(1,theaters[i].length()-1)
 			}
 			System.out.println("===================");
 			String[] tmp={"메인 페이지로가기","상영관 등록","상영관 수정 및 삭제"};

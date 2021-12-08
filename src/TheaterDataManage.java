@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Collections;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -19,6 +21,8 @@ public class TheaterDataManage {
 	static String date;
 	static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	static String pathTheater = "."+File.separator+"resource"+File.separator+"theater.json";
+	
+	static ArrayList<TheaterInfo> ti;
 	public static JsonObject getJson(){ // json 파일 get
 		try {
 			Reader reader = new FileReader(pathTheater);
@@ -45,31 +49,78 @@ public class TheaterDataManage {
 			System.out.println("올바르게 등록되어있지 않습니다.");
 		}
 	}
+
 	public static String[] getTheater(String date,String time) { // row, col 정보..
-		JsonObject jsonobject = getJson();
-		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
-		if(theaterInfos.size()==0) return null;
-		String[] rt=new String[theaterInfos.size()];
-		for(int i=0;i<theaterInfos.size();i++) { //영화관 전체 크기만큼 가져오기
-			rt[i]=((JsonObject) theaterInfos.get(i)).get("theater").toString();
-			rt[i]=rt[i].substring(1,rt[i].length()-1);
-			JsonArray loginfo =  (JsonArray) ((JsonObject)theaterInfos.get(i)).get("log");
-			System.out.println(loginfo);
-			int sss =0 ;
-			for(int j=0;j<loginfo.size();j++) {
-				JsonObject temp = (JsonObject) loginfo.get(j);
-				int row=Integer.parseInt(temp.get("row").toString());
-				int col=Integer.parseInt(temp.get("col").toString());
-				sss = row*col;
+		ArrayList<TheaterInfo> ta=getTheaterObjArr();
+		String qwe=date+time;
+		long dt=Long.parseLong(qwe);//현재시각 (사용자설정시각)
+		ArrayList<String> tmp=new ArrayList<String>();
+		int flag;
+		int n=0;
+		for(int i=0;i<ta.size();i++) {
+			flag=0;
+			for(int j=0;j<ta.get(i).getLog().size();j++){
+				LogData ld=ta.get(i).getLog().get(j);
+				String asd=ld.getDate()+ld.getTime();
+				long tt=Long.parseLong(asd);
+				if(ld.getDate().equals("del")&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
+					flag=1;
+				}
 			}
-			rt[i]+=" / "+sss+"석";
-			System.out.println(rt[i]);
+			if(flag==0) {
+				n++;
+				int tmp2=0;
+				ArrayList al=new ArrayList();
+				for(int j=0;j<ta.get(i).getLog().size();j++){
+					LogData ld=ta.get(i).getLog().get(j);
+					long tt=Long.parseLong(ld.getDate()+ld.getTime());
+					if(dt>tt) al.add(tt);
+				}
+				Collections.sort(al,Collections.reverseOrder());
+				for(int j=0;j<ta.get(i).getLog().size();j++){
+					LogData ld=ta.get(i).getLog().get(j);
+					long tt=Long.parseLong(ld.getDate()+ld.getTime());
+					if(al.size()!=0) {
+						if((long)al.get(0)==tt) {
+						tmp2=j;
+						}
+					}
+				}
+				LogData as=ta.get(i).getLog().get(tmp2);
+				tmp.add(ta.get(i).getName()+"/"+as.getRow()*as.getCol()+"석");
+			}
 		}
+		String[] rt=new String[n];
+		for(int i=0;i<n;i++) {
+			rt[i]=tmp.get(i);
+		}
+//		JsonObject jsonobject = getJson();
+//		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
+//		if(theaterInfos.size()==0) return null;
+//		String[] rt=new String[theaterInfos.size()];
+//		for(int i=0;i<theaterInfos.size();i++) { //영화관 전체 크기만큼 가져오기
+//			rt[i]=((JsonObject) theaterInfos.get(i)).get("theater").toString();
+//			rt[i]=rt[i].substring(1,rt[i].length()-1);
+//			JsonArray loginfo =  (JsonArray) ((JsonObject)theaterInfos.get(i)).get("log");
+//			System.out.println(loginfo);
+//			int sss =0 ;
+//			for(int j=0;j<loginfo.size();j++) {
+//				JsonObject temp = (JsonObject) loginfo.get(j);
+//				int row=Integer.parseInt(temp.get("row").toString());
+//				int col=Integer.parseInt(temp.get("col").toString());
+//				sss = row*col;
+//			}
+//			rt[i]+=" / "+sss+"석";
+//			System.out.println(rt[i]);
+//		}
 		return rt;
 	}
-	public static void main(String[] args) {
-		getTheater("20210101","0900");
-	}
+	
+//	public static void main(String[] args) {
+//		String[] str=getTheater("20210315","1000");
+//		System.out.println(str[0]+","+str[1]);
+//	}
+//	
 	
 	// 상영관 정보 ArrayList로 받아오기 
 	public static ArrayList<TheaterInfo> getTheaterObjArr() { 
@@ -80,12 +131,13 @@ public class TheaterDataManage {
 		ArrayList<TheaterInfo> theaterInfoArr= new ArrayList<TheaterInfo>();
 		
 		for(int i=0;i<theaterInfos.size();i++) { // 상영관 전체 크기만큼 가져오기
-			String name=((JsonObject) theaterInfos.get(i)).get("theater").toString();
+			JsonObject a=(JsonObject) theaterInfos.get(i);
+			String name=a.get("theater").toString();
 			name = Print.removeQuotes(name);
-			JsonArray jsonLog = (JsonArray) ((JsonObject)theaterInfos.get(i)).get("log");
-			
+
+			JsonArray jsonLog =(a.get("log")).getAsJsonArray();
 			ArrayList<LogData> log = new ArrayList<LogData>();
-			
+	
 			for(int j =0; j<jsonLog.size();j++) {
 				
 				String date = ((JsonObject) jsonLog.get(j)).get("date").toString();
@@ -110,15 +162,40 @@ public class TheaterDataManage {
 	}
 	
 	public static String[] getTheaterName() { //영화관 이름만 받아옴
-		JsonObject jsonobject = getJson();
-		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
-		if(theaterInfos.size()==0) return null;
-		String[] rt=new String[theaterInfos.size()];
-		for(int i=0;i<theaterInfos.size();i++) { //영화전체 크기만큼 가져오기
-			rt[i]=((JsonObject) theaterInfos.get(i)).get("theater").toString();
-			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
-			//System.out.println(movieinfo.get("title"));
+		ArrayList<TheaterInfo> ta=getTheaterObjArr();
+		int dt=Integer.parseInt(date+time);//현재시각 (사용자설정시각)
+		ArrayList<String> tmp=new ArrayList<String>();
+		int flag;
+		int n=0;
+		for(int i=0;i<ta.size();i++) {
+			flag=0;
+			for(int j=0;j<ta.size();j++){
+				LogData ld=ta.get(i).getLog().get(j);
+				int tt=Integer.parseInt(ld.getDate()+ld.getTime());
+				if(ld.getDate().equals("del")&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
+					flag=1;
+				}
+			}
+			if(flag==0) {
+				n++;
+				tmp.add(ta.get(i).getName());
+			}
 		}
+		String[] rt=new String[n];
+		for(int i=0;i<n;i++) {
+			rt[i]=tmp.get(i);
+		}
+		
+		//ArrayList<LogData> log=ta.get(0).getLog(); 		//수정전
+		/*
+		 * JsonObject jsonobject = getJson(); JsonArray theaterInfos =
+		 * (JsonArray)jsonobject.get("theaters"); if(theaterInfos.size()==0) return
+		 * null; String[] rt=new String[theaterInfos.size()]; for(int
+		 * i=0;i<theaterInfos.size();i++) { //영화전체 크기만큼 가져오기 rt[i]=((JsonObject)
+		 * theaterInfos.get(i)).get("theater").toString(); //JsonObject movieinfo
+		 * =(JsonObject)movieInfos.get(i); //System.out.println(movieinfo.get("title"));
+		 * }
+		 */
 		return rt;
 	}
 	
