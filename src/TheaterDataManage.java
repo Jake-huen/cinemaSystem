@@ -99,65 +99,31 @@ public class TheaterDataManage {
 		for(int i=0;i<n;i++) {
 			rt[i]=tmp.get(i);
 		}
+//		JsonObject jsonobject = getJson();
+//		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
+//		if(theaterInfos.size()==0) return null;
+//		String[] rt=new String[theaterInfos.size()];
+//		for(int i=0;i<theaterInfos.size();i++) { //영화관 전체 크기만큼 가져오기
+//			rt[i]=((JsonObject) theaterInfos.get(i)).get("theater").toString();
+//			rt[i]=rt[i].substring(1,rt[i].length()-1);
+//			JsonArray loginfo =  (JsonArray) ((JsonObject)theaterInfos.get(i)).get("log");
+//			System.out.println(loginfo);
+//			int sss =0 ;
+//			for(int j=0;j<loginfo.size();j++) {
+//				JsonObject temp = (JsonObject) loginfo.get(j);
+//				int row=Integer.parseInt(temp.get("row").toString());
+//				int col=Integer.parseInt(temp.get("col").toString());
+//				sss = row*col;
+//			}
+//			rt[i]+=" / "+sss+"석";
+//			System.out.println(rt[i]);
+//		}
 		return rt;
 	}
-//	public static ArrayList<String[]> getTheater2(String date,String time) { // str[0]은 영화제목 str[1]은 row str[2]는 col
-//		ArrayList<TheaterInfo> ta=getTheaterObjArr();
-//		ArrayList<String[]> rt=new ArrayList<String[]>();
-//		String[] str=new String[3];
-//		String qwe=date+time;
-//		long dt=Long.parseLong(qwe);//현재시각 (사용자설정시각)
-//		ArrayList<String> tmp=new ArrayList<String>();
-//		int flag;
-//		int n=0;
-//		for(int i=0;i<ta.size();i++) {
-//			flag=-1;
-//			for(int j=0;j<ta.get(i).getLog().size();j++){
-//				LogData ld=ta.get(i).getLog().get(j);
-//				String asd=ld.getDate()+ld.getTime();
-//				long tt=Long.parseLong(asd);
-//				if(ld.getDate().equals("del")&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
-//					flag=1;
-//				}
-//				if(tt<dt) {
-//					flag=0;
-//				}
-//			}
-//			if(flag==0) {
-//				n++;
-//				int tmp2=0;
-//				ArrayList al=new ArrayList();
-//				for(int j=0;j<ta.get(i).getLog().size();j++){
-//					LogData ld=ta.get(i).getLog().get(j);
-//					long tt=Long.parseLong(ld.getDate()+ld.getTime());
-//					if(dt>tt) al.add(tt);
-//				}
-//				Collections.sort(al,Collections.reverseOrder());
-//				for(int j=0;j<ta.get(i).getLog().size();j++){
-//					LogData ld=ta.get(i).getLog().get(j);
-//					long tt=Long.parseLong(ld.getDate()+ld.getTime());
-//					if(al.size()!=0) {
-//						if((long)al.get(0)==tt) {
-//						tmp2=j;
-//						}
-//					}
-//				}
-//				LogData as=ta.get(i).getLog().get(tmp2);
-//				str[0]=ta.get(i).getName(); str[1]=as.getRow()+""; str[2]=as.getCol()+"";
-//				rt.add(str);
-//			}
-//		}
-//		return rt;
-//	}
+	
 //	public static void main(String[] args) {
-//		ArrayList<String[]> a=getTheater2("20211111","0101");
-//		for(int i=0;i<a.size();i++) {
-//			System.out.println(a.get(i)[0]+".."+a.get(i)[1]+".."+a.get(i)[2]+"..");
-//		}
-//		String[] a2=getTheater("20211111","0101");
-//		for(int i=0;i<a.size();i++) {
-//			System.out.println(a2[i]);
-//		}
+//		String[] str=getTheater("20210315","1000");
+//		System.out.println(str[0]+","+str[1]);
 //	}
 	
 	
@@ -214,7 +180,7 @@ public class TheaterDataManage {
 				if(ld.getDate().equals("del")&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
 					flag=1;
 				}
-				if(tt<dt) {
+				if(tt<=dt) {
 					flag=0;
 				}
 			}
