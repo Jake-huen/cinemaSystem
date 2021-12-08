@@ -68,7 +68,7 @@ public class TheaterDataManage {
 				if(ld.getDate().equals("del")&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
 					flag=1;
 				}
-				if(tt<dt) {
+				if(tt<=dt) {
 					flag=0;
 				}
 			}
@@ -79,7 +79,7 @@ public class TheaterDataManage {
 				for(int j=0;j<ta.get(i).getLog().size();j++){
 					LogData ld=ta.get(i).getLog().get(j);
 					long tt=Long.parseLong(ld.getDate()+ld.getTime());
-					if(dt>tt) al.add(tt);
+					if(dt>=tt) al.add(tt);
 				}
 				Collections.sort(al,Collections.reverseOrder());
 				for(int j=0;j<ta.get(i).getLog().size();j++){
@@ -139,7 +139,7 @@ public class TheaterDataManage {
 				if(ld.getDate().equals("del")&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
 					flag=1;
 				}
-				if(tt<dt) {
+				if(tt<=dt) {
 					flag=0;
 				}
 			}
@@ -150,7 +150,7 @@ public class TheaterDataManage {
 				for(int j=0;j<ta.get(i).getLog().size();j++){
 					LogData ld=ta.get(i).getLog().get(j);
 					long tt=Long.parseLong(ld.getDate()+ld.getTime());
-					if(dt>tt) al.add(tt);
+					if(dt>=tt) al.add(tt);
 				}
 				Collections.sort(al,Collections.reverseOrder());
 				for(int j=0;j<ta.get(i).getLog().size();j++){
