@@ -307,15 +307,14 @@ public class TheaterDataManage {
 	}
 	public static void fixTheater(int index,String newT,int row,int col) {//index받아와서 해당 영화관 수정
 		try {
-			//Reader reader = new FileReader(pathTheater);
-			//JsonParser jsonParser = new JsonParser();
-			//JsonElement element = jsonParser.parse(reader);
-			//JsonObject jsonobject = element.getAsJsonObject();
-			JsonArray theaterInfos = getJson();
+			Reader reader = new FileReader(pathTheater);
+			JsonParser jsonParser = new JsonParser();
+			JsonElement element = jsonParser.parse(reader);
+			JsonArray theaterInfos = element.getAsJsonArray();
 			JsonObject theaterinfo =(JsonObject)theaterInfos.get(index);
 
 			//상영관이 수정된 날짜 확인한 다음 그 날짜에 해당되는 상영관 좌석의 행과 열 가져오기
-			String theaterName = ((JsonObject) theaterInfos.get(index)).get("name").toString();
+			String theaterName = theaterinfo.get("name").toString();
 			//int _row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
 			//int _col=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("col").toString());
 			theaterName =  Print.removeQuotes(theaterName);
@@ -336,30 +335,43 @@ public class TheaterDataManage {
 			}
 			//기존거 삭제되는지 확인해야댕
 			//2차기획서에 맞게 현재날짜와 함께 행 열 저장하기
-			setJsonTheater(theaterName,row,col,date,time);
-			//기존의 theaterinfo에 상영관 이름이랑 log추가하기
+			//이거아님
+			//setJsonTheater(theaterName,row,col,date,time);
+			
+			//기존의 theaterinfos에서 상영관 이름찾아서 상영관 이름바꾸고 log추가하기
+			theaterinfo.addProperty("name", newT);
+			JsonArray temp = (JsonArray)theaterinfo.get("log");
+			JsonObject logObj = new JsonObject();
+			logObj.addProperty("date", date);
+			logObj.addProperty("time", time);
+			logObj.addProperty("row", row);
+			logObj.addProperty("col", col);
+			//JsonArray logArr = new JsonArray();
+			temp.add(logObj);
+			theaterinfo.add("log", temp);
+			
 
 			//theaterinfo.addProperty("theater", newT);
 			//theaterinfo.addProperty("row", row);
 			//theaterinfo.addProperty("col", col);
 
-			//			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			//			String json = gson.toJson(element);
-			//			FileWriter writer=null;
-			//			try {
-			//				writer = new FileWriter(pathTheater);
-			//				writer.write(json);
-			//			} catch (IOException e) {
-			//				// TODO Auto-generated catch block
-			//				e.printStackTrace();
-			//			}finally {
-			//				try {
-			//					writer.close();
-			//				} catch (IOException e) {
-			//					// TODO Auto-generated catch block
-			//					e.printStackTrace();
-			//				}
-			//			}
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String json = gson.toJson(element);
+			FileWriter writer=null;
+			try {
+				writer = new FileWriter(pathTheater);
+				writer.write(json);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				try {
+					writer.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -371,8 +383,8 @@ public class TheaterDataManage {
 			Reader reader = new FileReader(pathTheater);
 			JsonParser jsonParser = new JsonParser();
 			JsonElement element = jsonParser.parse(reader);
-			JsonObject jsonobject = element.getAsJsonObject();
-			JsonArray theaterInfos = getJson();
+			JsonArray theaterInfos = element.getAsJsonArray();
+			
 			theaterInfos.remove(index);
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(element);
