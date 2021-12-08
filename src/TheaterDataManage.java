@@ -21,7 +21,7 @@ public class TheaterDataManage {
 	static String date;
 	static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	static String pathTheater = "."+File.separator+"resource"+File.separator+"theater.json";
-	
+
 	static ArrayList<TheaterInfo> ti;
 	public static JsonArray getJson(){ // json 파일 get
 		try {
@@ -29,8 +29,8 @@ public class TheaterDataManage {
 			JsonParser jsonParser = new JsonParser();
 			JsonElement element = jsonParser.parse(reader);
 			JsonArray jsonArray = element.getAsJsonArray();
-			
-			
+
+
 			return jsonArray;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -87,7 +87,7 @@ public class TheaterDataManage {
 					long tt=Long.parseLong(ld.getDate()+ld.getTime());
 					if(al.size()!=0) {
 						if((long)al.get(0)==tt) {
-						tmp2=j;
+							tmp2=j;
 						}
 					}
 				}
@@ -99,42 +99,89 @@ public class TheaterDataManage {
 		for(int i=0;i<n;i++) {
 			rt[i]=tmp.get(i);
 		}
-//		JsonObject jsonobject = getJson();
-//		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
-//		if(theaterInfos.size()==0) return null;
-//		String[] rt=new String[theaterInfos.size()];
-//		for(int i=0;i<theaterInfos.size();i++) { //영화관 전체 크기만큼 가져오기
-//			rt[i]=((JsonObject) theaterInfos.get(i)).get("theater").toString();
-//			rt[i]=rt[i].substring(1,rt[i].length()-1);
-//			JsonArray loginfo =  (JsonArray) ((JsonObject)theaterInfos.get(i)).get("log");
-//			System.out.println(loginfo);
-//			int sss =0 ;
-//			for(int j=0;j<loginfo.size();j++) {
-//				JsonObject temp = (JsonObject) loginfo.get(j);
-//				int row=Integer.parseInt(temp.get("row").toString());
-//				int col=Integer.parseInt(temp.get("col").toString());
-//				sss = row*col;
-//			}
-//			rt[i]+=" / "+sss+"석";
-//			System.out.println(rt[i]);
-//		}
+		//		JsonObject jsonobject = getJson();
+		//		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
+		//		if(theaterInfos.size()==0) return null;
+		//		String[] rt=new String[theaterInfos.size()];
+		//		for(int i=0;i<theaterInfos.size();i++) { //영화관 전체 크기만큼 가져오기
+		//			rt[i]=((JsonObject) theaterInfos.get(i)).get("theater").toString();
+		//			rt[i]=rt[i].substring(1,rt[i].length()-1);
+		//			JsonArray loginfo =  (JsonArray) ((JsonObject)theaterInfos.get(i)).get("log");
+		//			System.out.println(loginfo);
+		//			int sss =0 ;
+		//			for(int j=0;j<loginfo.size();j++) {
+		//				JsonObject temp = (JsonObject) loginfo.get(j);
+		//				int row=Integer.parseInt(temp.get("row").toString());
+		//				int col=Integer.parseInt(temp.get("col").toString());
+		//				sss = row*col;
+		//			}
+		//			rt[i]+=" / "+sss+"석";
+		//			System.out.println(rt[i]);
+		//		}
 		return rt;
 	}
-	
-//	public static void main(String[] args) {
-//		String[] str=getTheater("20210315","1000");
-//		System.out.println(str[0]+","+str[1]);
-//	}
-	
-	
+	public static ArrayList<String[]> getTheater2(String date,String time) { // str[0]은 영화제목 str[1]은 row str[2]는 col
+		ArrayList<TheaterInfo> ta=getTheaterObjArr();
+		ArrayList<String[]> rt=new ArrayList<String[]>();
+		
+		String qwe=date+time;
+		long dt=Long.parseLong(qwe);//현재시각 (사용자설정시각)
+		ArrayList<String> tmp=new ArrayList<String>();
+		int flag;
+		int n=0;
+		for(int i=0;i<ta.size();i++) {
+			String[] str=new String[3];
+			flag=-1;
+			for(int j=0;j<ta.get(i).getLog().size();j++){
+				LogData ld=ta.get(i).getLog().get(j);
+				String asd=ld.getDate()+ld.getTime();
+				long tt=Long.parseLong(asd);
+				if(ld.getDate().equals("del")&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
+					flag=1;
+				}
+				if(tt<dt) {
+					flag=0;
+				}
+			}
+			if(flag==0) {
+				n++;
+				int tmp2=0;
+				ArrayList al=new ArrayList();
+				for(int j=0;j<ta.get(i).getLog().size();j++){
+					LogData ld=ta.get(i).getLog().get(j);
+					long tt=Long.parseLong(ld.getDate()+ld.getTime());
+					if(dt>tt) al.add(tt);
+				}
+				Collections.sort(al,Collections.reverseOrder());
+				for(int j=0;j<ta.get(i).getLog().size();j++){
+					LogData ld=ta.get(i).getLog().get(j);
+					long tt=Long.parseLong(ld.getDate()+ld.getTime());
+					if(al.size()!=0) {
+						if((long)al.get(0)==tt) {
+							tmp2=j;
+						}
+					}
+				}
+				LogData as=ta.get(i).getLog().get(tmp2);
+				str[0]=ta.get(i).getName(); str[1]=as.getRow()+""; str[2]=as.getCol()+"";
+				rt.add(str);
+			}
+		}
+		return rt;
+	}
+//		public static void main(String[] args) {
+//			
+//		}
+
+
 	// 상영관 정보 ArrayList로 받아오기 
 	public static ArrayList<TheaterInfo> getTheaterObjArr() { 
-		
+
 		JsonArray theaterInfos = getJson();
 		if(theaterInfos.size()==0) return null;
-		
+
 		ArrayList<TheaterInfo> theaterInfoArr= new ArrayList<TheaterInfo>();
-		
+
 		for(int i=0;i<theaterInfos.size();i++) { // 상영관 전체 크기만큼 가져오기
 			JsonObject a=(JsonObject) theaterInfos.get(i);
 			String name=a.get("name").toString();
@@ -142,26 +189,26 @@ public class TheaterDataManage {
 
 			JsonArray jsonLog =(a.get("log")).getAsJsonArray();
 			ArrayList<LogData> log = new ArrayList<LogData>();
-	
+
 			for(int j =0; j<jsonLog.size();j++) {
-				
+
 				String date = ((JsonObject) jsonLog.get(j)).get("date").toString();
 				String time = ((JsonObject) jsonLog.get(j)).get("time").toString();
 				date = Print.removeQuotes(date);
 				time = Print.removeQuotes(time);
-				
+
 				int row=Integer.parseInt(((JsonObject) jsonLog.get(j)).get("row").toString());
 				int col=Integer.parseInt(((JsonObject) jsonLog.get(j)).get("col").toString());
-				
+
 				LogData logData = new LogData(date,time,row,col);
 				log.add(logData);
 			}
-			
+
 			TheaterInfo theaterInfo = new TheaterInfo(name,log);
 			theaterInfoArr.add(theaterInfo);
 		}
 		//for(TheaterInfo t: theaterInfoArr)
-			//System.out.println(t);
+		//System.out.println(t);
 		//System.out.println("-----------------");
 		return theaterInfoArr;
 	}
@@ -193,7 +240,7 @@ public class TheaterDataManage {
 		for(int i=0;i<n;i++) {
 			rt[i]=tmp.get(i);
 		}
-		
+
 		//ArrayList<LogData> log=ta.get(0).getLog(); 		//수정전
 		/*
 		 * JsonObject jsonobject = getJson(); JsonArray theaterInfos =
@@ -206,7 +253,7 @@ public class TheaterDataManage {
 		 */
 		return rt;
 	}
-	
+
 	public static void setJsonTheater(String theater,int row,int col,String date,String time) { //json 파일 set
 		//JsonObject jsonobject= getJson(); //Json파일 전체 받아옴
 		//JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
@@ -229,16 +276,16 @@ public class TheaterDataManage {
 			e.printStackTrace();
 		}
 	}
-//	public static void main(String[] args) {
-//		setJsonTheater("호경관",3,7,"20210315","1200");
-//	}
-	
+	//	public static void main(String[] args) {
+	//		setJsonTheater("호경관",3,7,"20210315","1200");
+	//	}
+
 	public static String readIndexTheater(int index) {//index해당하는 영화관 출력
 		JsonArray theaterInfos = getJson();
 		String rt=((JsonObject) theaterInfos.get(index)).get("name").toString();
 		rt =  Print.removeQuotes(rt);
 		LogData logdataNow = findTheater(rt, date, time);
-		
+
 		//여기 오류
 		if(logdataNow==null) {
 			System.out.println("에휴");
@@ -246,16 +293,16 @@ public class TheaterDataManage {
 		int row = logdataNow.getRow();
 		int col = logdataNow.getCol();
 		rt+="/"+row*col+"석";
-			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
-			//System.out.println(movieinfo.get("runtime"));
+		//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
+		//System.out.println(movieinfo.get("runtime"));
 		return rt;
 	}
-	
+
 	public static String readIndexTheaterName(int index) {//index해당하는 영화관 출력
 		JsonArray theaterInfos = getJson();
 		String rt=((JsonObject) theaterInfos.get(index)).get("name").toString();
-			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
-			//System.out.println(movieinfo.get("runtime"));
+		//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
+		//System.out.println(movieinfo.get("runtime"));
 		return rt;
 	}
 	public static void fixTheater(int index,String newT,int row,int col) {//index받아와서 해당 영화관 수정
@@ -291,28 +338,28 @@ public class TheaterDataManage {
 			//2차기획서에 맞게 현재날짜와 함께 행 열 저장하기
 			setJsonTheater(theaterName,row,col,date,time);
 			//기존의 theaterinfo에 상영관 이름이랑 log추가하기
-			
+
 			//theaterinfo.addProperty("theater", newT);
 			//theaterinfo.addProperty("row", row);
 			//theaterinfo.addProperty("col", col);
-			
-//			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//			String json = gson.toJson(element);
-//			FileWriter writer=null;
-//			try {
-//				writer = new FileWriter(pathTheater);
-//				writer.write(json);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}finally {
-//				try {
-//					writer.close();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
+
+			//			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			//			String json = gson.toJson(element);
+			//			FileWriter writer=null;
+			//			try {
+			//				writer = new FileWriter(pathTheater);
+			//				writer.write(json);
+			//			} catch (IOException e) {
+			//				// TODO Auto-generated catch block
+			//				e.printStackTrace();
+			//			}finally {
+			//				try {
+			//					writer.close();
+			//				} catch (IOException e) {
+			//					// TODO Auto-generated catch block
+			//					e.printStackTrace();
+			//				}
+			//			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -350,8 +397,8 @@ public class TheaterDataManage {
 		}
 		System.out.println("삭제완료");
 	}
-	
-	
+
+
 	// 상영관 명 + 상영시간 입력하면 TheaterInfo객체 반환하는 함수
 	public static LogData findTheater(String theaterName,String dateStr, String timeStr) {
 		ArrayList<TheaterInfo> theaterInfoArr = getTheaterObjArr();
@@ -360,10 +407,10 @@ public class TheaterDataManage {
 			if(t.getName().equals(theaterName)){ 
 				int idx =0;
 				boolean isAfter = false;
-				
+
 				// 날짜 순으로 정렬
 				t.getLog().sort(null); 
-				
+
 				// 날짜 비교하여 적합한 LogData 반환
 				for(LogData l: t.getLog()) {	 
 					isAfter = Print.isAfterDate(l.getDate(), l.getTime(), dateStr, timeStr);
@@ -371,15 +418,15 @@ public class TheaterDataManage {
 						return t.getLog().get(idx-1);
 					else idx++;
 				}
-				
+
 				// 마지막 log 날짜보다 나중에 상영하는 경우 
 				return t.getLog().get(idx-1);
 			}
 		}
 		return null; // unreachable code 
 	}
-	
-	
+
+
 	public static int readTheaterNameReturnSeat(String theaterName, int count) {
 		int index = 0;
 		int flag = 0;
@@ -399,9 +446,8 @@ public class TheaterDataManage {
 		LogData logdataNow = findTheater(theaterName, date, time);
 		int row = logdataNow.getRow();
 		int col = logdataNow.getCol();
-//		int row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
-//		int col=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("col").toString());
+		//		int row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
+		//		int col=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("col").toString());
 		return row*col;
 	}
 }
-	
