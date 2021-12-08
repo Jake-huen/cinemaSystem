@@ -180,7 +180,7 @@ public class TheaterDataManage {
 				if(ld.getDate().equals("del")&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
 					flag=1;
 				}
-				if(tt<dt) {
+				if(tt<=dt) {
 					flag=0;
 				}
 			}
