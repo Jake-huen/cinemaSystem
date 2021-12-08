@@ -182,9 +182,18 @@ public class TheaterDataManage {
 				}
 			}
 			//2차기획서에 맞게 현재날짜와 함께 행 열 저장하기
-			theaterinfo.addProperty("theater", newT);
-			theaterinfo.addProperty("row", row);
-			theaterinfo.addProperty("col", col);
+			LogData logdataNew = new LogData(date, time, row, col);
+			ArrayList<TheaterInfo> theaterInfoArr = getTheaterObjArr();
+			for(TheaterInfo t: theaterInfoArr) { 
+				if(t.getName().equals(theaterName)){	//이거 아닌듯
+					t.addLogData(logdataNew);
+				}
+			}
+			//기존의 theaterinfo에 상영관 이름이랑 log추가하기
+			
+			//theaterinfo.addProperty("theater", newT);
+			//theaterinfo.addProperty("row", row);
+			//theaterinfo.addProperty("col", col);
 			
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(element);

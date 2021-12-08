@@ -27,7 +27,9 @@ public class TheaterInfo {//상영관정보
 		return name;
 	}
 	
-	
+	public void addLogData(LogData logdata) {
+		log.add(logdata);
+	}
 	// for testing 
 	@Override
 	public String toString() {
