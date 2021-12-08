@@ -163,15 +163,15 @@ public class TheaterDataManage {
 	
 	public static String[] getTheaterName() { //영화관 이름만 받아옴
 		ArrayList<TheaterInfo> ta=getTheaterObjArr();
-		int dt=Integer.parseInt(date+time);//현재시각 (사용자설정시각)
+		long dt=Long.parseLong(date+time);//현재시각 (사용자설정시각)
 		ArrayList<String> tmp=new ArrayList<String>();
 		int flag;
 		int n=0;
 		for(int i=0;i<ta.size();i++) {
 			flag=0;
-			for(int j=0;j<ta.size();j++){
+			for(int j=0;j<ta.get(i).getLog().size();j++){
 				LogData ld=ta.get(i).getLog().get(j);
-				int tt=Integer.parseInt(ld.getDate()+ld.getTime());
+				long tt=Long.parseLong(ld.getDate()+ld.getTime());
 				if(ld.getDate().equals("del")&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
 					flag=1;
 				}
