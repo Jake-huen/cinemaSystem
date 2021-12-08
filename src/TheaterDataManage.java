@@ -5,14 +5,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 public class TheaterDataManage {
 	static String theater;
 	static int row;
@@ -160,10 +158,9 @@ public class TheaterDataManage {
 			JsonParser jsonParser = new JsonParser();
 			JsonElement element = jsonParser.parse(reader);
 			JsonObject jsonobject = element.getAsJsonObject();
-
 			JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
 			JsonObject theaterinfo =(JsonObject)theaterInfos.get(index);
-			
+
 			//상영관이 수정된 날짜 확인한 다음 그 날짜에 해당되는 상영관 좌석의 행과 열 가져오기
 			String theaterName = ((JsonObject) theaterInfos.get(index)).get("theater").toString();
 			//int _row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
@@ -172,8 +169,8 @@ public class TheaterDataManage {
 			//로그인할때 입력한 날짜와 시간 가져오기
 			//String dateToday = user
 			//String timeToday = user
-					
-			LogData logdataNow = findTheater(theaterName, "dateToday현재날짜(20211208)", "timeToday현재시각(1230)");
+
+			LogData logdataNow = findTheater(theaterName, date, time);
 			int _row = logdataNow.getRow();
 			int _col = logdataNow.getCol();
 			//기존의 theaterinfo의 행과 열이 입력값보다 크면 info.json에서 확인 필요
@@ -220,7 +217,6 @@ public class TheaterDataManage {
 			JsonObject jsonobject = element.getAsJsonObject();
 			JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
 			theaterInfos.remove(index);
-
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(element);
 			FileWriter writer=null;
@@ -249,7 +245,6 @@ public class TheaterDataManage {
 	// 상영관 명 + 상영시간 입력하면 TheaterInfo객체 반환하는 함수
 	public static LogData findTheater(String theaterName,String dateStr, String timeStr) {
 		ArrayList<TheaterInfo> theaterInfoArr = getTheaterObjArr();
-
 		for(TheaterInfo t: theaterInfoArr) {
 			// 이름 같은 상영관 찾기
 			if(t.getName().equals(theaterName)){ 
