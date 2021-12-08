@@ -58,13 +58,16 @@ public class TheaterDataManage {
 		int flag;
 		int n=0;
 		for(int i=0;i<ta.size();i++) {
-			flag=0;
+			flag=-1;
 			for(int j=0;j<ta.get(i).getLog().size();j++){
 				LogData ld=ta.get(i).getLog().get(j);
 				String asd=ld.getDate()+ld.getTime();
 				long tt=Long.parseLong(asd);
 				if(ld.getDate().equals("del")&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
 					flag=1;
+				}
+				if(tt<dt) {
+					flag=0;
 				}
 			}
 			if(flag==0) {
