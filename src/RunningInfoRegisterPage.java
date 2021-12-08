@@ -7,7 +7,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 
 	public static void runningInfoRegisterPage(UserInfo userinfo) {
 		while(true) {
-			String[] theaters=TheaterDataManage.getTheater());
+			String[] theaters=TheaterDataManage.getTheater(userinfo.getDate(),userinfo.getTime());
 			String[] theatersName=TheaterDataManage.getTheaterName();
 			String[] theatermenu=new String[theatersName.length+1];
 			theatermenu[0]="뒤로가기";
