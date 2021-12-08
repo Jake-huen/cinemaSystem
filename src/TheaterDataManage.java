@@ -45,22 +45,31 @@ public class TheaterDataManage {
 			System.out.println("올바르게 등록되어있지 않습니다.");
 		}
 	}
-	/*public static String[] getTheater() { //작동x (수정전)
+	public static String[] getTheater(String date,String time) { // row, col 정보..
 		JsonObject jsonobject = getJson();
 		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
 		if(theaterInfos.size()==0) return null;
 		String[] rt=new String[theaterInfos.size()];
-		for(int i=0;i<theaterInfos.size();i++) { //영화전체 크기만큼 가져오기
+		for(int i=0;i<theaterInfos.size();i++) { //영화관 전체 크기만큼 가져오기
 			rt[i]=((JsonObject) theaterInfos.get(i)).get("theater").toString();
 			rt[i]=rt[i].substring(1,rt[i].length()-1);
-			int row=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("row").toString());
-			int col=Integer.parseInt(((JsonObject) theaterInfos.get(i)).get("col").toString());
-			rt[i]+=" / "+row*col+"석";
-			//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
-			//System.out.println(movieinfo.get("title"));
+			JsonArray loginfo =  (JsonArray) ((JsonObject)theaterInfos.get(i)).get("log");
+			System.out.println(loginfo);
+			int sss =0 ;
+			for(int j=0;j<loginfo.size();j++) {
+				JsonObject temp = (JsonObject) loginfo.get(j);
+				int row=Integer.parseInt(temp.get("row").toString());
+				int col=Integer.parseInt(temp.get("col").toString());
+				sss = row*col;
+			}
+			rt[i]+=" / "+sss+"석";
+			System.out.println(rt[i]);
 		}
 		return rt;
-	}*/
+	}
+	public static void main(String[] args) {
+		getTheater("20210101","0900");
+	}
 	
 	// 상영관 정보 ArrayList로 받아오기 
 	public static ArrayList<TheaterInfo> getTheaterObjArr() { 
@@ -136,9 +145,7 @@ public class TheaterDataManage {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) {
-		setJsonTheater("태헌관",3,6,"20210101","0900");
-	}
+	
 	public static String readIndexTheater(int index) {//index해당하는 영화관 출력
 		JsonObject jsonobject = getJson();
 		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
@@ -150,6 +157,7 @@ public class TheaterDataManage {
 			//System.out.println(movieinfo.get("runtime"));
 		return rt;
 	}
+	
 	public static String readIndexTheaterName(int index) {//index해당하는 영화관 출력
 		JsonObject jsonobject = getJson();
 		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");

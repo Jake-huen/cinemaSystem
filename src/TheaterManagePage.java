@@ -24,7 +24,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 				theaterRegisterPage(userinfo.getDate(),userinfo.getTime());
 				break;
 			case 2:
-				theaterCheckPage();
+				theaterCheckPage(userinfo.getDate(),userinfo.getTime());
 				break;
 			default:
 				System.out.println("올바르지 않은 입력입니다.");
@@ -75,9 +75,9 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			}
 		}
 	}
-	public static void theaterCheckPage() {//8.2.2.2 상영관정보확인
+	public static void theaterCheckPage(String date,String time) {//8.2.2.2 상영관정보확인
 		while(true) {
-			String[] theaters=TheaterDataManage.getTheater();
+			String[] theaters=TheaterDataManage.getTheater(date,time);
 			String[] theatersName=TheaterDataManage.getTheaterName();
 			String[] theatermenu=new String[theatersName.length+1];
 			theatermenu[0]="뒤로가기";
@@ -85,7 +85,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 				theatermenu[i]=theatersName[i-1].replaceAll("\"", "");
 			}
 			System.out.println("======상영관 목록======");
-			System.out.println("0. 뒤로가기");
+			System.out.println("0. 돌아가기");
 			for(int i=0;i<theaters.length;i++)
 				System.out.println((i+1)+". "+theaters[i]);
 			System.out.println("===================");
@@ -102,8 +102,9 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 				theaterFixPage(menuNum-1);//정상입력시
 			}
 		}
-		
 	}
+	
+	
 	public static void theaterFixPage(int index) {//8.2.2.2.1 상영관정보수정및삭제
 		while(true) {
 			String theater="",rc="";
