@@ -45,7 +45,7 @@ public class TheaterDataManage {
 			System.out.println("올바르게 등록되어있지 않습니다.");
 		}
 	}
-	public static String[] getTheater() { //영화 제목들만 받아오기 -->for문으로 영화제목판별
+	/*public static String[] getTheater() { //작동x (수정전)
 		JsonObject jsonobject = getJson();
 		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
 		if(theaterInfos.size()==0) return null;
@@ -60,7 +60,7 @@ public class TheaterDataManage {
 			//System.out.println(movieinfo.get("title"));
 		}
 		return rt;
-	}
+	}*/
 	
 	// 상영관 정보 ArrayList로 받아오기 
 	public static ArrayList<TheaterInfo> getTheaterObjArr() { 
@@ -100,7 +100,7 @@ public class TheaterDataManage {
 		return theaterInfoArr;
 	}
 	
-	public static String[] getTheaterName() {
+	public static String[] getTheaterName() { //영화관 이름만 받아옴
 		JsonObject jsonobject = getJson();
 		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
 		if(theaterInfos.size()==0) return null;
@@ -112,16 +112,19 @@ public class TheaterDataManage {
 		}
 		return rt;
 	}
-	public static void setJsonTheater(String theater,int row,int col) { //json 파일 set
+	
+	public static void setJsonTheater(String theater,int row,int col,String date,String time) { //json 파일 set
 		JsonObject jsonobject= getJson(); //Json파일 전체 받아옴
 		JsonArray theaterInfos = (JsonArray)jsonobject.get("theaters");
 		JsonObject temp=new JsonObject();
+		LogData tl = new LogData(date,time,row,col);
+		JsonElement element = gson.toJsonTree(tl);
 		temp.addProperty("theater",theater);
-		temp.addProperty("row",row);
-		temp.addProperty("col",col);
+		temp.add("log",element);
 		theaterInfos.add(temp);
 		jsonobject.add("theaters",theaterInfos);
 		String json = gson.toJson(jsonobject);
+		System.out.println(json);
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter(pathTheater);
@@ -132,6 +135,9 @@ public class TheaterDataManage {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public static void main(String[] args) {
+		setJsonTheater("태헌관",3,6,"20210101","0900");
 	}
 	public static String readIndexTheater(int index) {//index해당하는 영화관 출력
 		JsonObject jsonobject = getJson();

@@ -7,10 +7,10 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 	public static void theaterManagePage(UserInfo userinfo) {
 		TheaterDataManage.setTime(userinfo.getTime(), userinfo.getDate());
 		while(true) {
-			String[] theaters=TheaterDataManage.getTheater();
+			String[] theaters=TheaterDataManage.getTheaterName();
 			System.out.println("======상영관 목록======");
 			for(int i=0;i<theaters.length;i++) {
-				System.out.println(theaters[i]);
+				System.out.println(theaters[i].substring(1,theaters[i].length()-1));//여기에 row*col 표시해줘야함
 			}
 			System.out.println("===================");
 			String[] tmp={"메인 페이지로가기","상영관 등록","상영관 수정 및 삭제"};
@@ -21,7 +21,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			case 0:
 				return;
 			case 1:
-				theaterRegisterPage();
+				theaterRegisterPage(userinfo.getDate(),userinfo.getTime());
 				break;
 			case 2:
 				theaterCheckPage();
@@ -31,7 +31,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			}
 		}
 	}
-	public static void theaterRegisterPage() {//8.2.2.1 상영관정보등록'
+	public static void theaterRegisterPage(String date, String time) {//8.2.2.1 상영관정보등록'
 		while(true) {
 			String theater="",rc="";
 			int check=0;
@@ -67,7 +67,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 						System.out.println("올바르지 않은 입력입니다.");
 					}
 					else {
-						TheaterDataManage.setJsonTheater(theater,row,col);
+						TheaterDataManage.setJsonTheater(theater,row,col,date,time);
 						System.out.println("=====등록완료=====");
 						return;
 					}
