@@ -345,7 +345,7 @@ public class TheaterDataManage {
 			//String theaterName = theaterinfo.get("name").toString();
 			//int _row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
 			//int _col=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("col").toString());
-			theaterName =  Print.removeQuotes(theaterName);
+			//theaterName =  Print.removeQuotes(theaterName);
 			//로그인할때 입력한 날짜와 시간 가져오기
 			//String dateToday = user
 			//String timeToday = user
