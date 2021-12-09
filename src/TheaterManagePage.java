@@ -109,7 +109,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 		while(true) {
 			String theater="",rc="";
 			System.out.println("======상영관 수정 및 삭제======");
-			System.out.println(TheaterDataManage.readIndexTheater(index).replaceAll("\"",""));
+			System.out.println(TheaterDataManage.readIndexTheaterName2(index));
 			System.out.println("0. 뒤로가기");
 			System.out.println("1. 수정");
 			System.out.println("2. 삭제");

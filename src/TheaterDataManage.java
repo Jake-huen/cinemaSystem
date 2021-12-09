@@ -284,8 +284,9 @@ public class TheaterDataManage {
 		JsonArray theaterInfos = getJson();
 		String rt=((JsonObject) theaterInfos.get(index)).get("name").toString();
 		rt =  Print.removeQuotes(rt);
+		// System.out.println(rt);
 		LogData logdataNow = findTheater(rt, date, time);
-
+		
 		//여기 오류
 		if(logdataNow==null) {
 			System.out.println("에휴");
@@ -301,9 +302,16 @@ public class TheaterDataManage {
 	public static String readIndexTheaterName(int index) {//index해당하는 영화관 출력
 		JsonArray theaterInfos = getJson();
 		String rt=((JsonObject) theaterInfos.get(index)).get("name").toString();
+		
 		//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
 		//System.out.println(movieinfo.get("runtime"));
 		return rt;
+	}
+	public static String readIndexTheaterName2(int index) {//index해당하는 영화관 출력
+		ArrayList<String[]> tmp = new ArrayList<String[]>();
+		tmp = getTheater2(date, time);
+		String theaterName=tmp.get(index)[0];
+		return theaterName;
 	}
 	public static void fixTheater(int index,String newT,int row,int col) {//index받아와서 해당 영화관 수정
 		try {
@@ -437,7 +445,7 @@ public class TheaterDataManage {
 		for(TheaterInfo t: theaterInfoArr) {
 			// 이름 같은 상영관 찾기
 			if(t.getName().equals(theaterName)){ 
-				int idx =0;
+				int idx =1;
 				boolean isAfter = false;
 
 				// 날짜 순으로 정렬
