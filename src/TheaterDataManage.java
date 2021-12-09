@@ -312,6 +312,7 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 		return theaterName;
 	}
 	public static String readIndexTheater(int index) {//index해당하는 영화관 출력
+		
 		JsonArray theaterInfos = getJson();
 		String rt=((JsonObject) theaterInfos.get(index)).get("name").toString();
 		rt =  Print.removeQuotes(rt);
@@ -485,9 +486,12 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 				// 날짜 비교하여 적합한 LogData 반환
 				for(LogData l: t.getLog()) {	 
 					isAfter = Print.isAfterDate(l.getDate(), l.getTime(), dateStr, timeStr);
-					if(isAfter) 
+					if(isAfter) {
+						if(idx==0) {
+							return t.getLog().get(0);
+						}
 						return t.getLog().get(idx-1);
-					else idx++;
+					}else idx++;
 				}
 
 				// 마지막 log 날짜보다 나중에 상영하는 경우 
