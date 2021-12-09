@@ -307,14 +307,34 @@ public class TheaterDataManage {
 	}
 	public static void fixTheater(int index,String newT,int row,int col) {//index받아와서 해당 영화관 수정
 		try {
+			//사용자로 부터 입력받은 index를 Json전체파일의 index로 바꾸자
+			ArrayList<String[]> tmp = new ArrayList<String[]>();
+			tmp = getTheater2(date, time);
+			String theaterName=tmp.get(index)[0];
+			System.out.println(theaterName);
+			
 			Reader reader = new FileReader(pathTheater);
 			JsonParser jsonParser = new JsonParser();
 			JsonElement element = jsonParser.parse(reader);
 			JsonArray theaterInfos = element.getAsJsonArray();
-			JsonObject theaterinfo =(JsonObject)theaterInfos.get(index);
+			for(int i = 0; i<theaterInfos.size(); i++) {
+				System.out.println("!");
+				JsonObject T =(JsonObject)theaterInfos.get(i);
+				String N = T.get("name").toString();
+				N =  Print.removeQuotes(N);
+				if(theaterName.equals(N)) {
+					System.out.println(N);
+					index=i;
+				}
+			}
+			System.out.println("?");
 
+			System.out.println(index);
+			System.out.println();
+			JsonObject theaterinfo =(JsonObject)theaterInfos.get(index);
+			
 			//상영관이 수정된 날짜 확인한 다음 그 날짜에 해당되는 상영관 좌석의 행과 열 가져오기
-			String theaterName = theaterinfo.get("name").toString();
+			//String theaterName = theaterinfo.get("name").toString();
 			//int _row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
 			//int _col=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("col").toString());
 			theaterName =  Print.removeQuotes(theaterName);
