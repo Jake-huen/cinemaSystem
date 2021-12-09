@@ -279,7 +279,38 @@ public class TheaterDataManage {
 	//	public static void main(String[] args) {
 	//		setJsonTheater("호경관",3,7,"20210315","1200");
 	//	}
-
+public static String readIndexTheater2(int index) {//index해당하는 영화관 출력
+		ArrayList<String[]> tmp = new ArrayList<String[]>();
+		tmp = getTheater2(date, time);
+		String theaterName=tmp.get(index)[0];
+	
+		JsonArray theaterInfos = getJson();
+		//String rt=((JsonObject) theaterInfos.get(index)).get("name").toString();
+		//rt =  Print.removeQuotes(rt);
+		for(int i = 0; i<theaterInfos.size(); i++) {
+			//System.out.println("!");
+			JsonObject T =(JsonObject)theaterInfos.get(i);
+			String N = T.get("name").toString();
+			N =  Print.removeQuotes(N);
+			if(theaterName.equals(N)) {
+				System.out.println(N);
+				index=i;
+			}
+		}
+		// System.out.println(rt);
+		LogData logdataNow = findTheater(theaterName, date, time);
+		
+		//여기 오류
+		if(logdataNow==null) {
+			System.out.println("에휴");
+		}
+		int row = logdataNow.getRow();
+		int col = logdataNow.getCol();
+		theaterName+="/"+row*col+"석";
+		//JsonObject movieinfo =(JsonObject)movieInfos.get(i);
+		//System.out.println(movieinfo.get("runtime"));
+		return theaterName;
+	}
 	public static String readIndexTheater(int index) {//index해당하는 영화관 출력
 		JsonArray theaterInfos = getJson();
 		String rt=((JsonObject) theaterInfos.get(index)).get("name").toString();
@@ -445,7 +476,7 @@ public class TheaterDataManage {
 		for(TheaterInfo t: theaterInfoArr) {
 			// 이름 같은 상영관 찾기
 			if(t.getName().equals(theaterName)){ 
-				int idx =1;
+				int idx =0;
 				boolean isAfter = false;
 
 				// 날짜 순으로 정렬
