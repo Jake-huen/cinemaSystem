@@ -6,6 +6,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 	static Scanner scan = new Scanner(System.in);
 
 	public static void runningInfoRegisterPage(UserInfo userinfo) {
+		TheaterDataManage.setTime(userinfo.getTime(), userinfo.getDate());
 		while(true) {
 			String[] theaters=TheaterDataManage.getTheater(userinfo.getDate(),userinfo.getTime());
 			String[] theatersName=TheaterDataManage.getTheaterName();
