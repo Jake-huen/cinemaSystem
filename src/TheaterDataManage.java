@@ -310,7 +310,7 @@ public class TheaterDataManage {
 	public static String readIndexTheaterName2(int index) {//index해당하는 영화관 출력
 		ArrayList<String[]> tmp = new ArrayList<String[]>();
 		tmp = getTheater2(date, time);
-		String theaterName=tmp.get(index)[0];
+		String theaterName=tmp.get(index)[0]+"/"+ Integer.parseInt(tmp.get(index)[1])*Integer.parseInt(tmp.get(index)[2])+"석";
 		return theaterName;
 	}
 	public static void fixTheater(int index,String newT,int row,int col) {//index받아와서 해당 영화관 수정
