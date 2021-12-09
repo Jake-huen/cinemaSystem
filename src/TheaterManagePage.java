@@ -136,7 +136,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 							break;
 						}
 					}
-					if(TheaterDataManage.readIndexTheater(index).replaceAll("\"","").split("/")[0].equals(theater)) {
+					if(TheaterDataManage.readIndexTheater2(index).replaceAll("\"","").split("/")[0].equals(theater)) {
 						check=0;
 					}
 					if(theater==null) {
