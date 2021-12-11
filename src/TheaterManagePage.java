@@ -134,7 +134,7 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 					int check=0;
 					String theaters[] = TheaterDataManage.getTheaterName();
 					for(int i=0;i<theaters.length;i++) {
-						if(theaters[i].substring(1,theaters[i].length()-1).equals(theater)) {
+						if(theaters[i].equals(theater)) {
 							check=1;
 							break;
 						}
