@@ -227,7 +227,7 @@ public class TheaterDataManage {
 			for(int j=0;j<ta.get(i).getLog().size();j++){
 				LogData ld=ta.get(i).getLog().get(j);
 				long tt=Long.parseLong(ld.getDate()+ld.getTime());
-				if(Integer.toString(ld.getRow()).equals("del")&&Integer.toString(ld.getCol()).equals("del")) {
+				if(ld.getRow()==-1&&ld.getCol()==-1) {
 					return true;
 				}
 			}
