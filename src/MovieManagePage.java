@@ -127,7 +127,7 @@ public class MovieManagePage {//8.2.1영화관리페이지
 					int intRuntime = Integer.parseInt(runtime);
 					if(RunningInfoManage.timeOverlapCheck(title,intRuntime)){
 						runtime = runtime +"분";
-						MovieInfoDataManage.fixMovie(num, title, runtime);
+						MovieInfoDataManage.fixMovie(num, title, runtime);	
 					}
 					else{
 						System.out.println("상영시간이 중복됩니다.");

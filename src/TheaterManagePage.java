@@ -8,10 +8,10 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 	public static void theaterManagePage(UserInfo userinfo) {
 		TheaterDataManage.setTime(userinfo.getTime(), userinfo.getDate());
 		while(true) {
-			String[] theaters=TheaterDataManage.getTheaterName();
+			String[] theaters=TheaterDataManage.getTheater(userinfo.getDate(), userinfo.getTime());
 			System.out.println("======상영관 목록======");
 			for(int i=0;i<theaters.length;i++) {
-				System.out.println(theaters[i]);//여기에 row*col 표시해줘야함 .substring(1,theaters[i].length()-1)
+				System.out.println(theaters[i]);
 			}
 			System.out.println("===================");
 			String[] tmp={"메인 페이지로가기","상영관 등록","상영관 수정 및 삭제"};
