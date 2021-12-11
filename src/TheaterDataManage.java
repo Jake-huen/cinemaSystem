@@ -52,7 +52,7 @@ public class TheaterDataManage {
 		}
 	}
 
-	public static String[] getTheater(String date,String time) { // row, col 정보..
+	public static String[] getTheater(String date,String time) { // row, col 정보
 		ArrayList<TheaterInfo> ta=getTheaterObjArr();
 		String qwe=date+time;
 		long dt=Long.parseLong(qwe);//현재시각 (사용자설정시각)
