@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 public class TheaterManagePage {//8.2.2상영관관리페이지
 
 	static Scanner scan = new Scanner(System.in);
@@ -70,9 +73,16 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 						System.out.println("올바르지 않은 입력입니다.");
 					}
 					else {
-						TheaterDataManage.setJsonTheater(theater,row,col,date,time);
-						System.out.println("=====등록완료=====");
-						return;
+						if(TheaterDataManage.getTh(theater)) {
+							int temp = TheaterDataManage.getTh2(theater);
+							TheaterDataManage.fixTheater(temp, theater, row, col);
+							return;
+						}
+						else {
+							TheaterDataManage.setJsonTheater(theater,row,col,date,time);
+							System.out.println("=====등록완료=====");
+							return;
+						}
 					}
 				}	
 			}
