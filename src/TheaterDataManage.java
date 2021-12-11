@@ -65,8 +65,9 @@ public class TheaterDataManage {
 				LogData ld=ta.get(i).getLog().get(j);
 				String asd=ld.getDate()+ld.getTime();
 				long tt=Long.parseLong(asd);
-				if(ld.getDate().equals("del")&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
+				if(ld.getRow()==-1&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
 					flag=1;
+					continue;
 				}
 				if(tt<=dt) {
 					flag=0;
@@ -136,8 +137,9 @@ public class TheaterDataManage {
 				LogData ld=ta.get(i).getLog().get(j);
 				String asd=ld.getDate()+ld.getTime();
 				long tt=Long.parseLong(asd);
-				if(ld.getDate().equals("del")&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
+				if(ld.getRow()==-1&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
 					flag=1;
+					continue;
 				}
 				if(tt<=dt) {
 					flag=0;
@@ -196,12 +198,16 @@ public class TheaterDataManage {
 				String time = ((JsonObject) jsonLog.get(j)).get("time").toString();
 				date = Print.removeQuotes(date);
 				time = Print.removeQuotes(time);
-
-				int row=Integer.parseInt(((JsonObject) jsonLog.get(j)).get("row").toString());
-				int col=Integer.parseInt(((JsonObject) jsonLog.get(j)).get("col").toString());
-
-				LogData logData = new LogData(date,time,row,col);
-				log.add(logData);
+				if(!((JsonObject) jsonLog.get(j)).get("row").toString().equals("\"del\"")) {
+					int row=Integer.parseInt(((JsonObject) jsonLog.get(j)).get("row").toString());
+					int col=Integer.parseInt(((JsonObject) jsonLog.get(j)).get("col").toString());
+					LogData logData = new LogData(date,time,row,col);
+					log.add(logData);
+				}else {
+					LogData logData = new LogData(date,time,-1,-1);
+					log.add(logData);
+				}
+				
 			}
 
 			TheaterInfo theaterInfo = new TheaterInfo(name,log);
@@ -224,8 +230,9 @@ public class TheaterDataManage {
 			for(int j=0;j<ta.get(i).getLog().size();j++){
 				LogData ld=ta.get(i).getLog().get(j);
 				long tt=Long.parseLong(ld.getDate()+ld.getTime());
-				if(ld.getDate().equals("del")&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
+				if(ld.getRow()==-1&&tt<=dt) { //현재시각보다 먼저 상영관이 삭제되어있으면 flag=1
 					flag=1;
+					continue;
 				}
 				if(tt<=dt) {
 					flag=0;
@@ -363,7 +370,7 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 				String N = T.get("name").toString();
 				N =  Print.removeQuotes(N);
 				if(theaterName.equals(N)) {
-					System.out.println(N);
+//					System.out.println(N);
 					index=i;
 				}
 			}
@@ -438,14 +445,69 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 		}
 		System.out.println("수정완료");
 	}
-	public static void deleteTheater(int index) {//해당 index의 영화관 삭제
+	public static void deleteTheater(int index,String newT) {//해당 index의 영화관 삭제
 		try {
+			//사용자로 부터 입력받은 index를 Json전체파일의 index로 바꾸자
+			ArrayList<String[]> tmp = new ArrayList<String[]>();
+			tmp = getTheater2(date, time);
+			String theaterName=tmp.get(index)[0];
+			
 			Reader reader = new FileReader(pathTheater);
 			JsonParser jsonParser = new JsonParser();
 			JsonElement element = jsonParser.parse(reader);
 			JsonArray theaterInfos = element.getAsJsonArray();
+			for(int i = 0; i<theaterInfos.size(); i++) {
+				JsonObject T =(JsonObject)theaterInfos.get(i);
+				String N = T.get("name").toString();
+				N =  Print.removeQuotes(N);
+				if(theaterName.equals(N)) {
+//					System.out.println(N);
+					index=i;
+				}
+			}
+			JsonObject theaterinfo =(JsonObject)theaterInfos.get(index);
 			
-			theaterInfos.remove(index);
+			//상영관이 수정된 날짜 확인한 다음 그 날짜에 해당되는 상영관 좌석의 행과 열 가져오기
+			//String theaterName = theaterinfo.get("name").toString();
+			//int _row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
+			//int _col=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("col").toString());
+			//theaterName =  Print.removeQuotes(theaterName);
+			//로그인할때 입력한 날짜와 시간 가져오기
+			//String dateToday = user
+			//String timeToday = user
+
+			LogData logdataNow = findTheater(theaterName, date, time);
+			int _row = logdataNow.getRow();
+			int _col = logdataNow.getCol();
+			//기존의 theaterinfo의 행과 열이 입력값보다 크면 info.json에서 확인 필요
+			if(_row>0 || _col>0) {
+				if(RunningInfoManage.check_reserveInfo_for_del(theaterName)) {
+					System.out.println("상영등록정보 중 소실되는 예매좌석이 생기므로 좌석을 삭제할 수 없습니다.");
+					return;
+				}
+			}
+			//기존거 삭제되는지 확인해야댕
+			//2차기획서에 맞게 현재날짜와 함께 행 열 저장하기
+			//이거아님
+			//setJsonTheater(theaterName,row,col,date,time);
+			
+			//기존의 theaterinfos에서 상영관 이름찾아서 상영관 이름바꾸고 log추가하기
+			//theaterinfo.addProperty("name", newT);
+			JsonArray temp = (JsonArray)theaterinfo.get("log");
+			JsonObject logObj = new JsonObject();
+			logObj.addProperty("date", date);
+			logObj.addProperty("time", time);
+			logObj.addProperty("row", "del");
+			logObj.addProperty("col", "del");
+			//JsonArray logArr = new JsonArray();
+			temp.add(logObj);
+			theaterinfo.add("log", temp);
+			//theaterinfo.addProperty("name", newT);
+			
+			//theaterinfo.addProperty("theater", newT);
+			//theaterinfo.addProperty("row", row);
+			//theaterinfo.addProperty("col", col);
+
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(element);
 			FileWriter writer=null;
@@ -463,7 +525,7 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 					e.printStackTrace();
 				}
 			}
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

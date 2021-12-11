@@ -329,5 +329,18 @@ public class RunningInfoManage {
         }
         return false;
     }
+    public static boolean check_reserveInfo_for_del(String theaterName) {
+        getJson();
+        //true면 수정불가
+        for (int i = 0; i < riArr.size(); i++) {
+            if (riArr.get(i).getTheater().equals(theaterName)) { //info.json에서 해당 상영관 정보를 찾음
+            	if(riArr.get(i).getReserve()==null) return false;
+                if (riArr.get(i).getReserve().size()>0) {    //상영관 크기를 줄이려고 할때 손실될 좌석이 있는지 확인
+                    return true;//수정불가
+                }
+            }
+        }
+        return false;
+    }
 }
 
