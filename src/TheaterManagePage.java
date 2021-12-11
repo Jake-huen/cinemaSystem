@@ -171,7 +171,6 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 				}
 			}
 			else if(menuNum==2) {
-				theater=InputRule.ScreenRule();
 				if(RunningInfoManage.check_reserveInfo_for_delete(theater)) {
 					TheaterDataManage.deleteTheater(index);
 					return;
