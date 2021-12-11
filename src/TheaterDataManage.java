@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -398,20 +399,21 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			JsonParser jsonParser = new JsonParser();
 			JsonElement element = jsonParser.parse(reader);
 			JsonArray theaterInfos = element.getAsJsonArray();
+			String N = null;
 			for(int i = 0; i<theaterInfos.size(); i++) {
-				System.out.println("!");
+				//System.out.println("!");
 				JsonObject T =(JsonObject)theaterInfos.get(i);
-				String N = T.get("name").toString();
+				N = T.get("name").toString();
 				N =  Print.removeQuotes(N);
 				if(theaterName.equals(N)) {
 //					System.out.println(N);
 					index=i;
 				}
 			}
-			System.out.println("?");
-
-			System.out.println(index);
-			System.out.println();
+			
+			//System.out.println("?");
+			//System.out.println(index);
+			//System.out.println();
 			JsonObject theaterinfo =(JsonObject)theaterInfos.get(index);
 			
 			//상영관이 수정된 날짜 확인한 다음 그 날짜에 해당되는 상영관 좌석의 행과 열 가져오기
@@ -433,6 +435,21 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 					System.out.println("상영등록정보 중 소실되는 예매좌석이 생기므로 좌석을 수정할 수 없습니다.");
 					return;
 				}
+			}
+		
+			//상영관 이름이 바뀌면 info.json에 있는 모든 상영관 이름 확인해서 바꾸기
+			if(!theaterName.equals(newT)) {
+
+		        //System.out.println("요기 지나감0");
+
+		        //System.out.println("oldName	"+theaterName);
+		        //System.out.println("newName	"+newT);
+		        
+				RunningInfoManage.fixTheaterName(theaterName, newT);
+//				List<RunningInfo> ListInfodata = RunningInfoManage.findByMovieName(N);
+//				for(int i = 0; i<ListInfodata.size(); i++) {
+//					
+//				}
 			}
 			//기존거 삭제되는지 확인해야댕
 			//2차기획서에 맞게 현재날짜와 함께 행 열 저장하기
@@ -512,7 +529,24 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			//로그인할때 입력한 날짜와 시간 가져오기
 			//String dateToday = user
 			//String timeToday = user
-
+			JsonArray temp =(JsonArray) theaterinfo.get("log");
+			JsonObject logObj = null;
+			int check=0;
+			for(int i=0;i<temp.size();i++) {//똑같은시간에 정보있으면 지워버림
+				JsonElement jo=temp.get(i);
+				logObj= jo.getAsJsonObject();
+				System.out.println(logObj.get("date").toString()+":"+logObj.get("time"));
+				int x=Integer.parseInt(logObj.get("date").toString().replaceAll("\"", ""));
+				int y=Integer.parseInt(logObj.get("time").toString().replaceAll("\"", ""));
+				//System.out.println(x+","+Integer.parseInt(time));
+				if(x==Integer.parseInt(date)&&y==Integer.parseInt(time)) {
+					check=1;
+					System.out.println("in");
+					logObj.addProperty("row", "del");
+					logObj.addProperty("col", "del");
+				}
+			}
+				
 			LogData logdataNow = findTheater(theaterName, date, time);
 			int _row = logdataNow.getRow();
 			int _col = logdataNow.getCol();
@@ -530,14 +564,16 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			
 			//기존의 theaterinfos에서 상영관 이름찾아서 상영관 이름바꾸고 log추가하기
 			//theaterinfo.addProperty("name", newT);
-			JsonArray temp = (JsonArray)theaterinfo.get("log");
-			JsonObject logObj = new JsonObject();
-			logObj.addProperty("date", date);
-			logObj.addProperty("time", time);
-			logObj.addProperty("row", "del");
-			logObj.addProperty("col", "del");
+			if(check==0) {
+				logObj = new JsonObject();
+				logObj.addProperty("date", date);
+				logObj.addProperty("time", time);
+				logObj.addProperty("row", "del");
+				logObj.addProperty("col", "del");
+				temp.add(logObj);
+			}		
 			//JsonArray logArr = new JsonArray();
-			temp.add(logObj);
+			
 			theaterinfo.add("log", temp);
 			//theaterinfo.addProperty("name", newT);
 			

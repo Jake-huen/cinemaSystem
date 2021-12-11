@@ -55,6 +55,7 @@ public class RunningInfo {//상영정보
 
     public void setTheater(String theater) {
         this.theater = theater;
+        this.setCode(date+time+theater);
     }
 
     public ArrayList<ReserveInfo> getReserve() {
