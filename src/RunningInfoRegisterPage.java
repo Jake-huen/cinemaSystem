@@ -57,7 +57,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 		theaterIndex = TheaterDataManage.fixIndex(theaterIndex);
 		String tt = TheaterDataManage.readIndexTheaterName(theaterIndex);
 		tt = tt.substring(1,tt.length()-1);
-		System.out.println(tt);
+		//System.out.println(tt);
 		System.out.println(inputdate.substring(0, 4)+"년"+inputdate.substring(4, 6)+"월"
 				+inputdate.substring(6, 8)+"일,"+
 				tt+" 상영정보");

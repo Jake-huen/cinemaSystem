@@ -315,6 +315,27 @@ public class RunningInfoManage {
         }
         System.out.println("good");
     }
+    public static void fixTheaterName(String oldT, String newT) {
+        getJson();
+        
+        RunningInfo ri;
+        for (int i = 0; i < riArr.size(); i++) {
+            if (riArr.get(i).getTheater().equals(oldT)) {
+                ri = riArr.get(i);
+                ri.setTheater(newT);
+                riArr.set(i, ri);
+            }
+        }
+        setRiArr(riArr);
+        try {
+            FileWriter fw = new FileWriter(pathInfo);
+            gson.toJson(riArr, fw);
+            fw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("요기");
+    }
 
     //좌석수수정을 위한 상영등록정보 확인
     public static boolean check_reserveInfo_for_fix(String theaterName, int row, int col) {
