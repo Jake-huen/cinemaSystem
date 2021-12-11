@@ -47,6 +47,7 @@ public class CustomerMainPage {
 					cusRsrvPage.menu();
 					break;
 				case 4:
+					System.out.println("로그아웃되었습니다.");
 					return;
 				case 5: // 종료 
 					System.exit(0);
