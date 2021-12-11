@@ -438,19 +438,22 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			//2차기획서에 맞게 현재날짜와 함께 행 열 저장하기
 			//이거아님
 			//setJsonTheater(theaterName,row,col,date,time);
-			
+			if(_row==row&&_col==col) {
+				theaterinfo.addProperty("name", newT);
+			}
 			//기존의 theaterinfos에서 상영관 이름찾아서 상영관 이름바꾸고 log추가하기
-			theaterinfo.addProperty("name", newT);
-			JsonArray temp = (JsonArray)theaterinfo.get("log");
-			JsonObject logObj = new JsonObject();
-			logObj.addProperty("date", date);
-			logObj.addProperty("time", time);
-			logObj.addProperty("row", row);
-			logObj.addProperty("col", col);
-			//JsonArray logArr = new JsonArray();
-			temp.add(logObj);
-			theaterinfo.add("log", temp);
-			
+			else {
+				theaterinfo.addProperty("name", newT);
+				JsonArray temp = (JsonArray)theaterinfo.get("log");
+				JsonObject logObj = new JsonObject();
+				logObj.addProperty("date", date);
+				logObj.addProperty("time", time);
+				logObj.addProperty("row", row);
+				logObj.addProperty("col", col);
+				//JsonArray logArr = new JsonArray();
+				temp.add(logObj);
+				theaterinfo.add("log", temp);
+			}
 
 			//theaterinfo.addProperty("theater", newT);
 			//theaterinfo.addProperty("row", row);
