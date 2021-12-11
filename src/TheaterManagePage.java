@@ -74,8 +74,8 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 					}
 					else {
 						if(TheaterDataManage.getTh(theater)) {
-							int temp = TheaterDataManage.getTh2(theater);
-							TheaterDataManage.fixTheater(temp, theater, row, col);
+							//int temp = TheaterDataManage.getTh2(theater);
+							TheaterDataManage.RestoreTheater(theater, row, col);
 							return;
 						}
 						else {

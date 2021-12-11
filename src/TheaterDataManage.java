@@ -236,21 +236,24 @@ public class TheaterDataManage {
 		return false;
 	}
 	public static boolean getTh(String theater) {
-		ArrayList<String> tmp = new ArrayList<String>();
+		//ArrayList<String> tmp = new ArrayList<String>();
 		JsonArray theaterInfos = getJson();
 		for(int i = 0; i<theaterInfos.size(); i++) {
 			JsonObject T =(JsonObject)theaterInfos.get(i);
 			String N = T.get("name").toString();
 			N =  Print.removeQuotes(N);
-			// System.out.println(N);
-			tmp.add(N);
-		}
-		for(int i=0;i<tmp.size();i++) {
-			if(tmp.get(i).equals(theater)) {
+			if(N.equals(theater))
 				return true;
-			}
+			// System.out.println(N);
+			//tmp.add(N);
 		}
 		return false;
+//		for(int i=0;i<tmp.size();i++) {
+//			if(tmp.get(i).equals(theater)) {
+//				return true;
+//			}
+//		}
+//		return false;
 	}
 	public static int getTh2(String theater) {
 		ArrayList<String> tmp = new ArrayList<String>();
@@ -404,11 +407,12 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 		String theaterName=tmp.get(index)[0]+"/"+ Integer.parseInt(tmp.get(index)[1])*Integer.parseInt(tmp.get(index)[2])+"석";
 		return theaterName;
 	}
-	public static int fixIndex(int OrginalIndex) {//입력받은 index를 사용자가 선택한 상영관 이름으로 return
+	public static int fixIndex(int OriginalIndex) {//입력받은 index를 사용자가 선택한 상영관 이름으로 return
 		int fixIndex = 0;
 		ArrayList<String[]> tmp = new ArrayList<String[]>();
 		tmp = getTheater2(date, time);
-		String theaterName=tmp.get(OrginalIndex)[0];
+		System.out.println(OriginalIndex);
+		String theaterName=tmp.get(OriginalIndex)[0];
 	
 		JsonArray theaterInfos = getJson();
 		for(int i = 0; i<theaterInfos.size(); i++) {
@@ -426,33 +430,33 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 	public static void fixTheater(int index,String newT,int row,int col) {//index받아와서 해당 영화관 수정
 		try {
 			//사용자로 부터 입력받은 index를 Json전체파일의 index로 바꾸자
-			//index = fixIndex(index);
-			ArrayList<String[]> tmp = new ArrayList<String[]>();
-			tmp = getTheater2(date, time);
-			String theaterName=tmp.get(index)[0];
-			System.out.println(theaterName);
-			
+			index = fixIndex(index);
+//			ArrayList<String[]> tmp = new ArrayList<String[]>();
+//			tmp = getTheater2(date, time);
+//			String theaterName=tmp.get(index)[0];
+//			System.out.println(theaterName);
+//			
 			Reader reader = new FileReader(pathTheater);
 			JsonParser jsonParser = new JsonParser();
 			JsonElement element = jsonParser.parse(reader);
 			JsonArray theaterInfos = element.getAsJsonArray();
-			String N = null;
-			for(int i = 0; i<theaterInfos.size(); i++) {
-				//System.out.println("!");
-				JsonObject T =(JsonObject)theaterInfos.get(i);
-				N = T.get("name").toString();
-				N =  Print.removeQuotes(N);
-				if(theaterName.equals(N)) {
-//					System.out.println(N);
-					index=i;
-				}
-			}
+//			String N = null;
+//			for(int i = 0; i<theaterInfos.size(); i++) {
+//				//System.out.println("!");
+//				JsonObject T =(JsonObject)theaterInfos.get(i);
+//				N = T.get("name").toString();
+//				N =  Print.removeQuotes(N);
+//				if(theaterName.equals(N)) {
+////					System.out.println(N);
+//					index=i;
+//				}
+//			}
 			
 			//System.out.println("?");
 			//System.out.println(index);
 			//System.out.println();
 			JsonObject theaterinfo =(JsonObject)theaterInfos.get(index);
-			
+			String theaterName = theaterinfo.get("name").toString();
 			//상영관이 수정된 날짜 확인한 다음 그 날짜에 해당되는 상영관 좌석의 행과 열 가져오기
 			//String theaterName = theaterinfo.get("name").toString();
 			//int _row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
@@ -536,6 +540,56 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 		}
 		System.out.println("수정완료");
 	}
+	public static void RestoreTheater(String theaterName, int row, int col) {
+		LogData logdataNow = findTheater(theaterName, date, time);
+		int _row = logdataNow.getRow();
+		int _col = logdataNow.getCol();
+		int index = 0;
+		ArrayList<TheaterInfo> theaterInfoArr = getTheaterObjArr();
+		for(int i =0; i<theaterInfoArr.size();i++) {
+			if(theaterInfoArr.get(i).getName().equals(theaterName))
+				index = i;
+		}
+		
+		try {
+			Reader reader = new FileReader(pathTheater);
+			JsonParser jsonParser = new JsonParser();
+			JsonElement element = jsonParser.parse(reader);
+			JsonArray theaterInfos = element.getAsJsonArray();
+			JsonObject theaterinfo =(JsonObject)theaterInfos.get(index);
+			//String theaterName = theaterinfo.get("name").toString();
+			JsonArray temp = (JsonArray)theaterinfo.get("log");
+			JsonObject logObj = new JsonObject();
+			logObj.addProperty("date", date);
+			logObj.addProperty("time", time);
+			logObj.addProperty("row", row);
+			logObj.addProperty("col", col);
+			//JsonArray logArr = new JsonArray();
+			temp.add(logObj);
+			theaterinfo.add("log", temp);
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String json = gson.toJson(element);
+			FileWriter writer=null;
+			try {
+				writer = new FileWriter(pathTheater);
+				writer.write(json);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				try {
+					writer.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
+		
+			}
+		}catch(IOException e) {
+			}
+		}
+		
 	public static void deleteTheater(int index,String newT) {//해당 index의 영화관 삭제
 		try {
 			//사용자로 부터 입력받은 index를 Json전체파일의 index로 바꾸자
