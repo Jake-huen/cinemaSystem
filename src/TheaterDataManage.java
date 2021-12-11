@@ -218,7 +218,22 @@ public class TheaterDataManage {
 		//System.out.println("-----------------");
 		return theaterInfoArr;
 	}
-	
+	public static boolean check_log_del() {
+		ArrayList<TheaterInfo> ta=getTheaterObjArr();
+		long dt=Long.parseLong(date+time);//현재시각 (사용자설정시각)
+		ArrayList<String> tmp=new ArrayList<String>();
+		int n=0;
+		for(int i=0;i<ta.size();i++) {
+			for(int j=0;j<ta.get(i).getLog().size();j++){
+				LogData ld=ta.get(i).getLog().get(j);
+				long tt=Long.parseLong(ld.getDate()+ld.getTime());
+				if(Integer.toString(ld.getRow()).equals("del")&&Integer.toString(ld.getCol()).equals("del")) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	public static String[] getTheaterName() { //영화관 이름만 받아옴
 		ArrayList<TheaterInfo> ta=getTheaterObjArr();
 		long dt=Long.parseLong(date+time);//현재시각 (사용자설정시각)
@@ -300,7 +315,7 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			String N = T.get("name").toString();
 			N =  Print.removeQuotes(N);
 			if(theaterName.equals(N)) {
-				System.out.println(N);
+				//System.out.println(N);
 				index=i;
 			}
 		}
@@ -351,6 +366,25 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 		tmp = getTheater2(date, time);
 		String theaterName=tmp.get(index)[0]+"/"+ Integer.parseInt(tmp.get(index)[1])*Integer.parseInt(tmp.get(index)[2])+"석";
 		return theaterName;
+	}
+	public static int fixIndex(int OrginalIndex) {//입력받은 index를 사용자가 선택한 상영관 이름으로 return
+		int fixIndex = 0;
+		ArrayList<String[]> tmp = new ArrayList<String[]>();
+		tmp = getTheater2(date, time);
+		String theaterName=tmp.get(OrginalIndex)[0];
+	
+		JsonArray theaterInfos = getJson();
+		for(int i = 0; i<theaterInfos.size(); i++) {
+			//System.out.println("!");
+			JsonObject T =(JsonObject)theaterInfos.get(i);
+			String N = T.get("name").toString();
+			N =  Print.removeQuotes(N);
+			if(theaterName.equals(N)) {
+				//System.out.println(N);
+				fixIndex=i;
+			}
+		}
+		return fixIndex;
 	}
 	public static void fixTheater(int index,String newT,int row,int col) {//index받아와서 해당 영화관 수정
 		try {

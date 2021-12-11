@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TheaterManagePage {//8.2.2상영관관리페이지
@@ -38,15 +39,17 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 			System.out.print("상영관 이름>>");
 			theater=InputRule.ScreenRule();
 			String theaters[] = TheaterDataManage.getTheaterName();
+			// System.out.println("getTheaterName출력==============");
 			for(int i=0;i<theaters.length;i++) {
-				if(theaters[i].substring(1,theaters[i].length()-1).equals(theater)) {
+				if(theaters[i].equals(theater)) {
 					check=1;
 				}
 			}
 			if(theater==null) {
 				System.out.println("올바르지 않은 입력입니다.");
 			}
-			else if(check==1){
+			else if(check==1&&!TheaterDataManage.check_log_del()){ //안에 row, col가 모두 del인지 확인
+				// row col 모두 del이면 없는 상영관이니까 추가 가능하도록 하게 하기
 				System.out.println("이미 존재하는 이름입니다.");
 			}
 			else {
@@ -171,7 +174,6 @@ public class TheaterManagePage {//8.2.2상영관관리페이지
 				}
 			}
 			else if(menuNum==2) {
-				theater=InputRule.ScreenRule();
 				if(RunningInfoManage.check_reserveInfo_for_delete(theater)) {
 					TheaterDataManage.deleteTheater(index,theater);
 					return;
