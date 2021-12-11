@@ -334,7 +334,7 @@ public class RunningInfoManage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("요기");
+        //System.out.println("요기");
     }
 
     //좌석수수정을 위한 상영등록정보 확인

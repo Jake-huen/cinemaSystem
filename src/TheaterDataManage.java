@@ -441,10 +441,10 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			//상영관 이름이 바뀌면 info.json에 있는 모든 상영관 이름 확인해서 바꾸기
 			if(!theaterName.equals(newT)) {
 
-		        System.out.println("요기 지나감0");
+		        //System.out.println("요기 지나감0");
 
-		        System.out.println("oldName	"+theaterName);
-		        System.out.println("newName	"+newT);
+		        //System.out.println("oldName	"+theaterName);
+		        //System.out.println("newName	"+newT);
 		        
 				RunningInfoManage.fixTheaterName(theaterName, newT);
 //				List<RunningInfo> ListInfodata = RunningInfoManage.findByMovieName(N);
