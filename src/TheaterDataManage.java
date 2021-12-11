@@ -512,7 +512,24 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			//로그인할때 입력한 날짜와 시간 가져오기
 			//String dateToday = user
 			//String timeToday = user
-
+			JsonArray temp =(JsonArray) theaterinfo.get("log");
+			JsonObject logObj = null;
+			int check=0;
+			for(int i=0;i<temp.size();i++) {//똑같은시간에 정보있으면 지워버림
+				JsonElement jo=temp.get(i);
+				logObj= jo.getAsJsonObject();
+				System.out.println(logObj.get("date").toString()+":"+logObj.get("time"));
+				int x=Integer.parseInt(logObj.get("date").toString().replaceAll("\"", ""));
+				int y=Integer.parseInt(logObj.get("time").toString().replaceAll("\"", ""));
+				//System.out.println(x+","+Integer.parseInt(time));
+				if(x==Integer.parseInt(date)&&y==Integer.parseInt(time)) {
+					check=1;
+					System.out.println("in");
+					logObj.addProperty("row", "del");
+					logObj.addProperty("col", "del");
+				}
+			}
+				
 			LogData logdataNow = findTheater(theaterName, date, time);
 			int _row = logdataNow.getRow();
 			int _col = logdataNow.getCol();
@@ -530,14 +547,16 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			
 			//기존의 theaterinfos에서 상영관 이름찾아서 상영관 이름바꾸고 log추가하기
 			//theaterinfo.addProperty("name", newT);
-			JsonArray temp = (JsonArray)theaterinfo.get("log");
-			JsonObject logObj = new JsonObject();
-			logObj.addProperty("date", date);
-			logObj.addProperty("time", time);
-			logObj.addProperty("row", "del");
-			logObj.addProperty("col", "del");
+			if(check==0) {
+				logObj = new JsonObject();
+				logObj.addProperty("date", date);
+				logObj.addProperty("time", time);
+				logObj.addProperty("row", "del");
+				logObj.addProperty("col", "del");
+				temp.add(logObj);
+			}		
 			//JsonArray logArr = new JsonArray();
-			temp.add(logObj);
+			
 			theaterinfo.add("log", temp);
 			//theaterinfo.addProperty("name", newT);
 			
