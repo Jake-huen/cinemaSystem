@@ -235,6 +235,42 @@ public class TheaterDataManage {
 		}
 		return false;
 	}
+	public static boolean getTh(String theater) {
+		ArrayList<String> tmp = new ArrayList<String>();
+		JsonArray theaterInfos = getJson();
+		for(int i = 0; i<theaterInfos.size(); i++) {
+			JsonObject T =(JsonObject)theaterInfos.get(i);
+			String N = T.get("name").toString();
+			N =  Print.removeQuotes(N);
+			// System.out.println(N);
+			tmp.add(N);
+		}
+		for(int i=0;i<tmp.size();i++) {
+			if(tmp.get(i).equals(theater)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public static int getTh2(String theater) {
+		ArrayList<String> tmp = new ArrayList<String>();
+		JsonArray theaterInfos = getJson();
+		int dd=0;
+		for(int i = 0; i<theaterInfos.size(); i++) {
+			JsonObject T =(JsonObject)theaterInfos.get(i);
+			String N = T.get("name").toString();
+			N =  Print.removeQuotes(N);
+			// System.out.println(N);
+			tmp.add(N);
+		}
+		for(int i=0;i<tmp.size();i++) {
+			if(tmp.get(i).equals(theater)) {
+				dd=i;
+				break;
+			}
+		}
+		return dd;
+	}
 	public static String[] getTheaterName() { //영화관 이름만 받아옴
 		ArrayList<TheaterInfo> ta=getTheaterObjArr();
 		long dt=Long.parseLong(date+time);//현재시각 (사용자설정시각)
