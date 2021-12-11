@@ -293,7 +293,7 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			String N = T.get("name").toString();
 			N =  Print.removeQuotes(N);
 			if(theaterName.equals(N)) {
-				System.out.println(N);
+				//System.out.println(N);
 				index=i;
 			}
 		}
@@ -344,6 +344,25 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 		tmp = getTheater2(date, time);
 		String theaterName=tmp.get(index)[0]+"/"+ Integer.parseInt(tmp.get(index)[1])*Integer.parseInt(tmp.get(index)[2])+"석";
 		return theaterName;
+	}
+	public static int fixIndex(int OrginalIndex) {//입력받은 index를 사용자가 선택한 상영관 이름으로 return
+		int fixIndex = 0;
+		ArrayList<String[]> tmp = new ArrayList<String[]>();
+		tmp = getTheater2(date, time);
+		String theaterName=tmp.get(OrginalIndex)[0];
+	
+		JsonArray theaterInfos = getJson();
+		for(int i = 0; i<theaterInfos.size(); i++) {
+			//System.out.println("!");
+			JsonObject T =(JsonObject)theaterInfos.get(i);
+			String N = T.get("name").toString();
+			N =  Print.removeQuotes(N);
+			if(theaterName.equals(N)) {
+				//System.out.println(N);
+				fixIndex=i;
+			}
+		}
+		return fixIndex;
 	}
 	public static void fixTheater(int index,String newT,int row,int col) {//index받아와서 해당 영화관 수정
 		try {
