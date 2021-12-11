@@ -212,7 +212,22 @@ public class TheaterDataManage {
 		//System.out.println("-----------------");
 		return theaterInfoArr;
 	}
-	
+	public static boolean check_log_del() {
+		ArrayList<TheaterInfo> ta=getTheaterObjArr();
+		long dt=Long.parseLong(date+time);//현재시각 (사용자설정시각)
+		ArrayList<String> tmp=new ArrayList<String>();
+		int n=0;
+		for(int i=0;i<ta.size();i++) {
+			for(int j=0;j<ta.get(i).getLog().size();j++){
+				LogData ld=ta.get(i).getLog().get(j);
+				long tt=Long.parseLong(ld.getDate()+ld.getTime());
+				if(Integer.toString(ld.getRow()).equals("del")&&Integer.toString(ld.getCol()).equals("del")) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	public static String[] getTheaterName() { //영화관 이름만 받아옴
 		ArrayList<TheaterInfo> ta=getTheaterObjArr();
 		long dt=Long.parseLong(date+time);//현재시각 (사용자설정시각)
