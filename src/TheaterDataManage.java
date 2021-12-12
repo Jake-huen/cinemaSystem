@@ -504,11 +504,11 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			//2차기획서에 맞게 현재날짜와 함께 행 열 저장하기
 			//이거아님
 			//setJsonTheater(theaterName,row,col,date,time);
-			if(_row==row&&_col==col) {
-				theaterinfo.addProperty("name", newT);
-			}
+			//if(_row==row&&_col==col) {
+			//	theaterinfo.addProperty("name", newT);
+			//}
 			//기존의 theaterinfos에서 상영관 이름찾아서 상영관 이름바꾸고 log추가하기
-			else {
+			//else {
 				theaterinfo.addProperty("name", newT);
 				JsonArray temp = (JsonArray)theaterinfo.get("log");
 				JsonObject logObj = new JsonObject();
@@ -519,7 +519,7 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 				//JsonArray logArr = new JsonArray();
 				temp.add(logObj);
 				theaterinfo.add("log", temp);
-			}
+			//}
 
 			//theaterinfo.addProperty("theater", newT);
 			//theaterinfo.addProperty("row", row);
@@ -570,8 +570,9 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			JsonArray temp =(JsonArray) theaterinfo.get("log");
 			JsonObject logObj2 = null;
 			int check=0;
+			JsonElement jo=null;
 			for(int i=0;i<temp.size();i++) {//똑같은시간에 정보있으면 지워버림
-				JsonElement jo=temp.get(i);
+				jo=temp.get(i);
 				logObj2= jo.getAsJsonObject();
 				//System.out.println(logObj.get("date").toString()+":"+logObj.get("time"));
 				int x=Integer.parseInt(logObj2.get("date").toString().replaceAll("\"", ""));
@@ -585,6 +586,25 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 				System.out.println("in");
 				logObj2.addProperty("row",row);
 				logObj2.addProperty("col", col);
+				Gson gson = new GsonBuilder().setPrettyPrinting().create();
+				String json = gson.toJson(jo);
+				FileWriter writer=null;
+				try {
+					writer = new FileWriter(pathTheater);
+					writer.write(json);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					try {
+						writer.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			
+			
+				}return;
 			}else {
 				JsonObject logObj = new JsonObject();
 				logObj.addProperty("date", date);
