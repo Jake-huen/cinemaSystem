@@ -566,15 +566,36 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			JsonArray theaterInfos = element.getAsJsonArray();
 			JsonObject theaterinfo =(JsonObject)theaterInfos.get(index);
 			//String theaterName = theaterinfo.get("name").toString();
-			JsonArray temp = (JsonArray)theaterinfo.get("log");
-			JsonObject logObj = new JsonObject();
-			logObj.addProperty("date", date);
-			logObj.addProperty("time", time);
-			logObj.addProperty("row", row);
-			logObj.addProperty("col", col);
-			//JsonArray logArr = new JsonArray();
-			temp.add(logObj);
-			theaterinfo.add("log", temp);
+		
+			JsonArray temp =(JsonArray) theaterinfo.get("log");
+			JsonObject logObj2 = null;
+			int check=0;
+			for(int i=0;i<temp.size();i++) {//똑같은시간에 정보있으면 지워버림
+				JsonElement jo=temp.get(i);
+				logObj2= jo.getAsJsonObject();
+				//System.out.println(logObj.get("date").toString()+":"+logObj.get("time"));
+				int x=Integer.parseInt(logObj2.get("date").toString().replaceAll("\"", ""));
+				int y=Integer.parseInt(logObj2.get("time").toString().replaceAll("\"", ""));
+				//System.out.println(x+","+Integer.parseInt(time));
+				if(x==Integer.parseInt(date)&&y==Integer.parseInt(time)) {
+					check=1;
+				}
+			}
+			if(check==1) {
+				System.out.println("in");
+				logObj2.addProperty("row",row);
+				logObj2.addProperty("col", col);
+			}else {
+				JsonObject logObj = new JsonObject();
+				logObj.addProperty("date", date);
+				logObj.addProperty("time", time);
+				logObj.addProperty("row", row);
+				logObj.addProperty("col", col);
+				//JsonArray logArr = new JsonArray();
+				temp.add(logObj);
+				theaterinfo.add("log", temp);
+			}
+			
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(element);
 			FileWriter writer=null;
