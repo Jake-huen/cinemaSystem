@@ -526,6 +526,8 @@ public class InputRule {//입력규칙 정의 (static으로)
 
 	public static String SeatRule() { //7.9 예매 좌석 입력 규칙
 		String seat = sc.nextLine();
+		if(seat.length()==0)
+			return null;
 		if(seat.contains(" ")){
 			String[] seatArr = seat.split(" ");
 			if(seatArr[0].length() >= 2 || seatArr.length >= 3) return null;

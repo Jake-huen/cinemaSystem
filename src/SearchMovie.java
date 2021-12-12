@@ -71,14 +71,18 @@ public class SearchMovie {
                     }
                     System.out.print("예매할 영화를 선택해주세요(뒤로가기 : 0) >>>");
                     int input = sc.nextInt();
+                    sc.nextLine();
                     if(input == 0) {
                         //날짜 입력 다시받기
                         sc.nextLine();
                         continue;
                     }
+                    else if(input<=riList.size()) {
+                            success(user, riList, input - 1);
+                            return;
+                    }
                     else {
-                        success(user, riList, input-1);
-                        return;
+                        System.out.println("올바르지 않은 입력입니다.");
                     }
                 }
             }
@@ -123,8 +127,13 @@ public class SearchMovie {
                     sc.nextLine();
                     continue;
                 }
-                else success(user, riList, input-1);
-                return;
+                else if(input<=riList.size()) {
+                    success(user, riList, input - 1);
+                    return;
+                }
+                else{
+                    System.out.println("올바르지 않은 입력입니다.");
+                }
             }
         }
     }

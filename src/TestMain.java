@@ -3,9 +3,9 @@ import java.util.ArrayList;
 public class TestMain {
     public static void main(String[] args) {
         UserInfo userInfo = new UserInfo("ccc111","cccc1111","20211015","0824");
-//        CustomerMainPage cm = new CustomerMainPage(userInfo);
-//        cm.menu();
-        ManagerMainPage.managerMainPage(userInfo);
+        CustomerMainPage cm = new CustomerMainPage(userInfo);
+        cm.menu();
+//        ManagerMainPage.managerMainPage(userInfo);
 //        ArrayList<RunningInfo> riArr = RunningInfoManage.getRiArr();
 //        RunningInfo runningInfo = null;
 //        for(RunningInfo ri : riArr){
