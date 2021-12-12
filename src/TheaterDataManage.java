@@ -467,8 +467,16 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			//String timeToday = user
 
 			LogData logdataNow = findTheater(theaterName, date, time);
-			int _row = logdataNow.getRow();
-			int _col = logdataNow.getCol();
+			int _row = 0;
+			int _col = 0;
+			//log에 있는 값이 "del"인지 확인
+			if(logdataNow==null) {
+				_row = row;
+				_col = col;
+			}else {
+				_row = logdataNow.getRow();
+				_col = logdataNow.getCol();
+			}
 			//기존의 theaterinfo의 행과 열이 입력값보다 크면 info.json에서 확인 필요
 			if(_row>row || _col>col) {
 				//info.json에서 확인
