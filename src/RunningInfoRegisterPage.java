@@ -137,7 +137,7 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 					else {
 						//사용자가 입력한 시간에 상영관이 유효한지확인
 						if(TheaterDataManage.checkDate(tt, inputdate, startTimeTemp)) {
-							System.out.println("상영관이 삭제되어"+inputdate+"/"+startTime+"에는"+tt+"관에서 영화가 상영될 수 없음");
+							System.out.println("상영관이 삭제되어 "+inputdate.substring(0, 4)+"년"+inputdate.substring(4, 6)+"월"+inputdate.substring(6, 8)+"일 "+startTime+"에는 "+tt+"에서 영화가 상영될 수 없음");
 							return;
 						}
 						// startTime
