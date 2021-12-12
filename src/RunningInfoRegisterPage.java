@@ -52,12 +52,15 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 	}
 	public static void runningInfoDetailPage(int theaterIndex,String inputdate) { //8.2.3.1 상영관
 		ArrayList<String[]> ri=RunningInfoManage.readDateRi(inputdate,theaterIndex);
-		// String[] temp2 = null;
+		
 		//index변환
 		theaterIndex = TheaterDataManage.fixIndex(theaterIndex);
 		String tt = TheaterDataManage.readIndexTheaterName(theaterIndex);
 		tt = tt.substring(1,tt.length()-1);
 		//System.out.println(tt);
+		//
+		
+		
 		System.out.println(inputdate.substring(0, 4)+"년"+inputdate.substring(4, 6)+"월"
 				+inputdate.substring(6, 8)+"일,"+
 				tt+" 상영정보");
@@ -120,6 +123,8 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 				while(true) {
 					System.out.print("상영시작시간을 설정하세요>>>");//상영시간 중복시 오류처리 해야됨
 					String startTime=InputRule.TimeRule();
+					String startTimeTemp = startTime.substring(0, 2)+startTime.substring(3, 5);
+					
 					String rt = MovieInfoDataManage.getmovieRuntime(menuNum-1);
 					// System.out.println(rt);
 					// String[] runtime2=MovieInfoDataManage.getRuntime();
@@ -130,6 +135,11 @@ public class RunningInfoRegisterPage {//8.2.3 상영정보등록페이지
 						System.out.println("상영시간이 중복됩니다.");	
 					}
 					else {
+						//사용자가 입력한 시간에 상영관이 유효한지확인
+						if(TheaterDataManage.checkDate(tt, inputdate, startTimeTemp)) {
+							System.out.println("상영관이 삭제되어"+inputdate+"/"+startTime+"에는"+tt+"관에서 영화가 상영될 수 없음");
+							return;
+						}
 						// startTime
 						ArrayList<ReserveInfo> reserve = new ArrayList<ReserveInfo>();
 						RunningInfoManage.setJson(inputdate, startTime.replaceAll(":", ""),title[menuNum-1].replaceAll("\"", "") , 

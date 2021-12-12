@@ -726,7 +726,18 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 		}
 		System.out.println("삭제완료");
 	}
-
+	//상영정보등록할때 사용자가 입력한 날짜에 상영관이 유효한지 확인
+	public static boolean checkDate(String theaterName,String inputdate, String inputtime) {
+		LogData logdataNow = findTheater(theaterName, inputdate, inputtime);
+		if(logdataNow==null) {
+			return true;
+		}else {
+			if(logdataNow.getRow()<0)
+				return true;
+		}
+		return false;
+		
+	} 
 
 	// 상영관 명 + 상영시간 입력하면 TheaterInfo객체 반환하는 함수
 	public static LogData findTheater(String theaterName,String dateStr, String timeStr) {

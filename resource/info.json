@@ -316,5 +316,13 @@
     "time": "1300",
     "theater": "히히관",
     "reserve": []
+  },
+  {
+    "code": "202112151200dd관",
+    "movie": "DP",
+    "date": "20211215",
+    "time": "1200",
+    "theater": "dd관",
+    "reserve": []
   }
 ]
