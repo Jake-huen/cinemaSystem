@@ -461,11 +461,12 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			//String theaterName = theaterinfo.get("name").toString();
 			//int _row=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("row").toString());
 			//int _col=Integer.parseInt(((JsonObject) theaterInfos.get(index)).get("col").toString());
-			//theaterName =  Print.removeQuotes(theaterName);
+			theaterName =  Print.removeQuotes(theaterName);
 			//로그인할때 입력한 날짜와 시간 가져오기
 			//String dateToday = user
 			//String timeToday = user
-
+			//System.out.println(theaterName);
+			
 			LogData logdataNow = findTheater(theaterName, date, time);
 			int _row = 0;
 			int _col = 0;
@@ -473,13 +474,18 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 			if(logdataNow==null) {
 				_row = row;
 				_col = col;
+				//System.out.println("!!!");
 			}else {
 				_row = logdataNow.getRow();
 				_col = logdataNow.getCol();
 			}
+			//System.out.println(_row);
+			//System.out.println(_col);
+			
 			//기존의 theaterinfo의 행과 열이 입력값보다 크면 info.json에서 확인 필요
 			if(_row>row || _col>col) {
 				//info.json에서 확인
+				System.out.println("!!!");
 				if(RunningInfoManage.check_reserveInfo_for_fix(theaterName, row, col)) {
 					System.out.println("상영등록정보 중 소실되는 예매좌석이 생기므로 좌석을 수정할 수 없습니다.");
 					return;
@@ -768,7 +774,10 @@ public static String readIndexTheater2(int index) {//index해당하는 영화관
 		}
 		return null; // unreachable code 
 	}
-
+//	public static void main(String args[]) {
+//		LogData l = findTheater("수정관", "20210901","1200");
+//		System.out.println(l.getRow()+"/"+ l.getCol());
+//	} 
 
 	public static int readTheaterNameReturnSeat(String theaterName, int count) {
 		int index = 0;
